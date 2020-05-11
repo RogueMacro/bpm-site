@@ -1,0 +1,16 @@
+.loginUI {
+	ul {
+		list-style-type: none;
+
+		button {
+			span {
+				&:nth-child(2) {
+					// text
+					font-size: 30px;
+					font-weight: 500;
+					padding: 10px;
+				}
+			}
+		}
+	}
+}
