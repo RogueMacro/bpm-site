@@ -7,9 +7,9 @@ import { join } from 'path'
 const PORT = process.env.PORT || 8080
 
 initializeFirebaseApp({
-	databaseURL: 'https://hkk-database.firebaseio.com',
-	projectId: 'hkk-database',
-	storageBucket: 'hkk-database.appspot.com',
+	databaseURL: 'https://bpm-db.firebaseio.com',
+	projectId: 'bpm-db',
+	storageBucket: 'bpm-db.appspot.com',
 })
 const express = require('express')
 
@@ -18,12 +18,18 @@ const app = next({
 	dev: (process.env.NODE_ENV || 'production') === 'development',
 })
 
-console.log('next be like ^')
-
 const handel = app.getRequestHandler()
+
+// server.set('trust proxy',true)
 
 app.prepare()
 	.then(() => {
+		server.get(/.*/, (req, res) =>
+			handel(req, res).then(() =>
+				console.log('sent site to', [req.ip].join(', '))
+			)
+		)
+
 		server.listen(PORT, () => {
 			console.log(
 				'initialize',

@@ -1,12 +1,12 @@
 {
-    "compilerOptions": {
-        "target": "ESNext",
-        "watch": true,
-        "lib": ["ESNext", "ES7"],
-        "types": ["node", "express", "firebase-admin"]
-        // "module": "ESNext"
-    },
-    "compileOnSave": true,
+	"compilerOptions": {
+		"target": "ESNext",
+		"watch": true,
+		"lib": ["ESNext", "ES7"],
+		"types": ["node", "express", "firebase-admin"]
+		// "module": "ESNext"
+	},
+	"compileOnSave": true,
 
-    "typeAcquisition": { "enable": true }
+	"typeAcquisition": { "enable": true }
 }
