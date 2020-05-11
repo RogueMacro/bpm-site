@@ -26,7 +26,7 @@ app.prepare()
 	.then(() => {
 		server.get(/.*/, (req, res) =>
 			handel(req, res).then(() =>
-				console.log('sent site to', [req.ip].join(', '))
+				console.log('sent site to', [req.ip, ...req.ips].join(', '))
 			)
 		)
 
