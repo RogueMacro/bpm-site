@@ -20,7 +20,7 @@ const app = next({
 
 const handel = app.getRequestHandler()
 
-// server.set('trust proxy',true)
+server.set('trust proxy',true)
 
 app.prepare()
 	.then(() => {
