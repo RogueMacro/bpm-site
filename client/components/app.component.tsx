@@ -20,6 +20,10 @@ const FooterItem: FC<{
 const app: FC = function ({ children }) {
 	const [isLoggedIn, setIsLoggedIn] = useState(false)
 
+	const [awaitingUserDocWriteCheck, setAwaitingUserDocWriteCheck] = useState(
+		false
+	)
+
 	useEffect(() => {
 		function createApp() {
 			initializeApp({
@@ -35,6 +39,34 @@ const app: FC = function ({ children }) {
 			analytics()
 
 			auth().onAuthStateChanged((user) => setIsLoggedIn(!!user?.uid))
+
+			auth()
+				.getRedirectResult()
+				.then((result) => {
+					auth().onAuthStateChanged(
+						(user) => {
+							if (user) {
+								const doc = firestore()
+									.collection('users')
+									.doc(user?.uid)
+								doc.get({
+									source: 'server',
+								}).then((docResult) => {
+									console.log(docResult)
+									if (!docResult.exists)
+										doc.set({
+											name: user.displayName,
+											packages: [],
+										})
+								})
+							}
+						},
+						(err) => console.error(err)
+					)
+
+					setIsLoggedIn(true)
+					// TODO: error handling
+				})
 		}
 		if (process.env.NODE_ENV === 'development')
 			try {
@@ -79,30 +111,7 @@ const app: FC = function ({ children }) {
 										auth()
 											.signInWithRedirect(provider)
 											.then(
-												(result) => {
-													const user = auth()
-														.currentUser
-													if (user?.uid && user) {
-														const doc = firestore()
-															.collection('users')
-															.doc(user?.uid)
-														doc.get({
-															source: 'server',
-														}).then((docResult) => {
-															if (
-																!docResult.exists
-															)
-																doc.set({
-																	name:
-																		user.displayName,
-																	packages: [],
-																})
-														})
-													}
-
-													setIsLoggedIn(true)
-													// TODO: error handling
-												},
+												() => null,
 												(err) => console.log(err)
 											)
 									}}
