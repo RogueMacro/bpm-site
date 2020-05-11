@@ -3,6 +3,19 @@ import { initializeApp, analytics, auth } from 'firebase'
 
 import { getSmartCache } from './fb'
 
+const FooterItem: FC<{
+	className?: string
+	title: string
+	content: React.ReactNode[]
+}> = ({ className, content, title }) => (
+	<div className={className}>
+		<h3>{title}</h3>
+		{content.map((content, index) => (
+			<div key={index}>{content}</div>
+		))}
+	</div>
+)
+
 const app: FC = function ({ children }) {
 	const [isLoggedIn, setIsLoggedIn] = useState(false)
 
@@ -75,6 +88,9 @@ const app: FC = function ({ children }) {
 				</nav>
 			</header>
 			<main> {children} </main>
+			<footer>
+				<FooterItem title="popular packages" content={[]} />
+			</footer>
 		</div>
 	)
 }
