@@ -69,15 +69,11 @@ const app: FC = function ({ children }) {
 
 										auth()
 											.signInWithRedirect(provider)
-											.then(
-												(result) => {
-													setIsLoggedIn(true)
-												},
-												(err) => {
-													console.error(err)
-													// TODO: error handling
-												}
-											)
+											.then((result) => {
+												setIsLoggedIn(true)
+												console.error(err)
+												// TODO: error handling
+											})
 									}}
 								>
 									Login with GitHub
