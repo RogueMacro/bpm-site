@@ -3,7 +3,6 @@ import * as expressTypes from 'express'
 import next from 'next'
 import { initializeApp as initializeFirebaseApp } from './node_modules/firebase-admin/lib'
 import { join } from 'path'
-import { exists as fileExists } from 'fs'
 
 const PORT = process.env.PORT || 8080
 
