@@ -1,7 +1,8 @@
 import React, { FC, useEffect, useState } from 'react'
-import { initializeApp, analytics, auth } from 'firebase'
+import { initializeApp, analytics, auth, firestore } from 'firebase'
 
 import { getSmartCache } from './fb'
+import { userInfo } from 'os'
 
 const FooterItem: FC<{
 	className?: string
@@ -55,7 +56,15 @@ const app: FC = function ({ children }) {
 						</li>
 						<li>
 							{isLoggedIn ? (
-								<a onClick={() => {}}>Logout</a>
+								<a
+									onClick={() => {
+										auth()
+											.signOut()
+											.then((_) => setIsLoggedIn(false))
+									}}
+								>
+									Logout
+								</a>
 							) : (
 								<a
 									onClick={() => {
@@ -69,11 +78,33 @@ const app: FC = function ({ children }) {
 
 										auth()
 											.signInWithRedirect(provider)
-											.then((result) => {
-												setIsLoggedIn(true)
-												console.error(err)
-												// TODO: error handling
-											})
+											.then(
+												(result) => {
+													const user = auth()
+														.currentUser
+													if (user?.uid && user) {
+														const doc = firestore()
+															.collection('users')
+															.doc(user?.uid)
+														doc.get({
+															source: 'server',
+														}).then((docResult) => {
+															if (
+																!docResult.exists
+															)
+																doc.set({
+																	name:
+																		user.displayName,
+																	packages: [],
+																})
+														})
+													}
+
+													setIsLoggedIn(true)
+													// TODO: error handling
+												},
+												(err) => console.log(err)
+											)
 									}}
 								>
 									Login with GitHub
