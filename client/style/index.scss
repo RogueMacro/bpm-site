@@ -11,6 +11,16 @@
 	justify-content: center;
 }
 
+// PALET: https://coolors.co/2b2d42-8d99ae-f0f5f6-ef233c-d90429
+
+$palet-1: #2B2D42;
+$palet-2: #8D99AE;
+$palet-3: #EDF2F4;
+
+$text-1: #EDF2F4;
+$text-2: #F0F5F6;
+$text-3: #EF233C;
+
 :root {
 	font-size: 22px;
 }
@@ -19,8 +29,8 @@ body {
 	@include simple-box();
 	font-family: 'Montserrat', sans-serif;
 
-	background-color: #57606f;
-	color: white;
+	background-color: $palet-1;
+	color: $text-1;
 
 	text-align: center;
 }
@@ -31,9 +41,12 @@ body {
 	> header {
 		@include center();
 
-		background-color: #2f3640;
+		background-color: $palet-2;
 
 		position: sticky;
+		top: 0;
+
+		z-index: 9999999;
 
 		height: 8vh;
 
@@ -65,7 +78,7 @@ body {
 	> footer {
 		height: 25vh;
 
-		background-color: #34495e;
+		background-color: $palet-3;
 	}
 }
 
@@ -73,7 +86,7 @@ body {
 	position: relative;
 	top: -3vh;
 
-	color: #bdc3c7;
+	color: $text-2;
 	opacity: 0.7;
 	font-size: 0.9rem;
 }
@@ -88,7 +101,7 @@ a {
 	cursor: pointer;
 
 	&:hover {
-		color: #e67e22;
+		color: $text-3;
 	}
 }
 
