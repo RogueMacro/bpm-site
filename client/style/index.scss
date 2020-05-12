@@ -14,24 +14,10 @@
 
 // PALET: https://coolors.co/2b2d42-8d99ae-f0f5f6-ef233c-d90429
 
-$palet-1: #2b2d42;
-$palet-2: #8d99ae;
-$palet-3: #f0f5f6;
-$palet-4: #ef233c;
-$palet-5: #d90429;
-
-$main: $palet-3;
-$alt: $palet-1;
-$trim: $palet-2;
-
-$text-1: #2b2d42;
-$text-2: #8d99ae;
-$text-3: #ef233c;
-
 * {
 	&::selection {
-		background-color: adjust-color($text-3, $alpha: 0.3);
-		color: $trim;
+		background-color: var(--text-3);
+		color: var(--palet-2);
 	}
 }
 
@@ -53,8 +39,8 @@ body {
 	@include simple-box();
 	font-family: 'Montserrat', sans-serif;
 
-	background-color: $main;
-	color: $text-1;
+	background-color: var(--palet-3);
+	color: var(--text-1);
 
 	text-align: center;
 }
@@ -69,7 +55,7 @@ a {
 	cursor: pointer;
 
 	&:hover {
-		color: $text-3;
+		color: ver(--text-3);
 	}
 }
 
@@ -79,7 +65,7 @@ a {
 	> header {
 		@include center();
 
-		background-color: $alt;
+		background-color: var(--palet-1);
 
 		position: sticky;
 		top: 0;
@@ -116,7 +102,7 @@ a {
 	> footer {
 		height: 25vh;
 
-		background-color: $trim;
+		background-color: var(--palet-2);
 	}
 }
 
@@ -124,7 +110,7 @@ a {
 	position: relative;
 	top: -1.6em;
 
-	color: $text-2;
+	color: var(--text-2);
 	opacity: 0.7;
 	font-size: 0.9rem;
 }
