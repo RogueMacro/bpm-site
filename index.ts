@@ -1,6 +1,5 @@
 import * as expressTypes from 'express'
 
-import next from 'next'
 import { initializeApp as initializeFirebaseApp } from './node_modules/firebase-admin/lib'
 import { join } from 'path'
 
@@ -13,29 +12,18 @@ initializeFirebaseApp({
 })
 const express = require('express')
 
-const server: expressTypes.Application = express()
-const app = next({
-	dev: (process.env.NODE_ENV || 'production') === 'development',
+const app: expressTypes.Application = express()
+
+app.set('trust proxy', true)
+
+app.get(/.*/, (req, res) =>
+	
+)
+
+app.listen(PORT, () => {
+	console.log(
+		'initialize',
+		`server listening on port ${PORT}`,
+		'local:networking'
+	)
 })
-
-const handel = app.getRequestHandler()
-
-server.set('trust proxy',true)
-
-app.prepare()
-	.then(() => {
-		server.get(/.*/, (req, res) =>
-			handel(req, res).then(() =>
-				console.log('sent site to', [req.ip, ...req.ips].join(', '))
-			)
-		)
-
-		server.listen(PORT, () => {
-			console.log(
-				'initialize',
-				`server listening on port ${PORT}`,
-				'local:networking'
-			)
-		})
-	})
-	.catch((err) => console.log(err))
