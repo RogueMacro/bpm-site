@@ -1,0 +1,40 @@
+.header {
+	position: relative;
+
+	height: 92vh;
+
+	background: radial-gradient(
+		circle at 30% 20%,
+		var(--palet-5),
+		var(--palet-4)
+	);
+
+	color: var(--palet-3);
+
+	flex-direction: column;
+
+	justify-content: center;
+
+	font-size: 60px;
+
+	.navIcon {
+		cursor: pointer;
+
+		user-select: none;
+
+		font-family: 'Material Icons';
+
+		position: absolute;
+		bottom: 100px;
+
+		$no-transform: rotate(-90deg);
+
+		transform: $no-transform;
+
+		transition: transform ease-in-out 0.2s;
+
+		&:hover {
+			transform: $no-transform scale(1.1);
+		}
+	}
+}

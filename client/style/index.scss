@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 @mixin simple-box {
 	padding: 0;
@@ -13,15 +14,38 @@
 
 // PALET: https://coolors.co/2b2d42-8d99ae-f0f5f6-ef233c-d90429
 
-$palet-1: #2B2D42;
-$palet-2: #8D99AE;
-$palet-3: #EDF2F4;
+$palet-1: #2b2d42;
+$palet-2: #8d99ae;
+$palet-3: #f0f5f6;
+$palet-4: #ef233c;
+$palet-5: #d90429;
 
-$text-1: #EDF2F4;
-$text-2: #F0F5F6;
-$text-3: #EF233C;
+$main: $palet-3;
+$alt: $palet-1;
+$trim: $palet-2;
+
+$text-1: #2b2d42;
+$text-2: #8d99ae;
+$text-3: #ef233c;
+
+* {
+	&::selection {
+		background-color: adjust-color($text-3, $alpha: 0.3);
+		color: $trim;
+	}
+}
 
 :root {
+	--palet-1: #2b2d42;
+	--palet-2: #8d99ae;
+	--palet-3: #f0f5f6;
+	--palet-4: #ef233c;
+	--palet-5: #d90429;
+
+	--text-1: #2b2d42;
+	--text-2: #8d99ae;
+	--text-3: #ef233c;
+
 	font-size: 22px;
 }
 
@@ -29,10 +53,24 @@ body {
 	@include simple-box();
 	font-family: 'Montserrat', sans-serif;
 
-	background-color: $palet-1;
+	background-color: $main;
 	color: $text-1;
 
 	text-align: center;
+}
+
+a {
+	text-decoration: none;
+
+	color: white;
+
+	transition: color ease-in 100ms;
+
+	cursor: pointer;
+
+	&:hover {
+		color: $text-3;
+	}
 }
 
 .app {
@@ -41,7 +79,7 @@ body {
 	> header {
 		@include center();
 
-		background-color: $palet-2;
+		background-color: $alt;
 
 		position: sticky;
 		top: 0;
@@ -78,31 +116,21 @@ body {
 	> footer {
 		height: 25vh;
 
-		background-color: $palet-3;
+		background-color: $trim;
 	}
 }
 
 .header-sub {
 	position: relative;
-	top: -3vh;
+	top: -1.6em;
 
 	color: $text-2;
 	opacity: 0.7;
 	font-size: 0.9rem;
 }
 
-a {
-	text-decoration: none;
-
-	color: white;
-
-	transition: color ease-in 100ms;
-
-	cursor: pointer;
-
-	&:hover {
-		color: $text-3;
-	}
+.center {
+	@include center();
 }
 
 /*
