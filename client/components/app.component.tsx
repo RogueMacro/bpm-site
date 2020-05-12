@@ -84,8 +84,15 @@ const app: FC = function ({ children }) {
 				<nav>
 					<ul>
 						<li>
-							<a href="/add-package">Add</a>
+							<a href="/package-index">Package index</a>
 						</li>
+						{isLoggedIn ? (
+							<li>
+								<a href="/manage-packages">Manage packages</a>
+							</li>
+						) : (
+							<></>
+						)}
 						<li>
 							{isLoggedIn ? (
 								<a
