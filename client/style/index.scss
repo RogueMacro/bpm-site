@@ -22,7 +22,7 @@
 }
 
 :root {
-	--palet-1: #2b2d42;
+	/*--palet-1: #2b2d42;
 	--palet-2: #8d99ae;
 	--palet-3: #f0f5f6;
 	--palet-4: #ef233c;
@@ -30,7 +30,17 @@
 
 	--text-1: #2b2d42;
 	--text-2: #8d99ae;
-	--text-3: #ef233c;
+	--text-3: #ef233c;*/
+
+	--palet-1: #000000;
+	--palet-2: #162443;
+	--palet-3: #d28402;
+	--palet-4: #232527;
+	--palet-5: #1a1d1e;
+
+	--text-1: #2b2d42;
+	--text-2: #8d99ae;
+	--text-3: #d28402;
 
 	font-size: 22px;
 }
@@ -55,7 +65,7 @@ a {
 	cursor: pointer;
 
 	&:hover {
-		color: ver(--text-3);
+		color: var(--text-3);
 	}
 }
 
@@ -65,7 +75,7 @@ a {
 	> header {
 		@include center();
 
-		background-color: var(--palet-1);
+		background-color: var(--palet-5);
 
 		position: sticky;
 		top: 0;

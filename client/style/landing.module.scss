@@ -3,11 +3,13 @@
 
 	height: 92vh;
 
-	background: radial-gradient(
+	/*background: radial-gradient(
 		circle at 30% 20%,
 		var(--palet-5),
 		var(--palet-4)
-	);
+	);*/
+
+	background-color: var(--palet-4);
 
 	color: var(--palet-3);
 
