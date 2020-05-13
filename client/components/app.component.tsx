@@ -1,6 +1,8 @@
 import React, { FC, useEffect, useState } from 'react'
 import { initializeApp, analytics, auth, firestore } from 'firebase'
 
+import svg from '../../assets/bpm_logo.svg'
+
 import { getSmartCache } from './fb'
 import { userInfo } from 'os'
 
@@ -78,9 +80,13 @@ const app: FC = function ({ children }) {
 	return (
 		<div className="app">
 			<header>
-				<h2>
-					<a href="/">bpm</a>
-				</h2>
+				<a href="/" className='center'>
+					<img
+						height="75"
+						src={svg /*"/assets/bpm_logo.svg"*/}
+						alt="bpm"
+					/>
+				</a>
 				<nav>
 					<ul>
 						<li>

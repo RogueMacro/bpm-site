@@ -48,6 +48,13 @@ const app: expressTypes.Application = express()
 
 app.set('trust proxy', true)
 
+app.get(/\/assets\//, (req, res) => {
+	res.sendFile(join(__dirname, parse(req.url).pathname))
+	setTimeout(() => res.end(), 100)
+})
+
+app.get(/favicon.ico/, (_, res) => res.redirect(303, '/assets/bpm_logo.svg'))
+
 app.get(/_next/, (req, res) =>
 	resolver(parse(req.url).pathname).then((fName) => {
 		res.sendFile(fName)
