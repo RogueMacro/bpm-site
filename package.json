@@ -5,7 +5,7 @@
 	"main": "index.js",
 	"scripts": {
 		"start": "npx ts-node --project ./tsconfig.server.json index.ts",
-		"dev": "npx nodemon index.ts",
+		"dev": "npx nodemon index.ts --ext html,css,js,ts",
 		"client": "npx next",
 		"build": "npx next build && npx next export"
 	},
