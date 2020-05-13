@@ -22,19 +22,21 @@ export function memoize<T extends (...args: any[]) => NonNullable<any>>(
 export function memoizeAsync<
 	T extends (...args: any[]) => Promise<NonNullable<any>>
 >(f: T) {
-	const memory = new Map<string, ReturnType<T>>()
+	const memory: {
+		[key: string]: ReturnType<T>
+	} = {}
 
 	const internalFunction = (...args: any[]) =>
 		new Promise((resolve, reject) => {
 			const reductionResult = reduce(args)
-			if (!memory.get(reductionResult)) {
-				f(...args).then(
-					(result) => memory.set(reductionResult, result),
-					reject
-				)
+			if (!memory.hasOwnProperty(reductionResult)) {
+				f(...args).then((result) => {
+					memory[reductionResult] = result
+					resolve(result)
+				}, reject)
+			} else {
+				resolve(memory[reductionResult])
 			}
-
-			resolve(memory.get(reductionResult))
 		})
 
 	return internalFunction as T
