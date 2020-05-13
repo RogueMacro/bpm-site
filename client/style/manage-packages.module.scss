@@ -1,0 +1,19 @@
+.cardcontainer {
+	display: flex;
+	justify-content: center;
+}
+
+.card {
+	background-color: var(--palet-2);
+
+	margin: 20px;
+
+	width: 20vw;
+	height: 20vh;
+
+	border-radius: 100vw;
+
+	> h2 {
+		color: var(--palet-3);
+	}
+}
