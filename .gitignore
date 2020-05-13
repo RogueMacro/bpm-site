@@ -1,3 +1,6 @@
+# depricated files
+*.depricated.*
+
 # Logs
 logs
 *.log

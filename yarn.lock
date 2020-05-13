@@ -6303,10 +6303,10 @@ html-escaper@^2.0.0:
   resolved "https://registry.yarnpkg.com/html-escaper/-/html-escaper-2.0.2.tgz#dfd60027da36a36dfcbe236262c00a5822681453"
   integrity sha512-H2iMtd0I4Mt5eYiapRdIDjp+XzelXQ0tFE4JS7YFwFevXXMmOp9myNrUvCg0D6ws8iqkRPBfKHgbwig1SmlLfg==
 
-html-fx@^0.1.2:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/html-fx/-/html-fx-0.1.2.tgz#7cf7c1b2a44422813f373129bb5bc39036a78173"
-  integrity sha512-6Gu91YlCMrMugJfWbGxTsGVywj4CzmKBlFH36IN9uiuy8Gg9BoHZpViTneebfgoTAs1daODK3vJbvnjmQWVrUA==
+html-fx@^0.1.3:
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/html-fx/-/html-fx-0.1.3.tgz#33b4cbe1b13b42a662bdba767ac42087fcdddc84"
+  integrity sha512-4waLdS/a2iSJdl/8mi93KSoFvyrOqtq9FUlg0AjDcMfC5tEGMqqNh9PIDG4/MjbR+5DU9BxrX+nRZej9s0OXQg==
   dependencies:
     tslib "^1.11.1"
 
