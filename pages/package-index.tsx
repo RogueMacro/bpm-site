@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from 'react'
 
+import { getSmartCache } from '../client/components/fb'
+
 import Style from '../client/style/package-index.module.scss'
 
 export default function index() {
 	const [packages, setPackages] = useState<any[]>([])
 
 	useEffect(() => {
-		import('firebase').then(({firestore})=>{
-			
-			firestore()
-				.collection('packages')
-				.get()
-				.then((docs) =>
-					docs.docs.forEach((value) =>
-						setPackages([...packages, value.data()])
-					)
-				)
+		import('firebase').then(({ firestore }) => {
+			getSmartCache(
+				firestore().collection('packages'),
+				'packages;',
+				1000*60*60
+			).then((docs) =>
+			docs.docs.forEach((value) =>
+				setPackages([...packages, value.data()])
+			)
+		)
 		})
 	}, [])
 	//const packages = ['Package1', 'Package2', 'Package3']
