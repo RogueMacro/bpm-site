@@ -1,7 +1,8 @@
 import * as expressTypes from 'express'
 
 import { initializeApp as initializeFirebaseApp } from './node_modules/firebase-admin/lib'
-import { join } from 'path'
+
+import generate from './server/components/generate.component'
 
 const PORT = process.env.PORT || 8080
 
@@ -17,7 +18,11 @@ const app: expressTypes.Application = express()
 app.set('trust proxy', true)
 
 app.get(/.*/, (req, res) =>
-	
+	generate({ url: req.url, userAgent: req.headers['user-agent'] }).then(
+		(value) => {
+			if (value) res.send(value)
+		}
+	)
 )
 
 app.listen(PORT, () => {
