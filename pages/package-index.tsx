@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { firestore } from 'firebase'
 
 import Style from '../client/style/package-index.module.scss'
 
 export default function index() {
+	const [packages, setPackages] = useState([])
+
+	useEffect(()=>{
+		firestore().collection('packages')
+	},[])
 	//const packages = ['Package1', 'Package2', 'Package3']
-	const packages = firestore().collection('packages').get()
 	/*doc.get({
 		source: 'server',
 	}).then((docResult) => {
