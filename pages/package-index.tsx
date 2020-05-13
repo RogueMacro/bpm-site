@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { firestore } from 'firebase'
 
 import Style from '../client/style/package-index.module.scss'
 
@@ -7,14 +6,17 @@ export default function index() {
 	const [packages, setPackages] = useState<any[]>([])
 
 	useEffect(() => {
-		firestore()
-			.collection('packages')
-			.get()
-			.then((docs) =>
-				docs.docs.forEach((value) =>
-					setPackages([...packages, value.data()])
+		import('firebase').then(({firestore})=>{
+			
+			firestore()
+				.collection('packages')
+				.get()
+				.then((docs) =>
+					docs.docs.forEach((value) =>
+						setPackages([...packages, value.data()])
+					)
 				)
-			)
+		})
 	}, [])
 	//const packages = ['Package1', 'Package2', 'Package3']
 	/*doc.get({
