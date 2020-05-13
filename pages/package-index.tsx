@@ -4,11 +4,18 @@ import { firestore } from 'firebase'
 import Style from '../client/style/package-index.module.scss'
 
 export default function index() {
-	const [packages, setPackages] = useState([])
+	const [packages, setPackages] = useState<any[]>([])
 
-	useEffect(()=>{
-		firestore().collection('packages')
-	},[])
+	useEffect(() => {
+		firestore()
+			.collection('packages')
+			.get()
+			.then((docs) =>
+				docs.docs.forEach((value) =>
+					setPackages([...packages, value.data()])
+				)
+			)
+	}, [])
 	//const packages = ['Package1', 'Package2', 'Package3']
 	/*doc.get({
 		source: 'server',
@@ -30,13 +37,11 @@ export default function index() {
 					</div>
 				</form>
 				<div>
-					{packages.then((docs) => {
-						docs.forEach((doc) => (
-							<h4>
-								<a>{doc.data()}</a>
-							</h4>
-						))
-					})}
+					{packages.map((doc) => (
+						<h4>
+							<a>{JSON.stringify(doc)}</a>
+						</h4>
+					))}
 				</div>
 			</div>
 		</>
