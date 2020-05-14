@@ -1,19 +1,30 @@
-.cardcontainer {
+.cardContainer {
 	display: flex;
 	justify-content: center;
-}
+	flex-wrap: wrap;
 
-.card {
-	background-color: var(--palet-2);
+	> div {
+		box-sizing: border-box;
 
-	margin: 20px;
+		display: grid;
 
-	width: 20vw;
-	height: 20vh;
+		grid-template-rows: 2fr 1fr 1fr;
 
-	border-radius: 100vw;
+		background-color: var(--palet-2);
+	
+		margin: 20px;
+		padding: 10px;
+	
+		width: 20vw;
+		height: 300px;
+	
+		border-radius: 10px;
+	
+		> h2 {
+			height: 100px;
 
-	> h2 {
-		color: var(--palet-3);
+			color: var(--palet-3);
+		}
 	}
 }
+
