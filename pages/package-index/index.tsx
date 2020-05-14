@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 
-import { getSmartCache } from '../client/utils/fb'
+import { getSmartCache } from '../../client/utils/fb'
 
-import PackageView from '../client/components/packageview.component'
+import PackageView from '../../client/components/packageview.component'
 
-import Style from '../client/style/package-index.module.scss'
+import Style from '../../client/style/package-index.module.scss'
 
 export default function index() {
 	const [packages, setPackages] = useState<any[]>([])
