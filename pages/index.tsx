@@ -6,12 +6,19 @@ import { range } from 'lodash'
 
 import Style from '../client/style/landing.module.scss'
 
-const useHeight = () => {
-	const [height, setHeight] = useState(300)
+const useViewport = (): { [unit in 'vh' | 'vw' | 'vmin' | 'vmax']: number } => {
+	const [vh, setVh] = useState(300)
+	const [vw, setVw] = useState(300)
+
 	useEffect(() => {
-		setHeight(window.innerHeight)
+		setVh(window.innerHeight / 100)
+		setVw(window.innerWidth / 100)
+		window.addEventListener('resize', () => {
+			setVh(window.innerHeight / 100)
+			setVw(window.innerWidth / 100)
+		})
 	}, [])
-	return height
+	return { vh, vw, vmin: Math.min(vh, vw), vmax: Math.max(vh, vw) }
 }
 
 const Circle = ({ radius, color }: { radius: number; color: string }) => (
@@ -69,7 +76,7 @@ const Positioner: React.FC<{
 }
 
 export default function index() {
-	const height = useHeight()
+	const { vh: height, vw: width } = useViewport()
 
 	return (
 		<>
@@ -86,19 +93,19 @@ export default function index() {
 
 						const anySignRandom = () => (Math.random() - 0.5) * 2
 
-						const columns = Math.round(Math.random() * 10)
-						const rows = Math.round(Math.random() * 10)
+						const columns = Math.round(Math.random() * 7) + 3
+						const rows = Math.round(Math.random() * 7) + 3
 
-						const color = (Math.round(
-							Math.sin(Math.random() * Math.PI) ** 2 * 5
-						)+1)%5
+						const colors = [1, 2, 3, 5]
+						const color =
+							colors[Math.round(Math.random() * colors.length)]
 
 						return (
 							<Positioner
-								height={height}
+								height={height * 100}
 								distance={Math.random() * 400 + 400}
-								x={anySignRandom() * height}
-								y={anySignRandom() * 300}
+								x={anySignRandom() * width * 50}
+								y={anySignRandom() * height * 50 - 80}
 								key={index}
 							>
 								{randomBool() ? (
