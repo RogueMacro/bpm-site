@@ -21,12 +21,20 @@ const useViewport = (): { [unit in 'vh' | 'vw' | 'vmin' | 'vmax']: number } => {
 	return { vh, vw, vmin: Math.min(vh, vw), vmax: Math.max(vh, vw) }
 }
 
-const Circle = ({ radius, color }: { radius: number; color: string }) => (
+const Circle = ({
+	radius,
+	color,
+	border,
+}: {
+	radius: number
+	color: string
+	border?: string
+}) => (
 	<div
 		style={{
 			width: `${radius * 2}px`,
 			height: `${radius * 2}px`,
-			borderRadius: '1000px',
+			borderRadius: border || '100000px',
 			backgroundColor: color,
 		}}
 	/>
@@ -38,12 +46,14 @@ const CircleGrid = ({
 	radius,
 	color,
 	gap,
+	border,
 }: {
 	columns: number
 	circles: number
 	radius: number
 	color: string
 	gap: number
+	border?: string
 }) => (
 	<div
 		style={{
@@ -54,7 +64,7 @@ const CircleGrid = ({
 		}}
 	>
 		{range(0, circles).map((i) => (
-			<Circle color={color} radius={radius} key={i} />
+			<Circle color={color} radius={radius} key={i} border={border} />
 		))}
 	</div>
 )
@@ -87,7 +97,8 @@ export default function index() {
 
 				<div className={`${Style.underlay} center`}>
 					{range(15).map((index) => {
-						const randomBool = () => Math.round(Math.random() + 0.3)
+						const randomBool = (bias?: number) =>
+							Math.round(Math.random() - (bias || 0))
 
 						const anySignRandom = () => (Math.random() - 0.5) * 2
 
@@ -106,13 +117,16 @@ export default function index() {
 								y={anySignRandom() * height * 50 - 80}
 								key={index}
 							>
-								{randomBool() ? (
+								{randomBool(-0.1) ? (
 									<CircleGrid
 										circles={columns * rows}
 										columns={columns}
-										radius={Math.random() * 10 + 2}
-										gap={Math.random() * 40}
+										radius={Math.random() * 5 + 3}
+										gap={Math.random() * 50 + 10}
 										color={`var(--palet-${color})`}
+										border={
+											randomBool() ? '0px' : '10000px'
+										}
 									/>
 								) : (
 									<Circle
