@@ -26,18 +26,20 @@ export default function index() {
 	return (
 		<>
 			<div className={`${Style.search}`}>
-				<h3>Package Index</h3>
+				<h2>Package Index</h2>
 				<form className="simple-box">
 					<div className="input">
 						<input type="text" className={`${Style.input}`} />
 					</div>
 				</form>
-				<PackageView></PackageView>
 				<div>
 					{packages.map((doc) => (
-						<h4>
-							<a>{JSON.stringify(doc)}</a>
-						</h4>
+						<PackageView
+							name={doc.name}
+							description={doc.description}
+							downloads={doc.downloads}
+							authors={doc.authors}
+						/>
 					))}
 				</div>
 			</div>

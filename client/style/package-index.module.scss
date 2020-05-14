@@ -25,3 +25,17 @@
 		font-weight: bold;
 	}
 }
+
+.packageView {
+	text-align: left;
+	padding-left: 10px;
+	margin: 10px 0;
+
+	> * {
+		margin: 0;
+	}
+
+	> h2 {
+		margin: 5px 0;
+	}
+}
