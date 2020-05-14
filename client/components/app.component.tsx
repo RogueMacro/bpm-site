@@ -1,10 +1,13 @@
 import React, { FC, useEffect, useState } from 'react'
 import { initializeApp, analytics, auth, firestore } from 'firebase'
 
-import svg from '../../assets/bpm_logo.svg'
+import SessionStorage from '../typings/sessionStorage.type'
 
-import { getSmartCache } from '../utils/fb'
-import { userInfo } from 'os'
+import { motion } from 'framer-motion'
+
+import StorageHandler from '../utils/storageHandler'
+
+import svg from '../../assets/bpm_logo.svg'
 
 const FooterItem: FC<{
 	className?: string
@@ -20,11 +23,16 @@ const FooterItem: FC<{
 )
 
 const app: FC = function ({ children }) {
-	const [isLoggedIn, setIsLoggedIn] = useState(false)
+	function logIn(state:boolean) {
+		setIsLoggedIn(state)
+	}
 
-	const [awaitingUserDocWriteCheck, setAwaitingUserDocWriteCheck] = useState(
-		false
-	)
+	const [
+		internalSessionStorage,
+		setInternalSessionStorage,
+	] = useState<StorageHandler<SessionStorage> | null>(null)
+
+	const [isLoggedIn, setIsLoggedIn] = useState(false)
 
 	useEffect(() => {
 		function createApp() {
@@ -40,12 +48,12 @@ const app: FC = function ({ children }) {
 			})
 			analytics()
 
-			auth().onAuthStateChanged((user) => setIsLoggedIn(!!user?.uid))
+			auth().onAuthStateChanged((user) => logIn(!!user?.uid))
 
 			auth()
 				.getRedirectResult()
 				.then(({ user }) => {
-					setIsLoggedIn(true)
+					logIn(true)
 
 					if (user) {
 						const doc = firestore()
@@ -71,7 +79,17 @@ const app: FC = function ({ children }) {
 				createApp()
 			} catch (error) {}
 		else createApp()
+
+		setInternalSessionStorage(
+			new StorageHandler<SessionStorage>(sessionStorage)
+		)
 	}, [])
+
+	useEffect(() => {
+		if (internalSessionStorage) {
+			internalSessionStorage.setItem('hasSeenBPMAnimation', true)
+		}
+	}, [internalSessionStorage])
 
 	return (
 		<div className="app">
@@ -82,11 +100,47 @@ const app: FC = function ({ children }) {
 						src={svg /*"/assets/bpm_logo.svg"*/}
 						alt="bpm"
 					/>
+					<div className="center">
+						{internalSessionStorage ? (
+							<motion.h1
+								variants={{
+									initial: {
+										x: -150,
+										opacity: 1,
+									},
+									end: {
+										x: 0,
+										opacity: 1,
+									},
+								}}
+								transition={{
+									ease: 'easeInOut',
+									duration: 0.5,
+									delay: 1,
+								}}
+								initial={
+									internalSessionStorage.getItem(
+										'hasSeenBPMAnimation'
+									)
+										? 'end'
+										: 'initial'
+								}
+								animate="end"
+							>
+								BPM
+							</motion.h1>
+						) : (
+							<></>
+						)}
+					</div>
 				</a>
 				<nav>
 					<ul>
 						<li>
 							<a href="/package-index">Package index</a>
+						</li>
+						<li>
+							<a href="/downloads">Downloads</a>
 						</li>
 						{isLoggedIn ? (
 							<li>
@@ -101,7 +155,7 @@ const app: FC = function ({ children }) {
 									onClick={() => {
 										auth()
 											.signOut()
-											.then(() => setIsLoggedIn(false))
+											.then(() => logIn(false))
 									}}
 								>
 									Logout
