@@ -92,7 +92,6 @@ input {
 	@include simple-box();
 
 	&[type='text'] {
-		
 	}
 }
 
@@ -114,9 +113,33 @@ input {
 
 		z-index: 9999999;
 
-		height: 8vh;
+		height: 80px;
 
 		padding: 0px 10vw;
+
+		> a {
+			position: relative;
+
+			left: -20px;
+
+			img {
+				z-index: 9999999+1;
+			}
+
+			> div {
+				$metronome-margin: 40px;
+
+				position: absolute;
+				left: 80px - $metronome-margin;
+
+				overflow: hidden;
+
+				width: 110px;
+				height: 50px;
+				padding-left: $metronome-margin;
+				padding-right: 20px;
+			}
+		}
 
 		ul,
 		nav {
@@ -138,10 +161,12 @@ input {
 		}
 	}
 	main {
+		@include simple-box();
 		min-height: 92vh;
 	}
 
 	> footer {
+		@include simple-box();
 		height: 25vh;
 
 		background-color: var(--palet-2);
@@ -167,7 +192,6 @@ input {
 
 /*
 TODO: IMPLEMENT THIS FUCKERY
-
 * {
 	animation: animin infinite 2s;
 }

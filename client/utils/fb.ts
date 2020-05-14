@@ -4,7 +4,7 @@ import { auth, firestore } from "firebase"
 
 import _StorageHandler from "./storageHandler"
 
-const storageHandler = new _StorageHandler<Schema>()
+const storageHandler = new _StorageHandler<Schema>(localStorage)
 
 export function getSmartCache<T>(
 	query: firestore.Query<T>,

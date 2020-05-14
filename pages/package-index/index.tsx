@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
 
-import { getSmartCache } from '../../client/utils/fb'
-
 import PackageView from '../../client/components/packageview.component'
 
 import Style from '../../client/style/package-index.module.scss'
@@ -11,15 +9,17 @@ export default function index() {
 
 	useEffect(() => {
 		import('firebase').then(({ firestore }) => {
-			getSmartCache(
-				firestore().collection('packages'),
-				'packages;',
-				1000 * 60 * 60
-			).then((docs) =>
-				docs.docs.forEach((value) =>
-					setPackages([...packages, value.data()])
+			import('../../client/utils/fb').then(({ getSmartCache }) => {
+				getSmartCache(
+					firestore().collection('packages'),
+					'packages;',
+					1000 * 60 * 60
+				).then((docs) =>
+					docs.docs.forEach((value) =>
+						setPackages([...packages, value.data()])
+					)
 				)
-			)
+			})
 		})
 	}, [])
 

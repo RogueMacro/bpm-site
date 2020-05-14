@@ -9,18 +9,23 @@ interface StorageBaseline {
 }
 
 export default class StorageHandler<schema extends StorageBaseline> {
+	private storage: Storage
+	constructor(storage: Storage) {
+		this.storage = storage
+	}
+
 	private parseItem(item: keyof schema): string {
 		return `${item}`
 	}
 
 	setItem<key extends keyof schema>(item: key, value: schema[key]): void {
-		window.localStorage.setItem(this.parseItem(item), JSON.stringify(value))
+		this.storage.setItem(this.parseItem(item), JSON.stringify(value))
 	}
 
 	getItem<key extends keyof schema>(item: key): Readonly<schema[key] | null> {
 		if (this.isItem(item)) {
 			return JSON.parse(
-				window.localStorage.getItem(this.parseItem(item)) || "null"
+				this.storage.getItem(this.parseItem(item)) || 'null'
 			)
 		} else {
 			return null
@@ -28,11 +33,11 @@ export default class StorageHandler<schema extends StorageBaseline> {
 	}
 
 	isItem<key extends keyof schema>(item: key): Readonly<boolean> {
-		return window.localStorage.getItem(this.parseItem(item)) !== null
+		return this.storage.getItem(this.parseItem(item)) !== null
 	}
 
 	void(): void {
-		window.localStorage.clear()
+		this.storage.clear()
 	}
 
 	setDefault<key extends keyof schema>(
