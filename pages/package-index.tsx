@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 
 import { getSmartCache } from '../client/utils/fb'
 
+import PackageView from '../client/components/packageview.component'
+
 import Style from '../client/style/package-index.module.scss'
 
 export default function index() {
@@ -12,25 +14,15 @@ export default function index() {
 			getSmartCache(
 				firestore().collection('packages'),
 				'packages;',
-				1000*60*60
+				1000 * 60 * 60
 			).then((docs) =>
-			docs.docs.forEach((value) =>
-				setPackages([...packages, value.data()])
+				docs.docs.forEach((value) =>
+					setPackages([...packages, value.data()])
+				)
 			)
-		)
 		})
 	}, [])
-	//const packages = ['Package1', 'Package2', 'Package3']
-	/*doc.get({
-		source: 'server',
-	}).then((docResult) => {
-		console.log(docResult)
-		if (!docResult.exists)
-			doc.set({
-				name: user.displayName,
-				packages: [],
-			})
-	})*/
+
 	return (
 		<>
 			<div className={`${Style.search}`}>
@@ -40,6 +32,7 @@ export default function index() {
 						<input type="text" className={`${Style.input}`} />
 					</div>
 				</form>
+				<PackageView></PackageView>
 				<div>
 					{packages.map((doc) => (
 						<h4>

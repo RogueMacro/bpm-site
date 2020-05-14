@@ -32,6 +32,7 @@
 	> button {
 		border: none;
 		padding: 0;
+		background-color: var(--palet-4);
 
 		$transition: all ease-in-out 100ms;
 
@@ -54,14 +55,11 @@
 			}
 		}
 		&:hover {
-			background-color: var(--palet-3);
+			background-color: var(--palet-2);
 
-			a {
-				color: var(--palet-1);
-
-				> h1 {
-					transform: scale(1.1);
-				}
+			a > h1 {
+				color: white;
+				transform: scale(1.1);
 			}
 		}
 	}

@@ -1,9 +1,10 @@
 import React from 'react'
+import { company, random } from 'faker'
 
 export default function packageview() {
 	return (
 		<div>
-			<h4>Package</h4>
+			<h3>{company.bs()}</h3>
 		</div>
 	)
 }
