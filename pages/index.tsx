@@ -19,7 +19,6 @@ const Circle = ({ radius, color }: { radius: number; color: string }) => (
 		style={{
 			width: `${radius * 2}px`,
 			height: `${radius * 2}px`,
-			overflow: 'hidden',
 		}}
 	>
 		<svg>
@@ -82,34 +81,38 @@ export default function index() {
 				</a>
 
 				<div className={`${Style.underlay} center`}>
-					{range(7).map((index) => {
-						const randomBool = () => Math.round(Math.random())
+					{range(15).map((index) => {
+						const randomBool = () => Math.round(Math.random() + 0.3)
 
 						const anySignRandom = () => (Math.random() - 0.5) * 2
 
 						const columns = Math.round(Math.random() * 10)
 						const rows = Math.round(Math.random() * 10)
 
+						const color = (Math.round(
+							Math.sin(Math.random() * Math.PI) ** 2 * 5
+						)+1)%5
+
 						return (
 							<Positioner
 								height={height}
-								distance={Math.random() * 300 + 200}
+								distance={Math.random() * 400 + 400}
 								x={anySignRandom() * height}
 								y={anySignRandom() * 300}
 								key={index}
 							>
-								{randomBool ? (
+								{randomBool() ? (
 									<CircleGrid
 										circles={columns * rows}
 										columns={columns}
-										radius={Math.random() * 10}
+										radius={Math.random() * 10 + 2}
 										gap={Math.random() * 40}
-										color="var(--palet-3)"
+										color={`var(--palet-${color})`}
 									/>
 								) : (
 									<Circle
-										radius={Math.random() * 100}
-										color="black"
+										radius={Math.random() * 50 + 10}
+										color={`var(--palet-${color})`}
 									/>
 								)}
 							</Positioner>
