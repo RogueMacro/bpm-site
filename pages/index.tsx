@@ -26,12 +26,10 @@ const Circle = ({ radius, color }: { radius: number; color: string }) => (
 		style={{
 			width: `${radius * 2}px`,
 			height: `${radius * 2}px`,
+			borderRadius: '1000px',
+			backgroundColor: color,
 		}}
-	>
-		<svg>
-			<circle cx={radius} cy={radius} r={radius} fill={color} />
-		</svg>
-	</div>
+	/>
 )
 
 const CircleGrid = ({
