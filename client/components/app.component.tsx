@@ -3,7 +3,7 @@ import { initializeApp, analytics, auth, firestore } from 'firebase'
 
 import svg from '../../assets/bpm_logo.svg'
 
-import { getSmartCache } from './fb'
+import { getSmartCache } from '../utils/fb'
 import { userInfo } from 'os'
 
 const FooterItem: FC<{
@@ -44,29 +44,25 @@ const app: FC = function ({ children }) {
 
 			auth()
 				.getRedirectResult()
-				.then((result) => {
-					auth().onAuthStateChanged(
-						(user) => {
-							if (user) {
-								const doc = firestore()
-									.collection('users')
-									.doc(user?.uid)
-								doc.get({
-									source: 'server',
-								}).then((docResult) => {
-									console.log(docResult)
-									if (!docResult.exists)
-										doc.set({
-											name: user.displayName,
-											packages: [],
-										})
-								})
-							}
-						},
-						(err) => console.error(err)
-					)
-
+				.then(({ user }) => {
 					setIsLoggedIn(true)
+
+					if (user) {
+						const doc = firestore()
+							.collection('users')
+							.doc(user?.uid)
+						doc.get({
+							source: 'server',
+						}).then((docResult) => {
+							console.log(docResult)
+							if (!docResult.exists)
+								doc.set({
+									name: user.displayName,
+									packages: [],
+								})
+						})
+					}
+
 					// TODO: error handling
 				})
 		}
@@ -80,7 +76,7 @@ const app: FC = function ({ children }) {
 	return (
 		<div className="app">
 			<header>
-				<a href="/" className='center'>
+				<a href="/" className="center">
 					<img
 						height="75"
 						src={svg /*"/assets/bpm_logo.svg"*/}
@@ -105,7 +101,7 @@ const app: FC = function ({ children }) {
 									onClick={() => {
 										auth()
 											.signOut()
-											.then((_) => setIsLoggedIn(false))
+											.then(() => setIsLoggedIn(false))
 									}}
 								>
 									Logout
