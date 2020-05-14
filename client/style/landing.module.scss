@@ -83,9 +83,23 @@
 
 	height: 100vh;
 
-	padding: 120px 25vw 0 25vw;
+	&:not(.noPad) {
+		padding: 120px 25vw 0 25vw;
+	}
 }
 
 .about {
 	background-color: var(--palet-2);
+
+	column-gap: 100px;
+
+	grid-template-columns: 1fr 1fr;
+
+	> div:nth-child(1) {
+		background-color: var(--palet-3);
+		height: 40vh;
+		width: 90%;
+	}
+	> div:nth-child(2) {
+	}
 }

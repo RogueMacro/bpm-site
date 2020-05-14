@@ -186,6 +186,12 @@ input {
 	@include center();
 }
 
+.center-grid {
+	display: grid;
+	align-items: center;
+	justify-content: center;
+}
+
 .simple-box {
 	@include simple-box();
 }
