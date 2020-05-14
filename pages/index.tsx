@@ -1,25 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 import { motion, useTransform, useViewportScroll } from 'framer-motion'
 
 import { range } from 'lodash'
 
 import Style from '../client/style/landing.module.scss'
-
-const useViewport = (): { [unit in 'vh' | 'vw' | 'vmin' | 'vmax']: number } => {
-	const [vh, setVh] = useState(300)
-	const [vw, setVw] = useState(300)
-
-	useEffect(() => {
-		setVh(window.innerHeight / 100)
-		setVw(window.innerWidth / 100)
-		window.addEventListener('resize', () => {
-			setVh(window.innerHeight / 100)
-			setVw(window.innerWidth / 100)
-		})
-	}, [])
-	return { vh, vw, vmin: Math.min(vh, vw), vmax: Math.max(vh, vw) }
-}
+import useViewport from '../client/hooks/useViewport'
 
 const Circle = ({
 	radius,
@@ -114,7 +100,7 @@ function Header({ height, width }: { height: number; width: number }) {
 					return (
 						<Positioner
 							height={height * 100}
-							distance={Math.random() * 400 + 400}
+							distance={Math.random() * 800 + 400}
 							x={anySignRandom() * width * 50}
 							y={anySignRandom() * height * 50 - 80}
 							key={index}
@@ -148,7 +134,7 @@ function Features() {
 			className={`${Style.about} center-grid ${Style.section} ${Style.noPad}`}
 			id="about"
 		>
-			<div></div>
+			<div>{range(0, 20)}</div>
 			<div className="center">
 				<h1>About</h1>
 				<p>

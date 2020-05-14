@@ -93,12 +93,13 @@
 
 	column-gap: 100px;
 
-	grid-template-columns: 1fr 1fr;
+	grid-template-columns: 60vw 1fr;
 
 	> div:nth-child(1) {
-		background-color: var(--palet-3);
-		height: 40vh;
-		width: 90%;
+		height: 50vh;
+		width: 60vw;
+
+		background-color: var(--palet-5);
 	}
 	> div:nth-child(2) {
 	}
