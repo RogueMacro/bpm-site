@@ -1,6 +1,6 @@
 import React from 'react'
 
-function packageview() {
+export default function packageview() {
 	return (
 		<div>
 			<h4>Package</h4>

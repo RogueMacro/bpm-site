@@ -21,6 +21,11 @@ export default function managePackages() {
 		<div>
 			<h1>Your packages</h1>
 			<div className={`${Style.cardContainer}`}>
+				<button>
+					<a href="/new-package">
+						<h1>+</h1>
+					</a>
+				</button>
 				{[1, 2, 3, 4, 5, 6, 7, 8, 9]
 					.map((seed) => {
 						return {
