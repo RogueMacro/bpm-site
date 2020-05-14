@@ -92,7 +92,7 @@ input {
 	@include simple-box();
 
 	&[type='text'] {
-		@include input();
+		
 	}
 }
 

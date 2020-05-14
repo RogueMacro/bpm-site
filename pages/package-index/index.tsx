@@ -29,7 +29,7 @@ export default function index() {
 				<h2>Package Index</h2>
 				<form className="simple-box">
 					<div className="input">
-						<input type="text" className={`${Style.input}`} />
+						<input type="text" className={`${Style.input} input`} />
 					</div>
 				</form>
 				<div>
