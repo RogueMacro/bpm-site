@@ -15,7 +15,7 @@
 
 		margin: 20px;
 		padding: 10px;
-	
+
 		width: 400px;
 		height: 300px;
 
@@ -30,10 +30,20 @@
 	}
 
 	> button {
-		border-color: var(--palet-2);
+		border: none;
 		padding: 0;
 
+		$transition: all ease-in-out 100ms;
+
+		&,
+		* {
+			transition: $transition;
+		}
+
 		> a {
+			transition: none;
+			transition: $transition;
+
 			width: 100%;
 			height: 100%;
 			padding-top: 17%;
@@ -41,6 +51,17 @@
 			> h1 {
 				margin: 0;
 				font-size: 6rem;
+			}
+		}
+		&:hover {
+			background-color: var(--palet-3);
+
+			a {
+				color: var(--palet-1);
+
+				> h1 {
+					transform: scale(1.1);
+				}
 			}
 		}
 	}
