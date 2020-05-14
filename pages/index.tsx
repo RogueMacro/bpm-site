@@ -60,7 +60,6 @@ const CircleGrid = ({
 			display: 'grid',
 			gridTemplateColumns: `repeat(${columns}, 1fr)`,
 			gap: `${gap}px`,
-			overflow: 'hidden',
 		}}
 	>
 		{range(0, circles).map((i) => (
