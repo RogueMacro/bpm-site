@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import { getSmartCache } from '../client/components/fb'
+import { getSmartCache } from '../client/utils/fb'
 
 import Style from '../client/style/package-index.module.scss'
 
