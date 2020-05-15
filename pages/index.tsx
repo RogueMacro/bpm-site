@@ -1,11 +1,17 @@
 import React, { useEffect } from 'react'
 
-import { motion, useTransform, useViewportScroll } from 'framer-motion'
+import {
+	motion,
+	useTransform,
+	useViewportScroll,
+	MotionStyle,
+} from 'framer-motion'
 
 import { setRInterval } from '../client/utils/smartInterval'
 import { company } from 'faker'
 import { range } from 'lodash'
 
+import useMediaQuery from '../client/hooks/useScreenMediaquery'
 import {
 	useRandom,
 	useRandoms,
@@ -67,7 +73,8 @@ const Positioner: React.FC<{
 	y: number
 	height: number
 	start?: number
-}> = ({ children, x, y, distance, height, start }) => {
+	style?: MotionStyle
+}> = ({ children, x, y, distance, height, start, style }) => {
 	const { scrollY } = useViewportScroll()
 	const transform = useTransform(
 		scrollY,
@@ -78,10 +85,16 @@ const Positioner: React.FC<{
 		}
 	)
 
-	return <motion.div style={{ x: x, y: transform }}>{children}</motion.div>
+	return (
+		<motion.div style={{ ...style, x: x, y: transform }}>
+			{children}
+		</motion.div>
+	)
 }
 
 function Header({ height, width }: { height: number; width: number }) {
+	const isMobile = useMediaQuery(1000, 0, 'or')
+
 	return (
 		<div className={`${Style.header} center`}>
 			<h1>BPM</h1>
@@ -109,8 +122,11 @@ function Header({ height, width }: { height: number; width: number }) {
 
 					return (
 						<Positioner
-							height={height * 100}
-							distance={Math.random() * 800 + 400}
+							style={{ zIndex: 0 }}
+							height={height * 100 * (isMobile ? 2 : 1)}
+							distance={
+								(Math.random() * 800 + 400) * (isMobile ? 2 : 1)
+							}
 							x={anySignRandom() * width * 50}
 							y={anySignRandom() * height * 50 - 80}
 							key={index}

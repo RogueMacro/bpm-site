@@ -65,6 +65,8 @@
 }
 
 body {
+	overflow-x: hidden;
+
 	@include simple-box();
 	font-family: 'Montserrat', sans-serif;
 

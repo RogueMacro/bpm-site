@@ -83,6 +83,11 @@
 }
 
 .section {
+	&,& * {
+
+		z-index: 10;
+	}
+
 	box-sizing: border-box;
 
 	height: 100vh;
@@ -113,7 +118,9 @@
 
 		background-color: var(--palet-5);
 
-		* {position: absolute;}
+		* {
+			position: absolute;
+		}
 	}
 	> div:nth-child(2) {
 		z-index: 100;
@@ -131,12 +138,15 @@
 		> .animation {
 			width: 100vw;
 			box-sizing: border-box;
-
 		}
 		> div:nth-child(2) {
 			p {
 				padding: 0px 20vw;
 			}
+
+			background-color: var(--palet-2);
+			height: 100%;
+			width: 100%;
 		}
 	}
 }
