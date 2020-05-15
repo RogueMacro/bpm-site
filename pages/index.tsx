@@ -4,18 +4,21 @@ import { motion, useTransform, useViewportScroll } from 'framer-motion'
 
 import { range } from 'lodash'
 
+import {
+	useRandom,
+	useRandoms,
+	randomBool,
+	anySignRandom,
+} from '../client/hooks/useStatedRandom'
+
 import Style from '../client/style/landing.module.scss'
 import useViewport from '../client/hooks/useViewport'
 
-const Circle = ({
-	radius,
-	color,
-	border,
-}: {
+const Circle: React.FC<{
 	radius: number
 	color: string
 	border?: string
-}) => (
+}> = ({ radius, color, border, children }) => (
 	<div
 		style={{
 			width: `${radius * 2}px`,
@@ -23,7 +26,9 @@ const Circle = ({
 			borderRadius: border || '100000px',
 			backgroundColor: color,
 		}}
-	/>
+	>
+		{children}
+	</div>
 )
 
 const CircleGrid = ({
@@ -85,17 +90,20 @@ function Header({ height, width }: { height: number; width: number }) {
 
 			<div className={`${Style.underlay} center`}>
 				{range(15).map((index) => {
-					const randomBool = (bias?: number) =>
-						Math.round(Math.random() - (bias || 0))
+					const [
+						columnRandom,
+						rowRandom,
+						colorRandom,
+						radiusRandom,
+						gapRandom,
+					] = useRandoms(5)
 
-					const anySignRandom = () => (Math.random() - 0.5) * 2
-
-					const columns = Math.round(Math.random() * 7) + 3
-					const rows = Math.round(Math.random() * 7) + 3
+					const columns = Math.round(columnRandom * 7) + 3
+					const rows = Math.round(rowRandom * 7) + 3
 
 					const colors = [1, 2, 3, 5]
 					const color =
-						colors[Math.round(Math.random() * colors.length)]
+						colors[Math.round(colorRandom * colors.length)]
 
 					return (
 						<Positioner
@@ -109,14 +117,14 @@ function Header({ height, width }: { height: number; width: number }) {
 								<CircleGrid
 									circles={columns * rows}
 									columns={columns}
-									radius={Math.random() * 5 + 3}
-									gap={Math.random() * 50 + 10}
+									radius={radiusRandom * 5 + 3}
+									gap={gapRandom * 50 + 10}
 									color={`var(--palet-${color})`}
 									border={randomBool() ? '0px' : '10000px'}
 								/>
 							) : (
 								<Circle
-									radius={Math.random() * 50 + 10}
+									radius={radiusRandom * 50 + 10}
 									color={`var(--palet-${color})`}
 								/>
 							)}
@@ -131,8 +139,13 @@ function Header({ height, width }: { height: number; width: number }) {
 function Features({ height, width }: { height: number; width: number }) {
 	const { scrollY } = useViewportScroll()
 
-	const animationRange = [height * 50, height * 100]
-	const x = useTransform(scrollY, animationRange, [100, 0])
+	const easeInOutCubic = (x: number) =>
+		x < 0.5 ? 4 * x * x * x : 1 - (-2 * x + 2) ** 3 / 2
+
+	const animationRange = [height * 50, height * 90]
+	const x = useTransform(scrollY, animationRange, [100, 0], {
+		ease: (x) => easeInOutCubic(x),
+	})
 	const opacity = useTransform(scrollY, animationRange, [0, 1])
 
 	return (
@@ -140,22 +153,33 @@ function Features({ height, width }: { height: number; width: number }) {
 			className={`${Style.about} center-grid ${Style.section} ${Style.noPad}`}
 			id="about"
 		>
-			<div>
-				{range(0, 50).map(() => (
-					<Positioner
-						distance={Math.random() * 1000}
-						height={150 * height}
-						start={height * 50}
-						x={Math.random() * 30 * width - 100}
-						y={Math.random() * 25 * height - 500}
-					>
-						<Circle
-							color="var(--palet-3)"
-							radius={Math.random() * 100}
-							border='0'
-						/>
-					</Positioner>
-				))}
+			<div className={Style.animation}>
+				{range(0, 10).map((i) => {
+					const [
+						distanceRandom,
+						xRandom,
+						yRandom,
+						radiusRandom,
+					] = useRandoms(4)
+
+					return (
+						<Positioner
+							distance={distanceRandom * 300}
+							height={140 * height}
+							start={height * 20}
+							x={xRandom * 50 * width}
+							y={yRandom * height * 20}
+						>
+							<Circle
+								color="var(--palet-3)"
+								radius={radiusRandom * 50 + 50}
+								border="0"
+							>
+								{i}
+							</Circle>
+						</Positioner>
+					)
+				})}
 			</div>
 			<div className="center">
 				<h1>About</h1>

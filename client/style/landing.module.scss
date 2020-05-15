@@ -97,15 +97,41 @@
 
 	grid-template-columns: 60vw 1fr;
 
-	> div:nth-child(1) {
-		overflow: hidden;
-		
+	padding-right: 50px;
+
+	> .animation {
+		position: relative;
+
+		overflow: visible;
+
 		height: 50vh;
 		width: 60vw;
 
 		background-color: var(--palet-5);
+
+		* {position: absolute;}
 	}
 	> div:nth-child(2) {
 		flex-direction: column;
+	}
+
+	@media screen and (max-width: 1000px) {
+		grid-template-columns: auto;
+		grid-template-rows: auto 1fr;
+
+		padding-right: 0;
+
+		margin: 100px;
+
+		> .animation {
+			width: 100vw;
+			box-sizing: border-box;
+
+		}
+		> div:nth-child(2) {
+			p {
+				padding: 0px 100px;
+			}
+		}
 	}
 }
