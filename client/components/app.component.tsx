@@ -23,7 +23,7 @@ const FooterItem: FC<{
 )
 
 const app: FC = function ({ children }) {
-	function logIn(state:boolean) {
+	function logIn(state: boolean) {
 		setIsLoggedIn(state)
 	}
 
@@ -142,6 +142,15 @@ const app: FC = function ({ children }) {
 						<li>
 							<a href="/downloads">Downloads</a>
 						</li>
+						<li>
+							<a href="/guide">Guide</a>
+						</li>
+						<li>
+							<a href="/#faq">FAQ</a>
+						</li>
+						<li>
+							<a href="/#about">About</a>
+						</li>
 						{isLoggedIn ? (
 							<li>
 								<a href="/manage-packages">Manage packages</a>
@@ -188,7 +197,10 @@ const app: FC = function ({ children }) {
 			</header>
 			<main> {children} </main>
 			<footer>
-				<FooterItem title="popular packages" content={[]} />
+				<FooterItem
+					title={isLoggedIn ? 'Recommended' : 'Popular'}
+					content={[<div>Package1</div>, <div>Package2</div>]}
+				/>
 			</footer>
 		</div>
 	)

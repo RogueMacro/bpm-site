@@ -208,12 +208,18 @@ function Features({ height, width }: { height: number; width: number }) {
 					}}
 				>
 					BPM is a package manager for Beef programming language. It
-					comes packaged with a Package Index, CLI and GraphQL API.
+					comes with a Package Index, CLI and GraphQL API. Help build
+					a community around the Beef programming language. Create,
+					share, browse and install libraries easily using the BPM
+					CLI. <br />
+					<a href="/guide">Read our guide</a> to get started.
 				</motion.p>
 			</div>
-			{/* <h2>Slogans:</h2>
-			<p>Bringing the Beef community together</p>
-			<p>Create and share!</p> */}
+			{/* Slogans:
+			- Bringing the Beef community together!
+			- Create and share! 
+			- Sharing is caring!
+			*/}
 		</div>
 	)
 }
@@ -230,8 +236,8 @@ function FAQ() {
 				</p>
 				<h2>How do I install a package?</h2>
 				<p>
-					<a>Download the BPM CLI</a> and read the <a>How To</a> in
-					our guide.
+					<a>Download the BPM CLI</a> and read{' '}
+					<a href="/guide">guide</a> to get started.
 				</p>
 			</div>
 		</div>

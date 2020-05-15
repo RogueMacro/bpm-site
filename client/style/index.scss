@@ -172,6 +172,10 @@ input {
 		height: 25vh;
 
 		background-color: var(--palet-2);
+
+		> div > h3 {
+			padding-top: 10px;
+		}
 	}
 }
 
@@ -196,6 +200,17 @@ input {
 
 .simple-box {
 	@include simple-box();
+}
+
+code {
+	background-color: var(--palet-5);
+	padding: 0 3px;
+	opacity: 0.8;
+	//font-family: Consolas, 'courier new';
+}
+
+.command {
+	color: var(--text-3);
 }
 
 /*
