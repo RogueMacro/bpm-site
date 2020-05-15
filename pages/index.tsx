@@ -128,19 +128,46 @@ function Header({ height, width }: { height: number; width: number }) {
 	)
 }
 
-function Features() {
+function Features({ height, width }: { height: number; width: number }) {
+	const { scrollY } = useViewportScroll()
+
+	const animationRange = [height * 50, height * 100]
+	const x = useTransform(scrollY, animationRange, [100, 0])
+	const opacity = useTransform(scrollY, animationRange, [0, 1])
+
 	return (
 		<div
 			className={`${Style.about} center-grid ${Style.section} ${Style.noPad}`}
 			id="about"
 		>
-			<div>{range(0, 20)}</div>
+			<div>
+				{range(0, 50).map(() => (
+					<Positioner
+						distance={Math.random() * 1000}
+						height={150 * height}
+						start={height * 50}
+						x={Math.random() * 30 * width - 100}
+						y={Math.random() * 25 * height - 500}
+					>
+						<Circle
+							color="var(--palet-3)"
+							radius={Math.random() * 100}
+							border='0'
+						/>
+					</Positioner>
+				))}
+			</div>
 			<div className="center">
 				<h1>About</h1>
-				<p>
+				<motion.p
+					style={{
+						x,
+						opacity,
+					}}
+				>
 					BPM is a package manager for Beef programming language. It
 					comes packaged with a Package Index, CLI and GraphQL API.
-				</p>
+				</motion.p>
 			</div>
 			{/* <h2>Slogans:</h2>
 			<p>Bringing the Beef community together</p>
@@ -174,7 +201,7 @@ export default function index() {
 	return (
 		<>
 			<Header height={height} width={width} />
-			<Features />
+			<Features height={height} width={width} />
 			<FAQ />
 		</>
 	)
