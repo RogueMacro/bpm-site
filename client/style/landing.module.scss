@@ -25,6 +25,10 @@
 	.underlay {
 		overflow: hidden;
 
+		@media screen and (max-width: 1000px) {
+			overflow: visible;
+		}
+
 		position: absolute;
 		height: 100%;
 		width: 100%;
@@ -112,6 +116,7 @@
 		* {position: absolute;}
 	}
 	> div:nth-child(2) {
+		z-index: 100;
 		flex-direction: column;
 	}
 
@@ -130,7 +135,7 @@
 		}
 		> div:nth-child(2) {
 			p {
-				padding: 0px 100px;
+				padding: 0px 20vw;
 			}
 		}
 	}

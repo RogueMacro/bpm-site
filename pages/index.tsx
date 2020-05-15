@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { motion, useTransform, useViewportScroll } from 'framer-motion'
 
+import { setRInterval } from '../client/utils/smartInterval'
+import { company } from 'faker'
 import { range } from 'lodash'
 
 import {
@@ -10,9 +12,9 @@ import {
 	randomBool,
 	anySignRandom,
 } from '../client/hooks/useStatedRandom'
+import useViewport from '../client/hooks/useViewport'
 
 import Style from '../client/style/landing.module.scss'
-import useViewport from '../client/hooks/useViewport'
 
 const Circle: React.FC<{
 	radius: number
@@ -164,18 +166,18 @@ function Features({ height, width }: { height: number; width: number }) {
 
 					return (
 						<Positioner
-							distance={distanceRandom * 300}
+							distance={distanceRandom * 100}
 							height={140 * height}
 							start={height * 20}
 							x={xRandom * 50 * width}
-							y={yRandom * height * 20}
+							y={yRandom * 0}
 						>
 							<Circle
 								color="var(--palet-3)"
 								radius={radiusRandom * 50 + 50}
 								border="0"
 							>
-								{i}
+								{company.bs()}
 							</Circle>
 						</Positioner>
 					)
