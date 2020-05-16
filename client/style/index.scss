@@ -80,13 +80,17 @@ a {
 	text-decoration: none;
 
 	color: white;
+	opacity: .9;
 
-	transition: color ease-in 100ms;
+	$transition: ease-in 100ms;
+
+	transition: color $transition, opacity $transition;
 
 	cursor: pointer;
 
 	&:hover {
 		color: var(--text-3);
+		opacity: 1;
 	}
 }
 
@@ -118,6 +122,10 @@ input {
 		height: 80px;
 
 		padding: 0px 10vw;
+
+		a {
+			opacity: 1;
+		}
 
 		> a {
 			position: relative;
@@ -210,19 +218,3 @@ code {
 .command {
 	color: var(--text-3);
 }
-
-/*
-TODO: IMPLEMENT THIS FUCKERY
-* {
-	animation: animin infinite 2s;
-}
-
-@keyframes animin {
-	0% {
-		transform: rotate(0deg);
-	}
-	100% {
-		transform: rotate(360deg);
-	}
-}
-*/

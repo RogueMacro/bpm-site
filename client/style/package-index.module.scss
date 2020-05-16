@@ -42,11 +42,8 @@
 			// TODO: Maybe add smooth transition for opacity too? Couldn't figure it out because it just flics
 
 			color: white;
-			opacity: 0.6;
-			//transition: opacity ease-in 100ms;
 
 			&:hover {
-				//opacity: 1;
 				color: var(--text-3);
 			}
 		}

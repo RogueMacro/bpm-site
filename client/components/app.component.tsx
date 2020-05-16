@@ -143,7 +143,7 @@ const app: FC = function ({ children }) {
 							<a href="/downloads">Downloads</a>
 						</li>
 						<li>
-							<a href="/guide">Guide</a>
+							<a href="/reads/guide">Guide</a>
 						</li>
 						<li>
 							<a href="/#faq">FAQ</a>

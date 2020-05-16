@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Style from '../client/style/guide.module.scss'
+import Style from '../../client/style/guide.module.scss'
 
 function Command(props: { text: string }) {
 	const index = props.text.indexOf(' ')
