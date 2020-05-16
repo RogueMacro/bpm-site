@@ -33,7 +33,7 @@ type Package {
 }
 
 type QueryV1 {
-    package( name:String ): Package
+    package( name:String! ): Package
     version( id:ID! ): Version
 }
 
