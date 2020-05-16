@@ -10,6 +10,7 @@ import {
 import { setRInterval } from '../client/utils/smartInterval'
 import { company } from 'faker'
 import { range } from 'lodash'
+import sortWith from '../client/utils/sort'
 
 import useMediaQuery from '../client/hooks/useScreenMediaquery'
 import {
@@ -22,13 +23,24 @@ import useViewport from '../client/hooks/useViewport'
 
 import Style from '../client/style/landing.module.scss'
 
-type bound = [[number, number], [number, number]]
+type point = [number, number]
+type bound = [point, point]
 
-const _boundingBoxIntersect = (a: bound, b: bound) =>
-	a[1][0] - b[0][0] > 0 && a[1][1] - b[0][1]
+function boundingBoxIntersect(a: bound, b: bound) {
+	const boundToPoint = (bound: bound): [point, point, point, point] => [
+		[bound[0][0], bound[0][0]],
+		[bound[0][1], bound[0][1]],
+		[bound[1][0], bound[1][0]],
+		[bound[1][1], bound[1][1]],
+	]
 
-const boundingBoxIntersect = (a: bound, b: bound) =>
-	_boundingBoxIntersect(a, b) || _boundingBoxIntersect(b, a)
+	return (
+		a[0][0] <= b[1][0] &&
+		a[1][0] >= b[0][0] &&
+		a[1][1] <= b[0][1] &&
+		a[0][1] >= b[1][1]
+	)
+}
 
 const Circle: React.FC<{
 	radius: number
@@ -124,17 +136,6 @@ function Header({
 
 			<div className={`${Style.underlay} center`}>
 				{range(15).map((index) => {
-					function reRoll() {
-						;[
-							columnRandom,
-							rowRandom,
-							colorRandom,
-							radiusRandom,
-							gapRandom,
-						] = useRandoms(5)
-						isGrid = randomBool(-0.1)
-					}
-
 					let [
 						columnRandom,
 						rowRandom,
@@ -154,23 +155,25 @@ function Header({
 
 					const columns = Math.round(columnRandom * 7) + 3
 					const rows = Math.round(rowRandom * 7) + 3
+					const gap = gapRandom * 50 + 10
 
-					const color =
-						colors[Math.round(colorRandom * colors.length)]
+					let color = colors[Math.round(colorRandom * colors.length)]
+
 					const thisBound: bound = isGrid
 						? [
 								[x, y],
-								[x + radius * columns, y],
+								[
+									x + radius * columns + gap * columns - 1,
+									y + radius * rows + gap * rows - 1,
+								],
 						  ]
 						: [
 								[x, y],
 								[x + 2 * radius, y + 2 * radius],
 						  ]
 
-					while (
-						boundingBoxIntersect(thisBound, textBound)
-					)
-						reRoll()
+					if (boundingBoxIntersect(textBound,thisBound))
+						color = colors[0]
 
 					return (
 						<Positioner
@@ -188,7 +191,7 @@ function Header({
 									circles={columns * rows}
 									columns={columns}
 									radius={radius}
-									gap={gapRandom * 50 + 10}
+									gap={gap}
 									color={`var(--palet-${color})`}
 									border={randomBool() ? '0px' : '10000px'}
 								/>
