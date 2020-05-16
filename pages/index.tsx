@@ -247,10 +247,10 @@ function FAQ() {
 export default function index() {
 	const { vh: height, vw: width } = useViewport()
 	return (
-		<>
+		<div style={{height:'300vh', overflow:'hidden'}}>
 			<Header height={height} width={width} />
 			<Features height={height} width={width} />
 			<FAQ />
-		</>
+		</div>
 	)
 }
