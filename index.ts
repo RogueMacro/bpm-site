@@ -5,6 +5,7 @@ import { initializeApp as initializeFirebaseApp } from './node_modules/firebase-
 import { join } from 'path'
 import { parse } from 'url'
 
+import gql from './api/server'
 import _generate from './server/components/generate.component'
 import getFilePathFromChain from './server/utils/getFilePathFromChain'
 
@@ -47,6 +48,8 @@ const express = require('express')
 const app: expressTypes.Application = express()
 
 app.set('trust proxy', true)
+
+gql.applyMiddleware({ app })
 
 app.get(/\/assets\//, (req, res) => {
 	res.sendFile(join(__dirname, parse(req.url).pathname))

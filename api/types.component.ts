@@ -1,7 +1,8 @@
 import { gql } from 'apollo-server-express'
 
 export default gql`
-interface IVersion {
+
+type Version {
     versionRepoURL: String!
     version: String!
 
@@ -9,24 +10,14 @@ interface IVersion {
 
     parentName: String!
 
-}
-
-type Version implements IVersion {
     id:ID
 
-    versionRepoURL: String!
-    version: String!
-
-    changes: String
-
     lastVersion: Version
-
-    parentName: String!
 
     parent: Package
 }
 
-input Version implements IVersion {
+input InputVersion {
     versionRepoURL: String!
     version: String!
 
@@ -50,6 +41,7 @@ type Query {
     v1: QueryV1
 }
 
-type Mutation {
+# type Mutation {
 
-}`
+# }
+`
