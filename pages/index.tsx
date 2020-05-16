@@ -92,9 +92,15 @@ const Positioner: React.FC<{
 	)
 }
 
-function Header({ height, width }: { height: number; width: number }) {
-	const isMobile = useMediaQuery(1000, 0, 'or')
-
+function Header({
+	height,
+	width,
+	isMobile,
+}: {
+	height: number
+	width: number
+	isMobile: boolean
+}) {
 	return (
 		<div className={`${Style.header} center`}>
 			<h1>BPM</h1>
@@ -154,13 +160,21 @@ function Header({ height, width }: { height: number; width: number }) {
 	)
 }
 
-function Features({ height, width }: { height: number; width: number }) {
+function Features({
+	height,
+	width,
+	isMobile,
+}: {
+	height: number
+	width: number
+	isMobile: boolean
+}) {
 	const { scrollY } = useViewportScroll()
 
 	const easeInOutCubic = (x: number) =>
 		x < 0.5 ? 4 * x * x * x : 1 - (-2 * x + 2) ** 3 / 2
 
-	const animationRange = [height * 50, height * 90]
+	const animationRange = isMobile ? [height * 70, height * 100] : [height * 50, height * 90]
 	const x = useTransform(scrollY, animationRange, [100, 0], {
 		ease: (x) => easeInOutCubic(x),
 	})
@@ -245,11 +259,13 @@ function FAQ() {
 }
 
 export default function index() {
+	const isMobile = useMediaQuery(1000, 0, 'or')
+
 	const { vh: height, vw: width } = useViewport()
 	return (
-		<div style={{height:'300vh', overflow:'hidden'}}>
-			<Header height={height} width={width} />
-			<Features height={height} width={width} />
+		<div style={{ height: '300vh', overflow: 'hidden' }}>
+			<Header height={height} width={width} isMobile={isMobile} />
+			<Features height={height} width={width} isMobile={isMobile} />
 			<FAQ />
 		</div>
 	)
