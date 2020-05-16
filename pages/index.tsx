@@ -123,9 +123,9 @@ function Header({ height, width }: { height: number; width: number }) {
 					return (
 						<Positioner
 							style={{ zIndex: 0 }}
-							height={height * 100 * (isMobile ? 2 : 1)}
+							height={height * 100 * (isMobile ? 3 : 1)}
 							distance={
-								(Math.random() * 800 + 400) * (isMobile ? 2 : 1)
+								(Math.random() * 800 + 400) * (isMobile ? 3 : 1)
 							}
 							x={anySignRandom() * width * 50}
 							y={anySignRandom() * height * 50 - 80}
