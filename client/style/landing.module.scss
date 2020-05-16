@@ -49,6 +49,8 @@
 	h1,
 	sub {
 		text-align: center;
+		width: 14rem;
+		background-color: var(--palet-4);
 
 		&,
 		.navIcon {
@@ -76,7 +78,7 @@
 
 		z-index: 100;
 
-		animation: navIconEnter 2s ;
+		animation: navIconEnter 2s;
 
 		&:hover {
 			transform: $no-transform scale(1.1);
