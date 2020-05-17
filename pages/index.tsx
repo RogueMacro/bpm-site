@@ -255,9 +255,7 @@ function Features({
 					useEffect(() => {
 						setTimeout(() => {
 							if (getting) {
-								console.log('getting')
-							} else {
-								console.log('sending')
+								setCurrentPackage(company.bs())
 							}
 							setGetting(!getting)
 						}, Math.random() * 4000 + 3000)
