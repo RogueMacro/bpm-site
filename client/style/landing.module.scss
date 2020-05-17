@@ -115,15 +115,28 @@
 	> .animation {
 		position: relative;
 
-		overflow: visible;
+		overflow: hidden;
 
 		height: 50vh;
 		width: 60vw;
 
 		background-color: var(--palet-5);
 
-		* {
-			position: absolute;
+		display: flex;
+		justify-content: space-evenly;
+
+		> * {
+			flex-shrink: 1;
+			flex-grow: 1;
+		}
+
+		.animationChild {
+			height: 100%;
+			width: 100%;
+
+			color: var(--palet-1);
+
+			flex-direction: column;
 		}
 	}
 	> div:nth-child(2) {

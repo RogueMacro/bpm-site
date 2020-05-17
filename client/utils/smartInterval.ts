@@ -8,7 +8,7 @@ const store: {
 	}
 } = {}
 
-export const setRInterval = (
+export const setSmartInterval = (
 	cb: (setNextInterval: (next: number) => void, clear: () => void) => void,
 	initialTimeout: number
 ): string => {
@@ -37,4 +37,4 @@ export const setRInterval = (
 
 	return id
 }
-export const removeRInterval = (id: string) => (store[id].isDead = true)
+export const removeSmartInterval = (id: string) => (store[id].isDead = true)

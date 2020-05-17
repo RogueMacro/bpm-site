@@ -1,13 +1,17 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState, useMemo, FC } from 'react'
 
 import {
 	motion,
 	useTransform,
 	useViewportScroll,
 	MotionStyle,
+	HTMLMotionProps,
 } from 'framer-motion'
 
-import { setRInterval } from '../client/utils/smartInterval'
+import {
+	setSmartInterval,
+	removeSmartInterval,
+} from '../client/utils/smartInterval'
 import { company } from 'faker'
 import { range, inRange } from 'lodash'
 import sortWith from '../client/utils/sort'
@@ -44,12 +48,15 @@ function boundingBoxIntersect(a: bound, b: bound) {
 	return false
 }
 
-const Circle: React.FC<{
-	radius: number
-	color: string
-	border?: string
-}> = ({ radius, color, border, children }) => (
-	<div
+const Circle: React.FC<
+	HTMLMotionProps<'div'> & {
+		radius: number
+		color: string
+		border?: string
+	}
+> = ({ radius, color, border, children, ...porps }) => (
+	<motion.div
+		{...porps}
 		style={{
 			width: `${radius * 2}px`,
 			height: `${radius * 2}px`,
@@ -58,25 +65,21 @@ const Circle: React.FC<{
 		}}
 	>
 		{children}
-	</div>
+	</motion.div>
 )
 
-const CircleGrid = ({
-	columns,
-	circles,
-	radius,
-	color,
-	gap,
-	border,
-}: {
-	columns: number
-	circles: number
-	radius: number
-	color: string
-	gap: number
-	border?: string
-}) => (
-	<div
+const CircleGrid: FC<
+	HTMLMotionProps<'div'> & {
+		columns: number
+		circles: number
+		radius: number
+		color: string
+		gap: number
+		border?: string
+	}
+> = ({ columns, circles, radius, color, gap, border, ...porps }) => (
+	<motion.div
+		{...porps}
 		style={{
 			display: 'grid',
 			gridTemplateColumns: `repeat(${columns}, 1fr)`,
@@ -86,29 +89,30 @@ const CircleGrid = ({
 		{range(0, circles).map((i) => (
 			<Circle color={color} radius={radius} key={i} border={border} />
 		))}
-	</div>
+	</motion.div>
 )
 
-const Positioner: React.FC<{
-	distance: number
-	x: number
-	y: number
-	height: number
-	start?: number
-	style?: MotionStyle
-}> = ({ children, x, y, distance, height, start, style }) => {
+const Positioner: FC<
+	HTMLMotionProps<'div'> & {
+		distance: number
+		x: number
+		y: number
+		height: number
+		start?: number
+	}
+> = ({ children, x, y: rootY, distance, height, start, style, ...props }) => {
 	const { scrollY } = useViewportScroll()
-	const transform = useTransform(
+	const y = useTransform(
 		scrollY,
 		[start || 0, height + (start || 0)],
 		[0, 1],
 		{
-			ease: (pre) => pre * distance + y,
+			ease: (pre) => pre * distance + rootY,
 		}
 	)
 
 	return (
-		<motion.div style={{ ...style, x: x, y: transform }}>
+		<motion.div {...props} style={{ ...style, x, y }}>
 			{children}
 		</motion.div>
 	)
@@ -238,29 +242,60 @@ function Features({
 			className={`${Style.about} center-grid ${Style.section} ${Style.noPad}`}
 			id="about"
 		>
-			<div className={Style.animation}>
+			<div className={`${Style.animation}`}>
 				{range(0, 10).map((i) => {
-					const [
-						distanceRandom,
-						xRandom,
-						yRandom,
-						radiusRandom,
-					] = useRandoms(4)
+					const [distanceRandom] = useRandoms(2)
+
+					const [currentPackage, setCurrentPackage] = useState(
+						company.bs()
+					)
+
+					const [getting, setGetting] = useState(Math.random()>0.5)
+
+					useEffect(() => {
+						setTimeout(() => {
+							if (getting) {
+								console.log('getting')
+							} else {
+								console.log('sending')
+							}
+							setGetting(!getting)
+						}, Math.random() * 4000 + 3000)
+
+						return () => {}
+					}, [getting])
+
+					const y = useMemo(() => (getting ? -0 : 100), [getting])
 
 					return (
 						<Positioner
 							distance={distanceRandom * 100}
 							height={140 * height}
 							start={height * 20}
-							x={xRandom * 50 * width}
-							y={yRandom * 0}
+							x={0}
+							y={0}
 						>
 							<Circle
 								color="var(--palet-3)"
-								radius={radiusRandom * 50 + 50}
+								radius={100}
 								border="0"
+								animate={getting ? 'top' : 'bottom'}
+								transition={{ duration: 3, ease: 'anticipate' }}
+								variants={{
+									top: { y: 550 },
+									bottom: { y: -300 },
+								}}
 							>
-								{company.bs()}
+								{
+									<div
+										className={`${Style.animationChild} center`}
+									>
+										<h2>
+											{getting ? 'fetching' : 'sending'}
+										</h2>
+										<p>{currentPackage}</p>
+									</div>
+								}
 							</Circle>
 						</Positioner>
 					)
