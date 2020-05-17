@@ -9,7 +9,7 @@ import {
 
 import { setRInterval } from '../client/utils/smartInterval'
 import { company } from 'faker'
-import { range } from 'lodash'
+import { range, inRange } from 'lodash'
 import sortWith from '../client/utils/sort'
 
 import useMediaQuery from '../client/hooks/useScreenMediaquery'
@@ -34,12 +34,14 @@ function boundingBoxIntersect(a: bound, b: bound) {
 		[bound[1][1], bound[1][1]],
 	]
 
-	return (
-		a[0][0] <= b[1][0] &&
-		a[1][0] >= b[0][0] &&
-		a[1][1] <= b[0][1] &&
-		a[0][1] >= b[1][1]
-	)
+	const vertexInBound = (vertex: point, bound: bound) =>
+		inRange(vertex[0], bound[0][0], bound[1][0]) &&
+		inRange(vertex[1], bound[0][1], bound[1][1])
+
+	for (const vertex of boundToPoint(b))
+		if (vertexInBound(vertex, a)) return true
+
+	return false
 }
 
 const Circle: React.FC<{
@@ -123,8 +125,8 @@ function Header({
 }) {
 	// 308 wide 175 hight
 	const textBound: bound = [
-		[width * 50 - 104, (width * 85) / 2 + 175 / 2],
-		[width * 50 + 104, (width * 85) / 2 - 175 / 2],
+		[width * 50 - 150, (width * 85) / 2 + 100],
+		[width * 50 + 150, (width * 85) / 2 - 100],
 	]
 	return (
 		<div className={`${Style.header} center`}>
@@ -172,7 +174,7 @@ function Header({
 								[x + 2 * radius, y + 2 * radius],
 						  ]
 
-					if (boundingBoxIntersect(textBound,thisBound))
+					if (boundingBoxIntersect(textBound, thisBound))
 						color = colors[0]
 
 					return (
