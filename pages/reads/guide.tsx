@@ -1,6 +1,5 @@
 import React from 'react'
 
-import Style from '../../client/style/guide.module.scss'
 import { Command } from '../../client/components/reads/code'
 
 export default function () {
