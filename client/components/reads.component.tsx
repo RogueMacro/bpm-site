@@ -10,7 +10,7 @@ import {
 const Reads: FC = ({ children }) => {
 	const { scrollYProgress } = useViewportScroll()
 	const y = useTransform(scrollYProgress, [0, 0.9], [0, 1])
-	const path = useSpring(y, { stiffness: 100, damping: 100000 })
+	const path = useSpring(y, { stiffness: 300, damping: 100000 })
 
 	return (
 		<>
