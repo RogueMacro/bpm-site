@@ -39,6 +39,7 @@ export default function index() {
 							description={doc.description}
 							downloads={doc.downloads}
 							authors={doc.authors}
+							id={doc.id}
 						/>
 					))}
 				</div>

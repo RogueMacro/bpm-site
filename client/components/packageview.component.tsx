@@ -8,11 +8,12 @@ export default function packageview(props: {
 	description: string
 	downloads: string
 	authors: string[]
+	id: string
 }) {
 	return (
 		<div className={Style.packageView}>
 			<h2>
-				<a href="/m/doc">{props.name}</a>
+				<a href={`/m/${props.id}`}>{props.name}</a>
 			</h2>
 			<h4>{props.description}</h4>
 			<p>Downloads: {props.downloads}</p>
