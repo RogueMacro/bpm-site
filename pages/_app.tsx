@@ -2,10 +2,15 @@ import { AppProps } from 'next/app'
 import Head from 'next/head'
 
 import App from '../client/components/app.component'
+import Reads from '../client/components/reads.component'
 
 import '../client/style/index.scss'
 
-export default function Root({ Component, pageProps }: AppProps) {
+export default function Root({ Component, pageProps, router }: AppProps) {
+	let comp = <Component {...pageProps} />
+
+	if(router.route.startsWith('/reads'))comp = <Reads>{comp}</Reads>
+
 	return (
 		<>
 			<Head>
@@ -16,7 +21,7 @@ export default function Root({ Component, pageProps }: AppProps) {
 				/>
 			</Head>
 			<App>
-				<Component {...pageProps} /> {/* app goes here */}
+				{comp} {/* app goes here */}
 			</App>
 		</>
 	)

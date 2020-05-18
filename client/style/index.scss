@@ -80,7 +80,7 @@ a {
 	text-decoration: none;
 
 	color: white;
-	opacity: .9;
+	// opacity: .9;
 
 	$transition: ease-in 100ms;
 
@@ -90,7 +90,7 @@ a {
 
 	&:hover {
 		color: var(--text-3);
-		opacity: 1;
+		// opacity: 1;
 	}
 }
 
@@ -185,6 +185,15 @@ input {
 			padding-top: 10px;
 		}
 	}
+}
+
+svg.reads {
+	width: 100vw;
+	height: 5px;
+
+	position: fixed;
+	top: 80px;
+	left: 0;
 }
 
 .header-sub {
