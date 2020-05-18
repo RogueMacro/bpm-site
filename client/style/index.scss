@@ -123,10 +123,6 @@ input {
 
 		padding: 0px 10vw;
 
-		a {
-			opacity: 1;
-		}
-
 		> a {
 			position: relative;
 
@@ -198,6 +194,42 @@ svg.reads {
 	z-index: 10000;
 }
 
+div.reads {
+	h1,
+	h2 {
+		color: #fff;
+	}
+	h3 {
+		color: var(--palet-3);
+	}
+
+	width: 100%;
+
+	text-align: left;
+	padding-left: 25vw;
+	width: 50vw;
+
+	> h2 {
+		margin-bottom: 0;
+	}
+
+	> p > a {
+		transition: all ease-in 100ms;
+		
+		filter: brightness(1);
+	}
+
+	> p > a:not(:hover) {
+		color: var(--text-2);
+
+		filter: brightness(2);
+	}
+	@media screen and (max-width: 1000px) {
+		width: 90vw;
+		padding-left: 5vw;
+	}
+}
+
 .header-sub {
 	position: relative;
 	top: -1.6em;
@@ -231,8 +263,10 @@ code {
 }
 
 hr {
-	width: 50vw;
-	height: 12px;
-	border: 0;
-	box-shadow: inset 0 12px 12px -12px rgba(0, 0, 0, 0.5);
+	width: 100%;
+	height: 2px;
+
+	border: none;
+
+	background-color: #fff;
 }

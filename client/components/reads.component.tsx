@@ -27,7 +27,7 @@ const Reads: FC = ({ children }) => {
 					style={{ pathLength: path }}
 				></motion.path>
 			</svg>
-			{children}
+			<div className="reads">{children}</div>
 		</>
 	)
 }

@@ -15,7 +15,7 @@ function Command(props: { text: string }) {
 
 export default function () {
 	return (
-		<div className={`${Style.guide}`}>
+		<>
 			<h1>Guide</h1>
 			<h2>CLI (Command Line Tool)</h2>
 			<hr />
@@ -119,6 +119,6 @@ export default function () {
 			<p>
 				Check out our <a href="/#faq">FAQ</a>.
 			</p>
-		</div>
+		</>
 	)
 }
