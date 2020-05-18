@@ -1,17 +1,7 @@
 import React from 'react'
 
 import Style from '../../client/style/guide.module.scss'
-
-function Command(props: { text: string }) {
-	const index = props.text.indexOf(' ')
-	const name = props.text.substr(0, index)
-	const args = props.text.substr(index + 1)
-	return (
-		<code>
-			<span className="command">{name}</span> {args}
-		</code>
-	)
-}
+import { Command } from '../../client/components/reads/code'
 
 export default function () {
 	return (
