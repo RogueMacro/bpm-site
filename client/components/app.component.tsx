@@ -179,12 +179,26 @@ const Mobile: nav = function ({ isLoggedIn, internalSessionStorage, logIn }) {
 				variants={{
 					initial: {
 						clipPath: 'circle(0% at calc(100% - 60px) 60px)',
+						transition: {
+							delay: 1,
+							type: 'spring',
+							stiffness: 60,
+							restDelta: 0.1,
+						},
 					},
 					end: {
 						clipPath: 'circle(131.415%  at calc(100% - 60px) 60px)',
+						transition: {
+							delay: 0,
+							type: 'spring',
+							stiffness: 400,
+							damping: 40,
+						},
 					},
 				}}
-				transition={{ ease: 'easeInOut', duration: 0.4 }}
+				transition={{
+					duration: 0.4,
+				}}
 				initial="initial"
 				animate={expanded ? 'end' : 'initial'}
 				className="menu"
