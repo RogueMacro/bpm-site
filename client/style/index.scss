@@ -290,17 +290,6 @@ hr {
 
 				background-color: var(--palet-5);
 
-				transition: clip-path ease-in-out 0.4s;
-
-				&:not(.expand) {
-					clip-path: circle(0% at calc(100% - 60px) 60px);
-				}
-				&.expand {
-					clip-path: circle(
-						131.415%  at calc(100% - 60px) 60px
-					);
-				}
-
 				position: fixed;
 
 				top: 0;

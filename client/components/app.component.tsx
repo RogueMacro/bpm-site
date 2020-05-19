@@ -175,7 +175,20 @@ const Mobile: nav = function ({ isLoggedIn, internalSessionStorage, logIn }) {
 				icon
 			</div>
 
-			<div className={`${expanded ? 'expand ' : ''}menu`}></div>
+			<motion.div
+				variants={{
+					initial: {
+						clipPath: 'circle(0% at calc(100% - 60px) 60px)',
+					},
+					end: {
+						clipPath: 'circle(131.415%  at calc(100% - 60px) 60px)',
+					},
+				}}
+				transition={{ ease: 'easeInOut', duration: 0.4 }}
+				initial="initial"
+				animate={expanded ? 'end' : 'initial'}
+				className="menu"
+			></motion.div>
 		</>
 	)
 }
