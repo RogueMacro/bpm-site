@@ -166,7 +166,7 @@ hr {
 	@include simple-box();
 
 	> header {
-		@media screen and (min-width: 400px) {
+		@media screen and (min-width: 1200px) {
 			@include center();
 
 			overflow: hidden;
@@ -258,6 +258,9 @@ hr {
 					margin: 1vw;
 				}
 			}
+		}
+
+		@media screen and (max-width: 1200px) {
 		}
 	}
 	main {

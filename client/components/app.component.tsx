@@ -14,6 +14,7 @@ import { motion } from 'framer-motion'
 import StorageHandler from '../utils/storageHandler'
 
 import svg from '../../assets/bpm_logo.svg'
+import useScreenMediaquery from '../hooks/useScreenMediaquery'
 
 const FooterItem: FC<{
 	className?: string
@@ -28,11 +29,13 @@ const FooterItem: FC<{
 	</div>
 )
 
-const Desktop: FC<{
+type nav = FC<{
 	isLoggedIn: boolean
 	internalSessionStorage: StorageHandler<SessionStorage> | null
 	logIn: (state: boolean) => void
-}> = function ({ isLoggedIn, internalSessionStorage, logIn }) {
+}>
+
+const Desktop: nav = function ({ isLoggedIn, internalSessionStorage, logIn }) {
 	const CreateCollection: FC<{ title: string; href?: string }> = ({
 		title,
 		href,
@@ -160,7 +163,13 @@ const Desktop: FC<{
 	)
 }
 
+const Mobile: nav = function ({ isLoggedIn, internalSessionStorage, logIn }) {
+	return <></>
+}
+
 const app: FC = function ({ children }) {
+	const isMobile = useScreenMediaquery(1200, 0, 'and')
+
 	function logIn(state: boolean) {
 		setIsLoggedIn(state)
 	}
@@ -232,7 +241,15 @@ const app: FC = function ({ children }) {
 	return (
 		<div className="app">
 			<header>
-				<Desktop {...{ internalSessionStorage, isLoggedIn, logIn }} />
+				{isMobile ? (
+					<Desktop
+						{...{ internalSessionStorage, isLoggedIn, logIn }}
+					/>
+				) : (
+					<Mobile
+						{...{ internalSessionStorage, isLoggedIn, logIn }}
+					/>
+				)}
 			</header>
 			<main> {children} </main>
 			<footer>
