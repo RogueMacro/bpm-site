@@ -215,7 +215,7 @@ function Header({
 	)
 }
 
-function Features({
+function About({
 	height,
 	width,
 	isMobile,
@@ -250,7 +250,7 @@ function Features({
 						company.bs()
 					)
 
-					const [getting, setGetting] = useState(Math.random()>0.5)
+					const [getting, setGetting] = useState(Math.random() > 0.5)
 
 					useEffect(() => {
 						setTimeout(() => {
@@ -351,7 +351,7 @@ export default function index() {
 	return (
 		<div style={{ height: '300vh', overflow: 'hidden' }}>
 			<Header height={height} width={width} isMobile={isMobile} />
-			<Features height={height} width={width} isMobile={isMobile} />
+			<About height={height} width={width} isMobile={isMobile} />
 			<FAQ />
 		</div>
 	)

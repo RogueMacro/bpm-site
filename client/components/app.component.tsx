@@ -117,45 +117,43 @@ const Desktop: nav = function ({ isLoggedIn, internalSessionStorage, logIn }) {
 						</CreateCollection>
 					</li>
 					<li>
-						<CreateCollection title="User">
-							{isLoggedIn ? (
-								<>
-									<a href="/manage-packages">
-										Manage packages
-									</a>
-									<a
-										onClick={() => {
-											auth()
-												.signOut()
-												.then(() => logIn(false))
-										}}
-									>
-										Logout
-									</a>
-								</>
-							) : (
+						{isLoggedIn ? (
+							<CreateCollection
+								title={`${auth().currentUser?.displayName}`}
+							>
+								<a href="/manage-packages">Manage packages</a>
 								<a
 									onClick={() => {
-										const provider = new auth.GithubAuthProvider()
-
-										provider.addScope('repo')
-
-										provider.setCustomParameters({
-											allow_signup: 'true',
-										})
-
 										auth()
-											.signInWithRedirect(provider)
-											.then(
-												() => null,
-												(err) => console.log(err)
-											)
+											.signOut()
+											.then(() => logIn(false))
 									}}
 								>
-									Login with GitHub
+									Logout
 								</a>
-							)}
-						</CreateCollection>
+							</CreateCollection>
+						) : (
+							<a
+								onClick={() => {
+									const provider = new auth.GithubAuthProvider()
+
+									provider.addScope('repo')
+
+									provider.setCustomParameters({
+										allow_signup: 'true',
+									})
+
+									auth()
+										.signInWithRedirect(provider)
+										.then(
+											() => null,
+											(err) => console.log(err)
+										)
+								}}
+							>
+								Login with GitHub
+							</a>
+						)}
 					</li>
 				</ul>
 			</nav>
