@@ -119,7 +119,13 @@ const Desktop: nav = function ({ isLoggedIn, internalSessionStorage, logIn }) {
 					<li>
 						{isLoggedIn ? (
 							<CreateCollection
-								title={`${auth().currentUser?.displayName}`}
+								title={`${
+									auth().currentUser?.displayName ||
+									(auth().currentUser?.email || '').split(
+										'@'
+									)[0] ||
+									'user'
+								}`}
 							>
 								<a href="/manage-packages">Manage packages</a>
 								<a
