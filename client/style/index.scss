@@ -261,6 +261,49 @@ hr {
 		}
 
 		@media screen and (max-width: 1200px) {
+			.hamburger-icon {
+				@include center();
+
+				z-index: 999999 + 1;
+
+				height: 100px;
+				width: 100px;
+
+				background-color: var(--palet-2);
+
+				position: fixed;
+				transform: translate(50%, -50%);
+
+				top: 60px;
+				right: 60px;
+
+				border-radius: 10000vmax;
+
+				cursor: pointer;
+			}
+
+			.menu {
+				z-index: 999999;
+
+				height: 100vh;
+				width: min(500px, 60vw);
+
+				background-color: var(--palet-5);
+
+				transition: clip-path ease-in-out .4s;
+
+				&:not(.expand) {
+					clip-path: circle(00% at calc(100% - 60px) 60px);
+				}
+				&.expand {
+					clip-path: circle(200% at calc(100% - 60px) 60px);
+				}
+
+				position: fixed;
+
+				top: 0;
+				right: 0;
+			}
 		}
 	}
 	main {

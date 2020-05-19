@@ -164,7 +164,20 @@ const Desktop: nav = function ({ isLoggedIn, internalSessionStorage, logIn }) {
 }
 
 const Mobile: nav = function ({ isLoggedIn, internalSessionStorage, logIn }) {
-	return <></>
+	const [expanded, setExpanded] = useState(false)
+
+	return (
+		<>
+			<div
+				className="hamburger-icon"
+				onClick={() => setExpanded(!expanded)}
+			>
+				icon
+			</div>
+
+			<div className={`${expanded ? 'expand ' : ''}menu`}></div>
+		</>
+	)
 }
 
 const app: FC = function ({ children }) {
