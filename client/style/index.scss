@@ -113,7 +113,6 @@ svg.reads {
 }
 
 div.reads {
-
 	> h2 {
 		margin-bottom: 0;
 	}
@@ -167,59 +166,93 @@ hr {
 	@include simple-box();
 
 	> header {
-		@include center();
-
-		background-color: var(--palet-5);
-
-		position: sticky;
-		top: 0;
-
-		z-index: 9999999;
-
-		height: 80px;
-
-		padding: 0px 10vw;
-
-		> a {
-			position: relative;
-
-			left: -20px;
-
-			img {
-				z-index: 9999999+1;
-			}
-
-			> div {
-				$metronome-margin: 40px;
-
-				position: absolute;
-				left: 80px - $metronome-margin;
-
-				overflow: hidden;
-
-				width: 110px;
-				height: 50px;
-				padding-left: $metronome-margin;
-				padding-right: 20px;
-			}
-		}
-
-		ul,
-		nav {
-			width: 100%;
-		}
-
-		ul {
+		@media screen and (min-width: 400px) {
 			@include center();
 
-			list-style: none;
+			overflow: hidden;
 
-			flex-direction: row;
+			background-color: var(--palet-5);
 
-			justify-content: flex-end;
+			position: sticky;
+			top: 0;
 
-			> * {
-				margin: 1vw;
+			z-index: 9999999;
+
+			height: 80px;
+			transition: padding-bottom ease-in-out 0.5s;
+
+			padding: 0px 10vw;
+
+			&:hover {
+				padding-bottom: 300px;
+			}
+
+			.header-collection {
+				height: 60px;
+
+				position: relative;
+
+				> h2 {
+					color: #fff;
+				}
+				> h2,
+				> a > h2 {
+					font-weight: 200;
+					font-size: 30px;
+				}
+
+				> div {
+					text-align: center;
+
+					@include center();
+
+					flex-direction: column;
+
+					position: relative;
+				}
+			}
+			> a {
+				// logo
+				position: relative;
+
+				left: -20px;
+
+				img {
+					z-index: 9999999+1;
+				}
+
+				> div {
+					$metronome-margin: 40px;
+
+					position: absolute;
+					left: 80px - $metronome-margin;
+
+					overflow: hidden;
+
+					width: 110px;
+					height: 50px;
+					padding-left: $metronome-margin;
+					padding-right: 20px;
+				}
+			}
+
+			ul,
+			nav {
+				width: 100%;
+			}
+
+			ul {
+				@include center();
+
+				list-style: none;
+
+				flex-direction: row;
+
+				justify-content: flex-end;
+
+				> * {
+					margin: 1vw;
+				}
 			}
 		}
 	}

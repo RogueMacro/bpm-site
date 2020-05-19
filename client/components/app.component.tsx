@@ -33,6 +33,23 @@ const Desktop: FC<{
 	internalSessionStorage: StorageHandler<SessionStorage> | null
 	logIn: (state: boolean) => void
 }> = function ({ isLoggedIn, internalSessionStorage, logIn }) {
+	const CreateCollection: FC<{ title: string; href?: string }> = ({
+		title,
+		href,
+		children,
+	}) => (
+		<div className="header-collection">
+			{!href ? (
+				<h2>{title}</h2>
+			) : (
+				<a href={href}>
+					<h2>{title}</h2>
+				</a>
+			)}
+			<div>{children}</div>
+		</div>
+	)
+
 	return (
 		<>
 			<a href="/" className="center">
@@ -78,60 +95,64 @@ const Desktop: FC<{
 			<nav>
 				<ul>
 					<li>
-						<a href="/package-index">Package index</a>
+						<CreateCollection
+							href="/package-index"
+							title="Package index"
+						></CreateCollection>
 					</li>
 					<li>
-						<a href="/downloads">Downloads</a>
+						<CreateCollection
+							href="/downloads"
+							title="Downloads"
+						></CreateCollection>
 					</li>
 					<li>
-						<a href="/reads/guide">Guide</a>
+						<CreateCollection title="Reads" href="/reads">
+							<a href="/reads/guide">Guide</a>
+							<a href="/#faq">FAQ</a>
+							<a href="/#about">About</a>
+						</CreateCollection>
 					</li>
 					<li>
-						<a href="/#faq">FAQ</a>
-					</li>
-					<li>
-						<a href="/#about">About</a>
-					</li>
-					{isLoggedIn ? (
-						<li>
-							<a href="/manage-packages">Manage packages</a>
-						</li>
-					) : (
-						<></>
-					)}
-					<li>
-						{isLoggedIn ? (
-							<a
-								onClick={() => {
-									auth()
-										.signOut()
-										.then(() => logIn(false))
-								}}
-							>
-								Logout
-							</a>
-						) : (
-							<a
-								onClick={() => {
-									const provider = new auth.GithubAuthProvider()
+						<CreateCollection title="User">
+							{isLoggedIn ? (
+								<>
+									<a href="/manage-packages">
+										Manage packages
+									</a>
+									<a
+										onClick={() => {
+											auth()
+												.signOut()
+												.then(() => logIn(false))
+										}}
+									>
+										Logout
+									</a>
+								</>
+							) : (
+								<a
+									onClick={() => {
+										const provider = new auth.GithubAuthProvider()
 
-									provider.addScope('repo')
+										provider.addScope('repo')
 
-									provider.setCustomParameters({
-										allow_signup: 'true',
-									})
+										provider.setCustomParameters({
+											allow_signup: 'true',
+										})
 
-									auth()
-										.signInWithRedirect(provider)
-										.then(
-											() => null,
-											(err) => console.log(err)
-										)
-								}}
-							>
-								Login with GitHub
-							</a>
-						)}
+										auth()
+											.signInWithRedirect(provider)
+											.then(
+												() => null,
+												(err) => console.log(err)
+											)
+									}}
+								>
+									Login with GitHub
+								</a>
+							)}
+						</CreateCollection>
 					</li>
 				</ul>
 			</nav>
