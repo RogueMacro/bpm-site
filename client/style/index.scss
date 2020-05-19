@@ -209,6 +209,10 @@ hr {
 					flex-direction: column;
 
 					position: relative;
+
+					> * {
+						padding: 5px;
+					}
 				}
 			}
 			> a {
