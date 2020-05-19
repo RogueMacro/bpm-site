@@ -1,4 +1,10 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, {
+	FC,
+	useEffect,
+	useState,
+	useContext,
+	createContext,
+} from 'react'
 import { initializeApp, analytics, auth, firestore } from 'firebase'
 
 import SessionStorage from '../typings/sessionStorage.type'
@@ -21,6 +27,117 @@ const FooterItem: FC<{
 		))}
 	</div>
 )
+
+const Desktop: FC<{
+	isLoggedIn: boolean
+	internalSessionStorage: StorageHandler<SessionStorage> | null
+	logIn: (state: boolean) => void
+}> = function ({ isLoggedIn, internalSessionStorage, logIn }) {
+	return (
+		<>
+			<a href="/" className="center">
+				<img
+					height="75"
+					src={svg /*"/assets/bpm_logo.svg"*/}
+					alt="bpm"
+				/>
+				<div className="center">
+					{internalSessionStorage ? (
+						<motion.h1
+							variants={{
+								initial: {
+									x: -150,
+									opacity: 1,
+								},
+								end: {
+									x: 0,
+									opacity: 1,
+								},
+							}}
+							transition={{
+								ease: 'easeInOut',
+								duration: 0.5,
+								delay: 1,
+							}}
+							initial={
+								internalSessionStorage.getItem(
+									'hasSeenBPMAnimation'
+								)
+									? 'end'
+									: 'initial'
+							}
+							animate="end"
+						>
+							BPM
+						</motion.h1>
+					) : (
+						<></>
+					)}
+				</div>
+			</a>
+			<nav>
+				<ul>
+					<li>
+						<a href="/package-index">Package index</a>
+					</li>
+					<li>
+						<a href="/downloads">Downloads</a>
+					</li>
+					<li>
+						<a href="/reads/guide">Guide</a>
+					</li>
+					<li>
+						<a href="/#faq">FAQ</a>
+					</li>
+					<li>
+						<a href="/#about">About</a>
+					</li>
+					{isLoggedIn ? (
+						<li>
+							<a href="/manage-packages">Manage packages</a>
+						</li>
+					) : (
+						<></>
+					)}
+					<li>
+						{isLoggedIn ? (
+							<a
+								onClick={() => {
+									auth()
+										.signOut()
+										.then(() => logIn(false))
+								}}
+							>
+								Logout
+							</a>
+						) : (
+							<a
+								onClick={() => {
+									const provider = new auth.GithubAuthProvider()
+
+									provider.addScope('repo')
+
+									provider.setCustomParameters({
+										allow_signup: 'true',
+									})
+
+									auth()
+										.signInWithRedirect(provider)
+										.then(
+											() => null,
+											(err) => console.log(err)
+										)
+								}}
+							>
+								Login with GitHub
+							</a>
+						)}
+					</li>
+				</ul>
+			</nav>
+		</>
+	)
+}
 
 const app: FC = function ({ children }) {
 	function logIn(state: boolean) {
@@ -94,106 +211,7 @@ const app: FC = function ({ children }) {
 	return (
 		<div className="app">
 			<header>
-				<a href="/" className="center">
-					<img
-						height="75"
-						src={svg /*"/assets/bpm_logo.svg"*/}
-						alt="bpm"
-					/>
-					<div className="center">
-						{internalSessionStorage ? (
-							<motion.h1
-								variants={{
-									initial: {
-										x: -150,
-										opacity: 1,
-									},
-									end: {
-										x: 0,
-										opacity: 1,
-									},
-								}}
-								transition={{
-									ease: 'easeInOut',
-									duration: 0.5,
-									delay: 1,
-								}}
-								initial={
-									internalSessionStorage.getItem(
-										'hasSeenBPMAnimation'
-									)
-										? 'end'
-										: 'initial'
-								}
-								animate="end"
-							>
-								BPM
-							</motion.h1>
-						) : (
-							<></>
-						)}
-					</div>
-				</a>
-				<nav>
-					<ul>
-						<li>
-							<a href="/package-index">Package index</a>
-						</li>
-						<li>
-							<a href="/downloads">Downloads</a>
-						</li>
-						<li>
-							<a href="/reads/guide">Guide</a>
-						</li>
-						<li>
-							<a href="/#faq">FAQ</a>
-						</li>
-						<li>
-							<a href="/#about">About</a>
-						</li>
-						{isLoggedIn ? (
-							<li>
-								<a href="/manage-packages">Manage packages</a>
-							</li>
-						) : (
-							<></>
-						)}
-						<li>
-							{isLoggedIn ? (
-								<a
-									onClick={() => {
-										auth()
-											.signOut()
-											.then(() => logIn(false))
-									}}
-								>
-									Logout
-								</a>
-							) : (
-								<a
-									onClick={() => {
-										const provider = new auth.GithubAuthProvider()
-
-										provider.addScope('repo')
-
-										provider.setCustomParameters({
-											allow_signup: 'true',
-										})
-
-										auth()
-											.signInWithRedirect(provider)
-											.then(
-												() => null,
-												(err) => console.log(err)
-											)
-									}}
-								>
-									Login with GitHub
-								</a>
-							)}
-						</li>
-					</ul>
-				</nav>
+				<Desktop {...{ internalSessionStorage, isLoggedIn, logIn }} />
 			</header>
 			<main> {children} </main>
 			<footer>
