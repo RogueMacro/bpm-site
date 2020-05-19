@@ -1,20 +1,15 @@
-import React, {
-	FC,
-	useEffect,
-	useState,
-	useContext,
-	createContext,
-} from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import { initializeApp, analytics, auth, firestore } from 'firebase'
 
 import SessionStorage from '../typings/sessionStorage.type'
 
+import useScreenMediaquery from '../hooks/useScreenMediaquery'
 import { motion } from 'framer-motion'
 
+import { range } from 'lodash'
 import StorageHandler from '../utils/storageHandler'
 
 import svg from '../../assets/bpm_logo.svg'
-import useScreenMediaquery from '../hooks/useScreenMediaquery'
 
 const FooterItem: FC<{
 	className?: string
@@ -188,6 +183,9 @@ const Mobile: nav = function ({ isLoggedIn, internalSessionStorage, logIn }) {
 							type: 'spring',
 							stiffness: 60,
 							restDelta: 0.1,
+							delayChildren: 0,
+							staggerChildren: 0.1,
+							staggerDirection: -1,
 						},
 					},
 					end: {
@@ -197,16 +195,25 @@ const Mobile: nav = function ({ isLoggedIn, internalSessionStorage, logIn }) {
 							type: 'spring',
 							stiffness: 400,
 							damping: 40,
+
+							delayChildren: 0.5,
+							staggerChildren: 0.1,
 						},
 					},
-				}}
-				transition={{
-					duration: 0.4,
 				}}
 				initial="initial"
 				animate={expanded ? 'end' : 'initial'}
 				className="menu"
-			></motion.div>
+			>
+				<motion.div
+					variants={{
+						initial: { y: 40, opacity: 0 },
+						end: { y: 0, opacity: 1 },
+					}}
+				>
+					<a href={'/'}>home</a>
+				</motion.div>
+			</motion.div>
 		</>
 	)
 }

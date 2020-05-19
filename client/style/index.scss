@@ -269,7 +269,7 @@ hr {
 				height: 100px;
 				width: 100px;
 
-				background-color: var(--palet-2);
+				background-color: var(--palet-3);
 
 				position: fixed;
 				transform: translate(50%, -50%);
@@ -283,10 +283,15 @@ hr {
 			}
 
 			.menu {
+				display: flex;
+				flex-direction: column;
+				align-items: baseline;
+
 				z-index: 999999;
 
 				height: 100vh;
 				width: min(500px, 60vw);
+				padding: 10px;
 
 				background-color: var(--palet-5);
 
