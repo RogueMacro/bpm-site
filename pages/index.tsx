@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useMemo, FC } from 'react'
+import dynamic from 'next/dynamic'
 
 import {
 	motion,
@@ -7,6 +8,7 @@ import {
 	MotionStyle,
 	HTMLMotionProps,
 } from 'framer-motion'
+import Circle from '../client/components/Circle'
 
 import {
 	setSmartInterval,
@@ -26,6 +28,7 @@ import {
 import useViewport from '../client/hooks/useViewport'
 
 import Style from '../client/style/landing.module.scss'
+import { CircleGrid } from '../client/components/CircleGrid'
 
 type point = [number, number]
 type bound = [point, point]
@@ -47,50 +50,6 @@ function boundingBoxIntersect(a: bound, b: bound) {
 
 	return false
 }
-
-const Circle: React.FC<
-	HTMLMotionProps<'div'> & {
-		radius: number
-		color: string
-		border?: string
-	}
-> = ({ radius, color, border, children, ...porps }) => (
-	<motion.div
-		{...porps}
-		style={{
-			width: `${radius * 2}px`,
-			height: `${radius * 2}px`,
-			borderRadius: border || '100000px',
-			backgroundColor: color,
-		}}
-	>
-		{children}
-	</motion.div>
-)
-
-const CircleGrid: FC<
-	HTMLMotionProps<'div'> & {
-		columns: number
-		circles: number
-		radius: number
-		color: string
-		gap: number
-		border?: string
-	}
-> = ({ columns, circles, radius, color, gap, border, ...porps }) => (
-	<motion.div
-		{...porps}
-		style={{
-			display: 'grid',
-			gridTemplateColumns: `repeat(${columns}, 1fr)`,
-			gap: `${gap}px`,
-		}}
-	>
-		{range(0, circles).map((i) => (
-			<Circle color={color} radius={radius} key={i} border={border} />
-		))}
-	</motion.div>
-)
 
 const Positioner: FC<
 	HTMLMotionProps<'div'> & {
