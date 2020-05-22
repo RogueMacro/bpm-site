@@ -118,6 +118,87 @@ const Positioner: FC<
 	)
 }
 
+const Underlay = ({
+	width,
+	height,
+	isMobile,
+	textBound,
+}: {
+	width: number
+	height: number
+	isMobile: boolean
+	textBound: bound
+}) => (
+	<div className={`${Style.underlay} center`}>
+		{range(15).map((index) => {
+			let [
+				columnRandom,
+				rowRandom,
+				colorRandom,
+				radiusRandom,
+				gapRandom,
+			] = useRandoms(5)
+			let isGrid = randomBool(-0.1)
+			const colors = [1, 2, 3, 5]
+			const numCol = Math.round(colorRandom * colors.length)
+
+			const x = anySignRandom() * width * 50
+			const y = anySignRandom() * height * 50 - 80
+			const radius = isGrid
+				? radiusRandom * 5 + 3
+				: radiusRandom * 50 + 10
+
+			const columns = Math.round(columnRandom * 7) + 3
+			const rows = Math.round(rowRandom * 7) + 3
+			const gap = gapRandom * 50 + 10
+
+			let color = colors[Math.round(colorRandom * colors.length)]
+
+			const thisBound: bound = isGrid
+				? [
+						[x, y],
+						[
+							x + radius * columns + gap * columns - 1,
+							y + radius * rows + gap * rows - 1,
+						],
+				  ]
+				: [
+						[x, y],
+						[x + 2 * radius, y + 2 * radius],
+				  ]
+
+			if (boundingBoxIntersect(textBound, thisBound)) color = colors[0]
+
+			return (
+				<Positioner
+					style={{ zIndex: 0 }}
+					height={height * 100 * (isMobile ? 3 : 1)}
+					distance={(Math.random() * 800 + 400) * (isMobile ? 3 : 1)}
+					x={x}
+					y={y}
+					key={index}
+				>
+					{isGrid ? (
+						<CircleGrid
+							circles={columns * rows}
+							columns={columns}
+							radius={radius}
+							gap={gap}
+							color={`var(--palet-${color})`}
+							border={randomBool() ? '0px' : '10000px'}
+						/>
+					) : (
+						<Circle
+							radius={radius}
+							color={`var(--palet-${color})`}
+						/>
+					)}
+				</Positioner>
+			)
+		})}
+	</div>
+)
+
 function Header({
 	height,
 	width,
@@ -139,78 +220,7 @@ function Header({
 			<a href="#about" className={Style.navIcon}>
 				arrow_back_ios
 			</a>
-
-			<div className={`${Style.underlay} center`}>
-				{range(15).map((index) => {
-					let [
-						columnRandom,
-						rowRandom,
-						colorRandom,
-						radiusRandom,
-						gapRandom,
-					] = useRandoms(5)
-					let isGrid = randomBool(-0.1)
-					const colors = [1, 2, 3, 5]
-					const numCol = Math.round(colorRandom * colors.length)
-
-					const x = anySignRandom() * width * 50
-					const y = anySignRandom() * height * 50 - 80
-					const radius = isGrid
-						? radiusRandom * 5 + 3
-						: radiusRandom * 50 + 10
-
-					const columns = Math.round(columnRandom * 7) + 3
-					const rows = Math.round(rowRandom * 7) + 3
-					const gap = gapRandom * 50 + 10
-
-					let color = colors[Math.round(colorRandom * colors.length)]
-
-					const thisBound: bound = isGrid
-						? [
-								[x, y],
-								[
-									x + radius * columns + gap * columns - 1,
-									y + radius * rows + gap * rows - 1,
-								],
-						  ]
-						: [
-								[x, y],
-								[x + 2 * radius, y + 2 * radius],
-						  ]
-
-					if (boundingBoxIntersect(textBound, thisBound))
-						color = colors[0]
-
-					return (
-						<Positioner
-							style={{ zIndex: 0 }}
-							height={height * 100 * (isMobile ? 3 : 1)}
-							distance={
-								(Math.random() * 800 + 400) * (isMobile ? 3 : 1)
-							}
-							x={x}
-							y={y}
-							key={index}
-						>
-							{isGrid ? (
-								<CircleGrid
-									circles={columns * rows}
-									columns={columns}
-									radius={radius}
-									gap={gap}
-									color={`var(--palet-${color})`}
-									border={randomBool() ? '0px' : '10000px'}
-								/>
-							) : (
-								<Circle
-									radius={radius}
-									color={`var(--palet-${color})`}
-								/>
-							)}
-						</Positioner>
-					)
-				})}
-			</div>
+			<Underlay {...{ width, height, isMobile, textBound }} />
 		</div>
 	)
 }
