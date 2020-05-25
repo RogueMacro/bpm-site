@@ -5,22 +5,15 @@ import {
 	motion,
 	useTransform,
 	useViewportScroll,
-	MotionStyle,
 	HTMLMotionProps,
 } from 'framer-motion'
 import Circle from '../client/components/Circle'
 
-import {
-	setSmartInterval,
-	removeSmartInterval,
-} from '../client/utils/smartInterval'
 import { company } from 'faker'
 import { range, inRange } from 'lodash'
-import sortWith from '../client/utils/sort'
 
 import useMediaQuery from '../client/hooks/useScreenMediaquery'
 import {
-	useRandom,
 	useRandoms,
 	randomBool,
 	anySignRandom,
