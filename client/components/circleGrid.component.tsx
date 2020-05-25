@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { motion, HTMLMotionProps } from 'framer-motion';
-import Circle from './Circle';
+import Circle from './circle.component';
 import { range } from 'lodash';
 export const CircleGrid: FC<HTMLMotionProps<'div'> & {
 	columns: number;

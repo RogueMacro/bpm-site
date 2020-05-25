@@ -1,13 +1,13 @@
-import React, { useEffect, useState, useMemo, FC } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import dynamic from 'next/dynamic'
 
 import {
 	motion,
 	useTransform,
 	useViewportScroll,
-	HTMLMotionProps,
 } from 'framer-motion'
-import Circle from '../client/components/Circle'
+import Circle from '../client/components/circle.component'
+import CircleGrid from '../client/components/circleGrid.component'
 
 import { company } from 'faker'
 import { range, inRange } from 'lodash'
@@ -21,7 +21,11 @@ import {
 import useViewport from '../client/hooks/useViewport'
 
 import Style from '../client/style/landing.module.scss'
-import { CircleGrid } from '../client/components/CircleGrid'
+
+
+const Positioner = dynamic(() => import('../client/components/positioner.component'), {
+	ssr: false,
+})
 
 type point = [number, number]
 type bound = [point, point]
@@ -42,32 +46,6 @@ function boundingBoxIntersect(a: bound, b: bound) {
 		if (vertexInBound(vertex, a)) return true
 
 	return false
-}
-
-const Positioner: FC<
-	HTMLMotionProps<'div'> & {
-		distance: number
-		x: number
-		y: number
-		height: number
-		start?: number
-	}
-> = ({ children, x, y: rootY, distance, height, start, style, ...props }) => {
-	const { scrollY } = useViewportScroll()
-	const y = useTransform(
-		scrollY,
-		[start || 0, height + (start || 0)],
-		[0, 1],
-		{
-			ease: (pre) => pre * distance + rootY,
-		}
-	)
-
-	return (
-		<motion.div {...props} style={{ ...style, x, y }}>
-			{children}
-		</motion.div>
-	)
 }
 
 const Underlay = ({
