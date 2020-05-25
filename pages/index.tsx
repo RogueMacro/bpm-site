@@ -241,6 +241,7 @@ function About({
 							start={height * 20}
 							x={0}
 							y={0}
+							key={i}
 						>
 							<Circle
 								color="var(--palet-3)"
