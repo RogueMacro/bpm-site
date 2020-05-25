@@ -1,0 +1,61 @@
+.container {
+	ul {
+		flex-direction: column;
+
+		list-style: none;
+
+		width: 90vw;
+
+		li {
+			a {
+				color: unset;
+
+				.card {
+					text-align: left;
+
+					background-color: var(--palet-5);
+
+					padding: 10px;
+
+					margin: 20px;
+
+					width: 60vw;
+
+					display: grid;
+
+					grid-template-columns: 100px 100px auto;
+					grid-template-rows: 100px 100px;
+
+					grid-template-areas:
+						'icon icon title'
+						'icon icon synopsis';
+
+					div {
+						grid-area: icon;
+
+						background-position: center;
+
+						background-size: contain;
+					}
+					h1 {
+						grid-area: title;
+
+						transition: color 0.2s;
+
+						&:hover {
+							color: var(--palet-3);
+						}
+					}
+					p {
+						grid-area: synopsis;
+					}
+
+					h1,
+					p {
+                        padding-left: 30px;
+					}
+				}
+			}
+		}
+	}
+}

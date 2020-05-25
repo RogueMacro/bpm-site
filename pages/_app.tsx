@@ -9,7 +9,7 @@ import '../client/style/index.scss'
 export default function Root({ Component, pageProps, router }: AppProps) {
 	let comp = <Component {...pageProps} />
 
-	if(router.route.startsWith('/reads'))comp = <Reads>{comp}</Reads>
+	if(router.route.startsWith('/reads/'))comp = <Reads>{comp}</Reads>
 
 	return (
 		<>
