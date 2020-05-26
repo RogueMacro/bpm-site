@@ -75,9 +75,9 @@ app.get(/.*?\/(package|p)\/.*/, (req, res) => {
 				pageProps: {
 					author: 'author',
 					downloads: { daily: 10, monthly: 10, total: 10, weekly: 10 },
-					readMe: '',
-					repo: '',
-					title: '',
+					readMe: 'test',
+					repo: 'test',
+					title: 'test',
 				},
 				__N_SSG: true,
 			},

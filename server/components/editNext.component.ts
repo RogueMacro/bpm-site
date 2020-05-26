@@ -17,11 +17,13 @@ export default memoize(function <T = {}>(
 	doc: string,
 	data: Partial<NextData<T>>
 ) {
-	const dom = new JSDOM(doc)
-	const jsonLocation = dom.window.document.getElementById('__NEXT_DATA__')
+	const {
+		window: { document },
+	} = new JSDOM(doc)
+	const jsonLocation = document.getElementById('__NEXT_DATA__')
 
 	jsonLocation.textContent = JSON.stringify(
 		merge(JSON.parse(jsonLocation.innerHTML) as NextData<T>, data)
 	)
-	return dom.window.document.body.outerHTML
+	return [...document.children].map((e) => e.outerHTML).join('')
 })
