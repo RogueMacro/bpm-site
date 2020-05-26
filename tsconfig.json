@@ -20,6 +20,8 @@
 		"client/**/*.ts",
 		"client/**/*.tsx",
 		"pages/**/*.ts",
-		"pages/**/*.tsx"
+		"pages/**/*.tsx",
+		"global/**/*.ts",
+		"global/**/*.tsx"
 	]
 }

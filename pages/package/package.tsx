@@ -2,19 +2,7 @@ import React from 'react'
 import { GetStaticProps } from 'next'
 
 import Style from '../../client/style/readID.module.scss'
-
-interface StaticProps {
-	title: string
-	author: string
-	downloads: {
-		total: number
-		monthly: number
-		weekly: number
-		daily: number
-	}
-	repo: string
-	readMe: string
-}
+import { Project as StaticProps } from '../../global/typings/StaticProps'
 
 export default function ReadID(props: StaticProps) {
 	return (

@@ -1,10 +1,12 @@
 import * as expressTypes from 'express'
+import { Project as ProjectArgs } from './global/typings/StaticProps'
 
 import { initializeApp as initializeFirebaseApp } from './node_modules/firebase-admin/lib'
 
 import { join } from 'path'
 import { parse } from 'url'
 
+import editNextDoc from './server/components/editNext.component'
 import gql from './api/server'
 import _generate from './server/components/generate.component'
 import getFilePathFromChain from './server/utils/getFilePathFromChain'
@@ -22,8 +24,6 @@ const root = join(__dirname, 'out')
 const resolver = (path: string): Promise<string> =>
 	new Promise((resolve, reject) => {
 		path = join(root, path)
-
-		// console.log(path)
 
 		getFilePathFromChain(
 			[
@@ -64,6 +64,28 @@ app.get(/_next/, (req, res) =>
 		setTimeout(() => res.end(), 100)
 	})
 )
+
+app.get(/.*?\/(package|p)\/.*/, (req, res) => {
+	generate({
+		url: '/package/package',
+		userAgent: req.headers['user-agent'],
+	}).then(([doc]) => {
+		const resultingDoc = editNextDoc<ProjectArgs>(doc, {
+			props: {
+				pageProps: {
+					author: 'author',
+					downloads: { daily: 10, monthly: 10, total: 10, weekly: 10 },
+					readMe: '',
+					repo: '',
+					title: '',
+				},
+				__N_SSG: true,
+			},
+		})
+
+		res.send(resultingDoc)
+	})
+})
 
 app.get(/.*/, (req, res) => {
 	generate({ url: req.url, userAgent: req.headers['user-agent'] }).then(
