@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState } from 'react'
-import { initializeApp, analytics, auth, firestore } from 'firebase'
+import { auth, firestore } from 'firebase'
+import { initializeApp, analytics } from 'firebase/app'
 
 import SessionStorage from '../typings/sessionStorage.type'
 
