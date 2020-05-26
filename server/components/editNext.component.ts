@@ -1,6 +1,6 @@
 import { JSDOM } from 'jsdom'
 
-import { merge, Merge } from '../utils/objectMethods'
+import { merge } from '../utils/objectMethods'
 import memoize from '../utils/memoize'
 
 export interface NextData<PageProps = {}> {
