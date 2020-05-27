@@ -1,5 +1,4 @@
 import * as expressTypes from 'express'
-import { Project as ProjectArgs } from './global/typings/StaticProps'
 
 import _next from 'next'
 import { initializeApp as initializeFirebaseApp } from './node_modules/firebase-admin/lib'

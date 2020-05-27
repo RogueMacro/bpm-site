@@ -34,6 +34,7 @@ export default gql`
 	type QueryV1 {
 		package(name: String!): Package
 		version(id: ID!): Version
+        latest (name:String!): Version
 	}
 
 	type Query {
