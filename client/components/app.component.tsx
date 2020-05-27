@@ -163,6 +163,7 @@ const Desktop: nav = function ({ isLoggedIn, internalSessionStorage, logIn }) {
 	)
 }
 
+// ! TODO: implement UX features from: https://www.youtube.com/watch?v=1D4FzPcEiN4&t=310s
 const Mobile: nav = function ({ isLoggedIn, internalSessionStorage, logIn }) {
 	const [expanded, setExpanded] = useState(false)
 
@@ -270,8 +271,8 @@ const app: FC = function ({ children }) {
 						})
 					}
 
-					// TODO: error handling
-				})
+					// * TODO: error handling
+				},console.error)
 		}
 		if (process.env.NODE_ENV === 'development')
 			try {
