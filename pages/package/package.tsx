@@ -1,21 +1,22 @@
 import React from 'react'
 import { GetStaticProps } from 'next'
 
-import Style from '../../client/style/readID.module.scss'
 import { Project as StaticProps } from '../../global/typings/StaticProps'
+
+import Style from '../../client/style/readID.module.scss'
 
 export default function ReadID(props: StaticProps) {
 	return (
 		<>
 			<div className={`${Style.packageInfo}`}>
-				<h1>{props.title}</h1>
-				<p>By: {props.author}</p>
+				<h1>{props?.title}</h1>
+				<p>By: {props?.author}</p>
 				<h3>Downloads</h3>
 				<hr />
-				<p>All: {props.downloads.total}</p>
-				<p>Monthly: {props.downloads.monthly}</p>
-				<p>Weekly: {props.downloads.weekly}</p>
-				<p>Daily: {props.downloads.daily}</p>
+				<p>All: {props?.downloads.total}</p>
+				<p>Monthly: {props?.downloads.monthly}</p>
+				<p>Weekly: {props?.downloads.weekly}</p>
+				<p>Daily: {props?.downloads.daily}</p>
 				<h3>Repository: REPO</h3>
 			</div>
 			<div className={`${Style.readme}`}>

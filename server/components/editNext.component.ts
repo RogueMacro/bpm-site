@@ -22,8 +22,9 @@ export default memoize(function <T = {}>(
 	} = new JSDOM(doc)
 	const jsonLocation = document.getElementById('__NEXT_DATA__')
 
-	jsonLocation.textContent = JSON.stringify(
-		merge(JSON.parse(jsonLocation.innerHTML) as NextData<T>, data)
-	)
+	jsonLocation.textContent =
+		'ioyuahfiabgouiybauioybgiusdhxiu haiuhfiawunf iauhnuy uiyagbfuyab guy Aghuyahbngvas yhnjkdbvn uiynjsbh' //JSON.stringify(
+	// 	merge(JSON.parse(jsonLocation.innerHTML) as NextData<T>, data)
+	// )
 	return [...document.children].map((e) => e.outerHTML).join('')
 })
