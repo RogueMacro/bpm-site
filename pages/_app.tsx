@@ -14,7 +14,7 @@ export default function Root({ Component, pageProps, router }: AppProps) {
 	return (
 		<>
 			<Head>
-				<title>bpm - Package Index</title>
+				<title>GRILL</title>
 				<meta
 					content="width=device-width, initial-scale=1"
 					name="viewport"

@@ -19,7 +19,6 @@ initializeFirebaseApp({
 
 const root = join(__dirname, 'out')
 
-
 const express = require('express')
 
 const next = _next({
@@ -43,14 +42,32 @@ app.get(/favicon.ico/, (_, res) => res.redirect(303, '/assets/bpm_logo.svg'))
 next.prepare().then(() => {
 	app.get(/(package|p)\/.*/s, (req, res) => {
 		const url = parse(req.url)
-		next.render(req,res,'/package/package')
+		const payload = {
+			title: 'string',
+			author: 'string',
+			downloads: {
+				total: 0,
+				monthly: 0,
+				weekly: 0,
+				daily: 0,
+			},
+			repo: 'string',
+			readMe: 'string',
+		}
+
+		next.render(req, res, '/package/package', {
+			payload: JSON.stringify(payload),
+		})
 	})
 
 	app.get(/.*/s, (req, res) => {
 		handel(req, res).then(() => {
 			if (!req.url.includes('/_next'))
 				console.log(
-					`connection to ${req.url} from [ ${[req.ip, ...req.ips].join(' ')} ]`
+					`connection to ${req.url} from [ ${[
+						req.ip,
+						...req.ips,
+					].join(' ')} ]`
 				)
 		})
 	})

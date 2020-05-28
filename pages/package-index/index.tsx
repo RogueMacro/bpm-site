@@ -1,8 +1,28 @@
 import React, { useEffect, useState } from 'react'
-
-import PackageView from '../../client/components/packageview.component'
+import Link from 'next/link'
 
 import Style from '../../client/style/package-index.module.scss'
+
+function PackageView(props: {
+	name: string
+	description: string
+	downloads: string
+	authors: string[]
+	id: string
+}) {
+	return (
+		<div className={Style.packageView}>
+			<h2>
+				<Link href={`/package/[package]`} as={`/package/${props.id}`}>
+					{props.name}
+				</Link>
+			</h2>
+			<h4>{props.description}</h4>
+			<p>Downloads: {props.downloads}</p>
+			<p>Authors: {props.authors}</p>
+		</div>
+	)
+}
 
 export default function index() {
 	const [packages, setPackages] = useState<any[]>([])
@@ -16,7 +36,10 @@ export default function index() {
 					1000 * 60 * 60
 				).then((docs) =>
 					docs.docs.forEach((value) =>
-						setPackages([...packages, value.data()])
+						setPackages([
+							...packages,
+							{ ...value.data(), id: value.id },
+						])
 					)
 				)
 			})
