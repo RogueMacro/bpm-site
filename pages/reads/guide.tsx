@@ -16,32 +16,31 @@ export default function () {
 			</p>
 			<h3>How to use</h3>
 			<p>
-				You can run <Command text="bpm <command> [arguments]" /> from
-				the command line to run a specific command. You can also run bpm
-				from the command line or start bpm.exe to open the bpm shell. In
-				the shell you can run different commands, i.e.{' '}
-				<Command text="bpm> install <package>" />. Note: After using{' '}
-				<Command text="bpm add <package>" /> remember to add the package
-				as a dependency to your project from the IDE.
+				You can run <Command text="grill <command> [arguments]" /> from
+				the command line to run a specific command. You can also run
+				grill from the command line or start grill.exe to open the grill
+				shell. In the shell you can run different commands, i.e.{' '}
+				<Command text="GRILL install <package>" />. Note: After using{' '}
+				<Command text="GRILL add <package>" /> remember to add the
+				package as a dependency to your project from the IDE.
 			</p>
 			<h3>Arguments</h3>
 			<p>
-				{' '}
 				Arguments prefixed with a <b>-</b> (dash) are flag arguments,
 				which doesn't have a value. Flag arguments come last after value
 				arguments. All other arguments (both required and optional) are
 				value arguments. Their value can be passed at the index like
-				shown in their syntax, or by doing{' '}
+				shown in their syntax, or by doing
 				<code>&lt;argument&gt;=&lt;value&gt;</code> somewhere after the
-				indexed arguments i.e. bpm install{' '}
-				<code>package=&lt;PackageName&gt;</code>. Angled brackets{' '}
+				indexed arguments i.e. grill install
+				<code>package=&lt;PackageName&gt;</code>. Angled brackets
 				<b>-</b> <code>&lt;argument&gt;</code> <b>-</b> means the
-				argument is required. Square brackets <b>-</b>{' '}
+				argument is required. Square brackets <b>-</b>
 				<code>[argument]</code> <b>-</b> means the argument is optional.
 			</p>
 			<h3>Commands</h3>
 			<p>
-				<Command text="bpm install <package> [-global] [-force]" />
+				<Command text="grill install <package> [-global] [-force]" />
 				<br />
 				<br />
 				Clones a package repository to your computer.
@@ -58,7 +57,7 @@ export default function () {
 					</li>
 				</ul>
 				<br />
-				<Command text="bpm upgrade <package> [version] [-global]" />
+				<Command text="grill upgrade <package> [version] [-global]" />
 				<br />
 				<br />
 				Upgrades the package to a new version.
@@ -76,7 +75,7 @@ export default function () {
 					</li>
 				</ul>
 				<br />
-				<Command text="bpm add <package> [path] [-global] [-copy]" />
+				<Command text="grill add <package> [path] [-global] [-copy]" />
 				<br />
 				<br />
 				Adds the package to a workspace. Note: The package will be

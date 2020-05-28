@@ -31,13 +31,13 @@ export default function () {
 					title="guide"
 					href="/reads/guide"
 				>
-					A simple introduction to install and use the BPM system
+					A simple introduction to install and use the GRILL system
 				</Read>
 				<Read
 					title="guide"
 					href="/reads/guide"
 				>
-					A simple introduction to install and use the BPM system
+					A simple introduction to install and use the GRILL system
 				</Read>
 			</ul>
 		</div>

@@ -55,7 +55,7 @@ const Desktop: nav = function ({ isLoggedIn, internalSessionStorage, logIn }) {
 				<img
 					height="75"
 					src={svg /*"/assets/bpm_logo.svg"*/}
-					alt="bpm"
+					alt="GRILL"
 				/>
 				<div className="center">
 					{internalSessionStorage ? (
@@ -77,14 +77,14 @@ const Desktop: nav = function ({ isLoggedIn, internalSessionStorage, logIn }) {
 							}}
 							initial={
 								internalSessionStorage.getItem(
-									'hasSeenBPMAnimation'
+									'hasSeenGrillAnimation'
 								)
 									? 'end'
 									: 'initial'
 							}
 							animate="end"
 						>
-							BPM
+							GRILL
 						</motion.h1>
 					) : (
 						<></>
@@ -272,7 +272,7 @@ const app: FC = function ({ children }) {
 					}
 
 					// * TODO: error handling
-				},console.error)
+				}, console.error)
 		}
 		if (process.env.NODE_ENV === 'development')
 			try {
@@ -287,7 +287,7 @@ const app: FC = function ({ children }) {
 
 	useEffect(() => {
 		if (internalSessionStorage) {
-			internalSessionStorage.setItem('hasSeenBPMAnimation', true)
+			internalSessionStorage.setItem('hasSeenGrillAnimation', true)
 		}
 	}, [internalSessionStorage])
 

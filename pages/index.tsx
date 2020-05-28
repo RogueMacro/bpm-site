@@ -145,8 +145,8 @@ function Header({
 	]
 	return (
 		<div className={`${Style.header} center`}>
-			<h1>BPM</h1>
-			<sub className="header-sub">BEEF PACKAGE MANAGER</sub>
+			<h1>GRILL</h1>
+			<sub className="header-sub">YOU CANT MAKE A BEEF WITHOUT IT</sub>
 			<a href="#about" className={Style.navIcon}>
 				arrow_back_ios
 			</a>
@@ -248,10 +248,10 @@ function About({
 						opacity,
 					}}
 				>
-					BPM is a package manager for Beef programming language. It
+					GRILL is a package manager for Beef programming language. It
 					comes with a Package Index, CLI and GraphQL API. Help build
 					a community around the Beef programming language. Create,
-					share, browse and install libraries easily using the BPM
+					share, browse and install libraries easily using the GRILL
 					CLI. <br />
 					<a href="/guide">Read our guide</a> to get started.
 				</motion.p>
@@ -277,7 +277,7 @@ function FAQ() {
 				</p>
 				<h2>How do I install a package?</h2>
 				<p>
-					<a>Download the BPM CLI</a> and read{' '}
+					<a>Download the GRILL CLI</a> and read{' '}
 					<a href="/guide">guide</a> to get started.
 				</p>
 			</div>
