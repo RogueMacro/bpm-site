@@ -42,14 +42,19 @@
 		}
 	}
 
+	h1 {
+		letter-spacing: 0.4rem;
+		width: 20rem;
+	}
+
 	sub {
-		top: -4.8em;
+		width: 18rem;
+		top: -5em;
 	}
 
 	h1,
 	sub {
 		text-align: center;
-		// width: 14rem;
 		// background-color: var(--palet-4);
 
 		&,
@@ -150,7 +155,7 @@
 
 		padding-right: 0;
 
-		margin: min(100px,10vw);
+		margin: min(100px, 10vw);
 
 		> .animation {
 			width: 100vw;
