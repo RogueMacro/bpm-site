@@ -1,4 +1,5 @@
 import * as expressTypes from 'express'
+import * as staticProps from './global/typings/props'
 
 import _next from 'next'
 import { initializeApp as initializeFirebaseApp } from './node_modules/firebase-admin/lib'
@@ -42,8 +43,8 @@ app.get(/favicon.ico/, (_, res) => res.redirect(303, '/assets/bpm_logo.svg'))
 next.prepare().then(() => {
 	app.get(/(package|p)\/.*/s, (req, res) => {
 		const url = parse(req.url)
-		const payload = {
-			title: 'string',
+		const payload: staticProps.Project = {
+			title: url.pathname,
 			author: 'string',
 			downloads: {
 				total: 0,

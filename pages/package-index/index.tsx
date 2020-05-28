@@ -13,9 +13,7 @@ function PackageView(props: {
 	return (
 		<div className={Style.packageView}>
 			<h2>
-				<Link href={`/package/[package]`} as={`/package/${props.id}`}>
-					{props.name}
-				</Link>
+				<a href={`/package/${props.id}`}>{props.name}</a>
 			</h2>
 			<h4>{props.description}</h4>
 			<p>Downloads: {props.downloads}</p>
