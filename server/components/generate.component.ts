@@ -1,12 +1,10 @@
 import SiteArgs from '../typings/siteArgs.type'
 
 import { componentize } from 'html-fx'
-import { readFile, realpath } from 'fs'
-import { parse } from 'url'
-import { join } from 'path'
+import { readFile } from 'fs'
 
 import _getFilePathChain from '../utils/getFilePathFromChain'
-import { memoizeAsync } from '../utils/memoize'
+import { memoizeAsync } from '../utils/cache'
 import isIE from './isIE.component'
 
 const getFilePathChain = memoizeAsync(_getFilePathChain)
