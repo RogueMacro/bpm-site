@@ -1,5 +1,7 @@
 {
 	"compilerOptions": {
+		"strict": true,
+		"noImplicitAny": true,
 		"target": "ESNext",
 		"watch": true,
 		"lib": ["ESNext", "ES7"],

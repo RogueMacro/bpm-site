@@ -36,7 +36,7 @@ app.set('trust proxy', true)
 gql.applyMiddleware({ app })
 
 app.get(/\/assets\//, (req, res) => {
-	res.sendFile(join(__dirname, parse(req.url).pathname))
+	res.sendFile(join(__dirname, parse(req.url).pathname || ''))
 	setTimeout(() => res.end(), 100)
 })
 
@@ -52,7 +52,7 @@ next.prepare().then(() => {
 	app.get(/(package|p)\/.*/s, (req, res) => {
 		const url = parse(req.url)
 		const payload: staticProps.Project = {
-			title: url.pathname,
+			title: url.pathname || '',
 			author: 'string',
 			downloads: {
 				total: 0,
