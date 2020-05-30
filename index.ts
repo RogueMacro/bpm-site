@@ -8,7 +8,9 @@ import { join } from 'path'
 import { parse } from 'url'
 
 import gql from './api/server'
+import _renderSSG from './global/components/ssg/server'
 import _generate from './server/components/generate.component'
+import Context from './server/typings/context.type'
 
 const PORT = process.env.PORT || 8080
 
@@ -41,6 +43,12 @@ app.get(/\/assets\//, (req, res) => {
 app.get(/favicon.ico/, (_, res) => res.redirect(303, '/assets/bpm_logo.svg'))
 
 next.prepare().then(() => {
+	const ctx: Context = {
+		next,
+	}
+
+	const renderSSG = _renderSSG(ctx)
+
 	app.get(/(package|p)\/.*/s, (req, res) => {
 		const url = parse(req.url)
 		const payload: staticProps.Project = {
@@ -56,9 +64,7 @@ next.prepare().then(() => {
 			readMe: 'string',
 		}
 
-		next.render(req, res, '/package/package', {
-			payload: JSON.stringify(payload),
-		})
+		renderSSG(req, res, '/package/package', payload)
 	})
 
 	app.get(/.*/s, (req, res) => {
