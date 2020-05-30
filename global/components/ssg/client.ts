@@ -1,5 +1,7 @@
 import { GetServerSideProps } from 'next'
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-	return { props: JSON.parse((query as any).payload) }
+export const getServerSideProps: GetServerSideProps = async ({
+	query: { payload, ...query },
+}) => {
+	return { props: { ...query, ...JSON.parse(`${payload}` || '') } }
 }
