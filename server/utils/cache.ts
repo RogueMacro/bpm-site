@@ -116,11 +116,14 @@ export function cacheForQueue<T extends cacheable>(
 	} = {}
 	let discardQueue: string[] = []
 
+	const shift = () => {
+		const v = discardQueue.shift()
+		if (v) delete memory[v]
+	}
+
 	setInterval(() => {
-		while (discardQueue.length > k) {
-			delete memory[discardQueue.shift()]
-		}
-		if (discardQueue.length > 1) delete memory[discardQueue.shift()]
+		while (discardQueue.length > k) shift()
+		if (discardQueue.length > 1) shift()
 	}, timeout)
 
 	const out = (...args: any[]) => {
@@ -150,11 +153,14 @@ export function cacheForQueueAsync<T extends asyncCacheable>(
 	} = {}
 	let discardQueue: string[] = []
 
+	const shift = () => {
+		const v = discardQueue.shift()
+		if (v) delete memory[v]
+	}
+
 	setInterval(() => {
-		while (discardQueue.length > k) {
-			delete memory[discardQueue.shift()]
-		}
-		if (discardQueue.length > 1) delete memory[discardQueue.shift()]
+		while (discardQueue.length > k) shift()
+		if (discardQueue.length > 1) shift()
 	}, timeout)
 
 	const out = async (...args: any[]) => {
