@@ -22,12 +22,15 @@ import _generate from './server/components/generate.component'
 config()
 
 const PORT = process.env.PORT || 8080
+const DEV = (process.env.NODE_ENV || 'production') === 'development'
 
 initializeFirebaseApp({
 	databaseURL: 'https://bpm-db.firebaseio.com',
 	projectId: 'bpm-db',
 	storageBucket: 'bpm-db.appspot.com',
-	credential: credential.cert(JSON.parse(process.env.GOOGLE_CREDENTIAL||'') || ''),
+	credential: credential.cert(
+		JSON.parse(process.env.GOOGLE_CREDENTIAL || '') || ''
+	),
 })
 
 const packages = firestore().collection('packages')
@@ -35,7 +38,7 @@ const packages = firestore().collection('packages')
 const express = require('express')
 
 const next = _next({
-	dev: (process.env.NODE_ENV || 'production') === 'development',
+	dev: DEV,
 })
 const handel = next.getRequestHandler()
 
@@ -69,7 +72,7 @@ next.prepare().then(() => {
 						else resolve(v.data())
 					}, reject)
 			),
-		1000 * 10, // ! TODO: find good time and k values
+		DEV ? 1000 * 60 * 60 : 1000 * 10, // ! TODO: find good time and k values
 		100
 	)
 
