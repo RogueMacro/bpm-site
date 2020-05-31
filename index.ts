@@ -7,7 +7,7 @@ import {
 	initializeApp as initializeFirebaseApp,
 	credential,
 	firestore,
-} from './node_modules/firebase-admin/lib'
+} from 'firebase-admin'
 import { config } from 'dotenv'
 
 import { join } from 'path'
