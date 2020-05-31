@@ -21,7 +21,6 @@
 		"client/**/*.tsx",
 		"pages/**/*.ts",
 		"pages/**/*.tsx",
-		"global/**/*.ts",
-		"global/**/*.tsx"
+		"global/**/*.ts"
 	]
 }
