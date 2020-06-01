@@ -57,7 +57,7 @@
 						&:nth-child(#{$i}) {
 							transform-origin: left;
 
-							animation: slide (0.2s + ($i / $top / 3)) ease-in-out 0.5s + 0.2s * $i;
+							animation: slide (0.2s + ($i / $top / 3)) ease-in-out 0.5s + 0.1s * $i;
 							animation-fill-mode: backwards;
 						}
 					}
