@@ -69,18 +69,25 @@ next.prepare().then(() => {
 					.get()
 					.then((v) => {
 						if (!v.exists) resolve(null)
-						else resolve(v.data())
+						else {
+							const data = (v.data() || {}) as Partial<
+								staticProps.Project
+							>
+							if (data && data.author && data.name && data.repo) {
+								resolve({ title: data.name, ...data })
+							} else resolve(null)
+						}
 					}, reject)
 			),
 		DEV ? 1000 * 60 * 60 : 1000 * 10, // ! TODO: find good time and k values
 		100
 	)
 
-	app.get(/(package|p)\/.*/s, (req, res) => {
+	app.get(/(package|p)\/[^\/.]*$/s, (req, res) => {
 		const packageID = (parse(req.url).pathname || '').split('/').pop()
 		if (packageID) {
 			getPackage(packageID).then((v) => {
-				console.log(v)
+				console.log(v, packageID)
 
 				if (v) {
 					renderSSG(req, res, '/package/package', v)
