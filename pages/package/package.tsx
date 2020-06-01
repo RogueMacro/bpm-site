@@ -20,7 +20,7 @@ export default function ReadID(props: Partial<StaticProps>) {
 		title,
 		size,
 	}: Partial<StaticProps> = {
-		downloads: { daily: 25, weekly: 50, monthly: 100, total: 200 },
+		downloads: { daily: 25, weekly: 50, monthly: 100, total: 1 },
 		author: 'Me',
 		readMe: `
 			Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -37,7 +37,7 @@ export default function ReadID(props: Partial<StaticProps>) {
 	return (
 		<>
 			<Head>
-				<title>Package-index — Grill</title>
+				<title>{title} — Grill packages</title>
 			</Head>
 			<main className={Style.main}>
 				<div className={`${Style.readme}`}>{readMe}</div>
@@ -45,31 +45,40 @@ export default function ReadID(props: Partial<StaticProps>) {
 					<div className={Style.content}>
 						<div className={Style.downloads}>
 							<span />
-							<span />
-							<span
-								style={{
-									width: `${
-										(downloads?.monthly / downloads.total) *
-										100
-									}%`,
-								}}
-							/>
-							<span
-								style={{
-									width: `${
-										(downloads.weekly / downloads.total) *
-										100
-									}%`,
-								}}
-							/>
-							<span
-								style={{
-									width: `${
-										(downloads.daily / downloads.total) *
-										100
-									}%`,
-								}}
-							/>
+							{downloads.total >= 1 ? (
+								<>
+									<span />
+									<span
+										style={{
+											width: `${
+												(downloads?.monthly /
+													downloads.total) *
+												100
+											}%`,
+										}}
+									/>
+									<span
+										style={{
+											width: `${
+												(downloads.weekly /
+													downloads.total) *
+												100
+											}%`,
+										}}
+									/>
+									<span
+										style={{
+											width: `${
+												(downloads.daily /
+													downloads.total) *
+												100
+											}%`,
+										}}
+									/>
+								</>
+							) : (
+								<></>
+							)}
 						</div>
 						<div className={Style.info}>
 							<h1>{title}</h1>
