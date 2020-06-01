@@ -20,7 +20,7 @@ export default function ReadID(props: Partial<StaticProps>) {
 		title,
 		size,
 	}: Partial<StaticProps> = {
-		downloads: { daily: 25, weekly: 50, monthly: 100, total: 1 },
+		downloads: { daily: 0, weekly: 1, monthly: 1, total: 1 },
 		author: 'Me',
 		readMe: `
 			Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -48,33 +48,48 @@ export default function ReadID(props: Partial<StaticProps>) {
 							{downloads.total >= 1 ? (
 								<>
 									<span />
-									<span
-										style={{
-											width: `${
-												(downloads?.monthly /
-													downloads.total) *
-												100
-											}%`,
-										}}
-									/>
-									<span
-										style={{
-											width: `${
-												(downloads.weekly /
-													downloads.total) *
-												100
-											}%`,
-										}}
-									/>
-									<span
-										style={{
-											width: `${
-												(downloads.daily /
-													downloads.total) *
-												100
-											}%`,
-										}}
-									/>
+									{downloads.monthly < downloads.total &&
+									downloads.monthly < 0 ? (
+										<span
+											style={{
+												width: `${
+													(downloads?.monthly /
+														downloads.total) *
+													100
+												}%`,
+											}}
+										/>
+									) : (
+										<> </>
+									)}
+									{downloads.weekly < downloads.monthly &&
+									downloads.weekly < 0 ? (
+										<span
+											style={{
+												width: `${
+													(downloads.weekly /
+														downloads.total) *
+													100
+												}%`,
+											}}
+										/>
+									) : (
+										<></>
+									)}
+									{downloads.daily < downloads.weekly &&
+									downloads.daily < 0 ? (
+										<span
+											style={{
+												width: `${
+													(downloads.daily /
+														downloads.total) *
+													100
+												}%`,
+											}}
+										/>
+									) : (
+										<></>
+									)}
 								</>
 							) : (
 								<></>
