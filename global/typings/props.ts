@@ -1,3 +1,5 @@
+export type SsrSsgProps<T extends object, Q = any> = { query: Q } & Partial<T>
+
 export interface Project {
 	title: string
 	author: string
@@ -10,4 +12,5 @@ export interface Project {
 	repo: string
 	readMe: string
 	size: number
+	version: string
 }

@@ -1,7 +1,7 @@
 .main {
 	display: grid;
 
-	grid-template-columns: auto auto;
+	grid-template-columns: calc(90vw - 300px) 300px;
 	grid-template-rows: auto;
 
 	gap: 100px;
@@ -57,7 +57,12 @@
 						&:nth-child(#{$i}) {
 							transform-origin: left;
 
-							animation: slide (0.2s + ($i / $top / 3)) ease-in-out 0.5s + 0.1s * $i;
+							animation: slide
+								(0.2s + ($i / $top / 3))
+								ease-in-out
+								0.5s +
+								0.1s *
+								$i;
 							animation-fill-mode: backwards;
 						}
 					}
@@ -100,6 +105,9 @@
 				}
 				.size::before {
 					content: 'unbundled size:';
+				}
+				.version::before {
+					content: 'version';
 				}
 			}
 		}
