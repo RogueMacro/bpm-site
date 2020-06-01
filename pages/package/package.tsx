@@ -20,7 +20,7 @@ export default function ReadID(props: Partial<StaticProps>) {
 		title,
 		size,
 	}: Partial<StaticProps> = {
-		downloads: { daily: 0, weekly: 1, monthly: 1, total: 1 },
+		downloads: { daily: 3, weekly: 4, monthly: 5, total: 10 },
 		author: 'Me',
 		readMe: `
 			Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -48,8 +48,8 @@ export default function ReadID(props: Partial<StaticProps>) {
 							{downloads.total >= 1 ? (
 								<>
 									<span />
-									{downloads.monthly < downloads.total &&
-									downloads.monthly < 0 ? (
+									{downloads.monthly !== downloads.total &&
+									downloads.monthly > 0 ? (
 										<span
 											style={{
 												width: `${
@@ -62,8 +62,8 @@ export default function ReadID(props: Partial<StaticProps>) {
 									) : (
 										<> </>
 									)}
-									{downloads.weekly < downloads.monthly &&
-									downloads.weekly < 0 ? (
+									{downloads.weekly !== downloads.monthly &&
+									downloads.weekly > 0 ? (
 										<span
 											style={{
 												width: `${
@@ -76,8 +76,8 @@ export default function ReadID(props: Partial<StaticProps>) {
 									) : (
 										<></>
 									)}
-									{downloads.daily < downloads.weekly &&
-									downloads.daily < 0 ? (
+									{downloads.daily !== downloads.weekly &&
+									downloads.daily > 0 ? (
 										<span
 											style={{
 												width: `${
