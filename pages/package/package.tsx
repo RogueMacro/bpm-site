@@ -20,20 +20,20 @@ export default function ReadID(props: SsrSsgProps<StaticProps>) {
 		size,
 		version,
 	}: Partial<StaticProps> = {
-		...props,
 		author: 'NULL',
 		readMe: 'NULL',
 		repo: 'NULL',
 		title: 'NULL',
 		size: 0,
 		version: '0.0.1a',
+		...props,
 	}
 	const downloads: StaticProps['downloads'] = {
-		...props.downloads,
 		daily: 0,
 		weekly: 0,
 		monthly: 0,
 		total: 0,
+		...props.downloads,
 	}
 
 	return (
