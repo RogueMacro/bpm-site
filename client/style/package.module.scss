@@ -33,19 +33,40 @@
 
 					background-color: var(--palet-3);
 
-					&:nth-child(1) {
+					&:nth-child(1),
+					&:nth-child(2) {
 						width: 100%;
+					}
+					&:nth-child(1) {
+						background-color: var(--palet-1);
 					}
 
 					$top: 3;
 
 					@for $i from 0 through $top {
-						&:nth-child(#{2 + $i}) {
+						&:nth-child(#{3 + $i}) {
 							backdrop-filter: brightness(1 - ($i / $top));
 
 							box-sizing: border-box;
 
 							border-right: solid ($height / 2) var(--palet-5);
+						}
+					}
+					$top: 6;
+					@for $i from 2 through $top {
+						&:nth-child(#{$i}) {
+							transform-origin: left;
+
+							animation: slide (0.2s + ($i / $top / 3)) ease-in-out 0.5s + 0.2s * $i;
+							animation-fill-mode: backwards;
+						}
+					}
+					@keyframes slide {
+						0% {
+							transform: scaleX(0);
+						}
+						100% {
+							transform: scaleX(1);
 						}
 					}
 				}

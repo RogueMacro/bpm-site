@@ -5,6 +5,7 @@ export { getServerSideProps } from '../../global/components/ssg/client'
 
 // CLIENT
 import React from 'react'
+import Head from 'next/head'
 
 import formatSize from '../../client/utils/formatSize'
 
@@ -34,53 +35,62 @@ export default function ReadID(props: Partial<StaticProps>) {
 	}
 
 	return (
-		<main className={Style.main}>
-			<div className={`${Style.readme}`}>{readMe}</div>
-			<div className={`${Style.header}`}>
-				<div className={Style.content}>
-					<div className={Style.downloads}>
-						<span />
-						<span
-							style={{
-								width: `${
-									(downloads?.monthly / downloads.total) * 100
-								}%`,
-							}}
-						/>
-						<span
-							style={{
-								width: `${
-									(downloads.weekly / downloads.total) * 100
-								}%`,
-							}}
-						/>
-						<span
-							style={{
-								width: `${
-									(downloads.daily / downloads.total) * 100
-								}%`,
-							}}
-						/>
-					</div>
-					<div className={Style.info}>
-						<h1>{title}</h1>
-						<p>By: {author}</p>
-						<div className={`${Style.repo} ${Style.element}`}>
-							<a href={repo}>
-								{repo
-									.replace(
-										/(https?:\/\/)?(github\.com\/)/,
-										''
-									)
-									.replace('/', '  /  ')}
-							</a>
+		<>
+			<Head>
+				<title>Package-index — Grill</title>
+			</Head>
+			<main className={Style.main}>
+				<div className={`${Style.readme}`}>{readMe}</div>
+				<div className={`${Style.header}`}>
+					<div className={Style.content}>
+						<div className={Style.downloads}>
+							<span />
+							<span />
+							<span
+								style={{
+									width: `${
+										(downloads?.monthly / downloads.total) *
+										100
+									}%`,
+								}}
+							/>
+							<span
+								style={{
+									width: `${
+										(downloads.weekly / downloads.total) *
+										100
+									}%`,
+								}}
+							/>
+							<span
+								style={{
+									width: `${
+										(downloads.daily / downloads.total) *
+										100
+									}%`,
+								}}
+							/>
 						</div>
-						<div className={`${Style.size} ${Style.element}`}>
-							{formatSize(size)}
+						<div className={Style.info}>
+							<h1>{title}</h1>
+							<p>By: {author}</p>
+							<div className={`${Style.repo} ${Style.element}`}>
+								<a href={repo}>
+									{repo
+										.replace(
+											/(https?:\/\/)?(github\.com\/)/,
+											''
+										)
+										.replace('/', '  /  ')}
+								</a>
+							</div>
+							<div className={`${Style.size} ${Style.element}`}>
+								{formatSize(size)}
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</main>
+			</main>
+		</>
 	)
 }
