@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+import Head from 'next/head'
 
 import { company, random } from 'faker'
 import { range } from 'lodash'
@@ -20,6 +21,7 @@ const Card: FC<{ title: string; downloads: number; id: string }> = ({
 export default function managePackages() {
 	return (
 		<>
+			<Head><title>Home — Grill</title></Head>
 			<div>
 				<h1>Your packages</h1>
 				<div className={`${Style.cardContainer}`}>

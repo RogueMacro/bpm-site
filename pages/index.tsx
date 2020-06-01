@@ -1,11 +1,8 @@
 import React, { useEffect, useState, useMemo } from 'react'
 import dynamic from 'next/dynamic'
+import Head from 'next/head'
 
-import {
-	motion,
-	useTransform,
-	useViewportScroll,
-} from 'framer-motion'
+import { motion, useTransform, useViewportScroll } from 'framer-motion'
 import Circle from '../client/components/circle.component'
 import CircleGrid from '../client/components/circleGrid.component'
 
@@ -22,10 +19,12 @@ import useViewport from '../client/hooks/useViewport'
 
 import Style from '../client/style/landing.module.scss'
 
-
-const Positioner = dynamic(() => import('../client/components/positioner.component'), {
-	ssr: false,
-})
+const Positioner = dynamic(
+	() => import('../client/components/positioner.component'),
+	{
+		ssr: false,
+	}
+)
 
 type point = [number, number]
 type bound = [point, point]
@@ -290,10 +289,13 @@ export default function index() {
 
 	const { vh: height, vw: width } = useViewport()
 	return (
-		<div style={{ height: '300vh', overflow: 'hidden' }}>
-			<Header height={height} width={width} isMobile={isMobile} />
-			<About height={height} width={width} isMobile={isMobile} />
-			<FAQ />
-		</div>
+		<>
+			<Head><title>Home — Grill</title></Head>
+			<div style={{ height: '300vh', overflow: 'hidden' }}>
+				<Header height={height} width={width} isMobile={isMobile} />
+				<About height={height} width={width} isMobile={isMobile} />
+				<FAQ />
+			</div>
+		</>
 	)
 }

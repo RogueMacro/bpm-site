@@ -1,10 +1,14 @@
 import React from 'react'
+import Head from 'next/head'
 
 import Style from '../client/style/downloads.module.scss'
 
 export default function () {
 	return (
 		<>
+			<Head>
+				<title>Downloads — Grill</title>
+			</Head>
 			<div className={`${Style.downloadSection}`}>
 				<h1>Windows</h1>
 				<p>

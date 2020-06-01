@@ -1,9 +1,16 @@
-import React from "react"
+import Head from 'next/head'
+
+import React from 'react'
 
 export default function () {
 	return (
-		<div>
-			<h1>404</h1>
-		</div>
+		<>
+			<Head>
+				<title>404 — Grill</title>
+			</Head>
+			<div>
+				<h1>404</h1>
+			</div>
+		</>
 	)
 }

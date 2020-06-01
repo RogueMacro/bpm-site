@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Link from 'next/link'
+import Head from 'next/head'
 
 import Style from '../../client/style/package-index.module.scss'
 
@@ -46,6 +46,9 @@ export default function index() {
 
 	return (
 		<>
+			<Head>
+				<title>Package-index — Grill</title>
+			</Head>
 			<div className={`${Style.search}`}>
 				<h2>Package Index</h2>
 				<form className="simple-box">
