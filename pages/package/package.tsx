@@ -14,25 +14,18 @@ import Style from '../../client/style/package.module.scss'
 export default function ReadID(props: Partial<StaticProps>) {
 	const {
 		author,
-		downloads,
 		readMe,
 		repo,
 		title,
 		size,
-	}: Partial<StaticProps> = {
-		downloads: { daily: 3, weekly: 4, monthly: 5, total: 10 },
-		author: 'Me',
-		readMe: `
-			Lorem ipsum dolor sit amet consectetur adipisicing elit.
-			Impedit, quod alias nulla assumenda nemo reprehenderit
-			similique necessitatibus id, doloribus commodi, sapiente
-			aspernatur. Voluptatem nostrum repellendus accusamus
-			asperiores enim quae optio.
-		`,
-		repo: 'https://github.com/RogueMacro/grill-site',
-		title: 'DEFAULT',
-		size: 1200,
+	}: Partial<StaticProps> = { ...props,
+		author: '',
+		readMe: '',
+		repo: '',
+		title: '0',
+		size: 0,
 	}
+	const downloads: StaticProps['downloads'] = { ...props.downloads, daily: 0, weekly: 0, monthly: 0, total: 0 }
 
 	return (
 		<>
@@ -100,7 +93,7 @@ export default function ReadID(props: Partial<StaticProps>) {
 							<p>By: {author}</p>
 							<div className={`${Style.repo} ${Style.element}`}>
 								<a href={repo}>
-									{repo
+									{(repo||'')
 										.replace(
 											/(https?:\/\/)?(github\.com\/)/,
 											''
@@ -109,7 +102,7 @@ export default function ReadID(props: Partial<StaticProps>) {
 								</a>
 							</div>
 							<div className={`${Style.size} ${Style.element}`}>
-								{formatSize(size)}
+								{formatSize(size||0)}
 							</div>
 						</div>
 					</div>
