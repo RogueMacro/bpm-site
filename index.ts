@@ -29,7 +29,7 @@ initializeFirebaseApp({
 	projectId: 'bpm-db',
 	storageBucket: 'bpm-db.appspot.com',
 	credential: credential.cert(
-		JSON.parse(process.env.GOOGLE_CREDENTIAL || '') || ''
+		JSON.parse(process.env.GOOGLE_CREDENTIAL || '{}') || ''
 	),
 })
 
