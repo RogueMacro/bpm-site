@@ -29,10 +29,19 @@ export default function ReadID(props: SsrSsgProps<StaticProps>) {
 		...props,
 	}
 	const downloads: StaticProps['downloads'] = {
-		daily: 0,
-		weekly: 0,
-		monthly: 0,
-		total: 0,
+		...(process.env.NODE_ENV === 'development'
+			? {
+					daily: 24,
+					weekly: 25,
+					monthly: 50,
+					total: 100,
+			  }
+			: {
+					daily: 0,
+					weekly: 0,
+					monthly: 0,
+					total: 0,
+			  }),
 		...props.downloads,
 	}
 

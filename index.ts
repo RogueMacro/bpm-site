@@ -1,5 +1,4 @@
 import * as expressTypes from 'express'
-import * as staticProps from './global/typings/props'
 import Context from './server/typings/context.type'
 
 import _next from 'next'
@@ -18,6 +17,7 @@ import gql from './api/server'
 import { cacheForQueueAsync } from './server/utils/cache'
 import _renderSSG from './global/components/ssg/server'
 import _generate from './server/components/generate.component'
+import _getPackage from './server/components/generatePackage.component'
 
 config()
 
@@ -58,27 +58,13 @@ app.get(/favicon.ico/, (_, res) => res.redirect(303, '/assets/bpm_logo.svg'))
 next.prepare().then(() => {
 	const ctx: Context = {
 		next,
+		packages,
 	}
 
 	const renderSSG = _renderSSG(ctx)
+
 	const getPackage = cacheForQueueAsync(
-		(packageID: string) =>
-			new Promise((resolve, reject) =>
-				packages
-					.doc(packageID)
-					.get()
-					.then((v) => {
-						if (!v.exists) resolve(null)
-						else {
-							const data = (v.data() || {}) as Partial<
-								staticProps.Project
-							>
-							if (data && data.author && data.name && data.repo) {
-								resolve({ title: data.name, ...data })
-							} else resolve(null)
-						}
-					}, reject)
-			),
+		_getPackage(ctx),
 		DEV ? 1000 * 60 * 60 : 1000 * 10, // ! TODO: find good time and k values
 		100
 	)

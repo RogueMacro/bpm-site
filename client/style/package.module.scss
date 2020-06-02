@@ -1,7 +1,7 @@
 .main {
 	display: grid;
 
-	grid-template-columns: calc(90vw - 300px) 300px;
+	grid-template-columns: calc(90vw - 300px) 500px;
 	grid-template-rows: auto;
 
 	gap: 100px;
@@ -9,7 +9,7 @@
 	.header {
 		color: #fff;
 
-		width: 300px;
+		width: 500px;
 		height: 100%;
 
 		background-color: var(--palet-5);
@@ -22,6 +22,7 @@
 				position: relative;
 
 				span {
+					box-sizing: border-box;
 					$height: 10px;
 
 					display: inline-block;
