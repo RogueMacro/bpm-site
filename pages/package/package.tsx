@@ -45,6 +45,15 @@ export default function ReadID(props: SsrSsgProps<StaticProps>) {
 		...props.downloads,
 	}
 
+	const downloadsPercent: Omit<StaticProps['downloads'], 'total'> = {
+		monthly: (downloads?.monthly / downloads.total) * 100,
+		weekly: (downloads.weekly / downloads.total) * 100,
+		daily: (downloads.daily / downloads.total) * 100,
+	}
+
+	const border = (width: number) =>
+		`solid clamp(0.05px, ${width * 2.5}px, 5px) var(--palet-5)`
+
 	return (
 		<>
 			<Head>
@@ -55,19 +64,22 @@ export default function ReadID(props: SsrSsgProps<StaticProps>) {
 				<div className={`${Style.header}`}>
 					<div className={Style.content}>
 						<div className={Style.downloads}>
-							<span />
+							<abbr title="no downloads" />
 							{downloads.total >= 1 ? (
 								<>
-									<span />
+									<abbr
+										title={`${downloads.total} total downloads`}
+									/>
 									{downloads.monthly !== downloads.total &&
 									downloads.monthly > 0 ? (
-										<span
+										<abbr
+											title={`${downloads.monthly} downloads this monthly`}
 											style={{
-												width: `${
-													(downloads?.monthly /
-														downloads.total) *
-													100
-												}%`,
+												width: `${downloadsPercent.monthly}%`,
+												borderRight: border(
+													downloadsPercent.monthly -
+														downloadsPercent.weekly
+												),
 											}}
 										/>
 									) : (
@@ -75,13 +87,14 @@ export default function ReadID(props: SsrSsgProps<StaticProps>) {
 									)}
 									{downloads.weekly !== downloads.monthly &&
 									downloads.weekly > 0 ? (
-										<span
+										<abbr
+											title={`${downloads.weekly} downloads this week`}
 											style={{
-												width: `${
-													(downloads.weekly /
-														downloads.total) *
-													100
-												}%`,
+												width: `${downloadsPercent.weekly}%`,
+												borderRight: border(
+													downloadsPercent.weekly -
+														downloadsPercent.daily
+												),
 											}}
 										/>
 									) : (
@@ -89,13 +102,13 @@ export default function ReadID(props: SsrSsgProps<StaticProps>) {
 									)}
 									{downloads.daily !== downloads.weekly &&
 									downloads.daily > 0 ? (
-										<span
+										<abbr
+											title={`${downloads.daily} downloads today`}
 											style={{
-												width: `${
-													(downloads.daily /
-														downloads.total) *
-													100
-												}%`,
+												width: `${downloadsPercent.daily}%`,
+												borderRight: border(
+													downloadsPercent.daily
+												),
 											}}
 										/>
 									) : (

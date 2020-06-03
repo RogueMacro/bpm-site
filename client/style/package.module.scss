@@ -1,7 +1,7 @@
 .main {
 	display: grid;
 
-	grid-template-columns: calc(90vw - 300px) 500px;
+	grid-template-columns: calc(90vw - 500px) 500px;
 	grid-template-rows: auto;
 
 	gap: 100px;
@@ -21,7 +21,7 @@
 			.downloads {
 				position: relative;
 
-				span {
+				abbr {
 					box-sizing: border-box;
 					$height: 10px;
 
