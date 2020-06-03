@@ -7,6 +7,8 @@ export { getServerSideProps } from '../../global/components/ssg/client'
 import React from 'react'
 import Head from 'next/head'
 
+import Markdown from 'react-markdown'
+
 import formatSize from '../../client/utils/formatSize'
 
 import Style from '../../client/style/package.module.scss'
@@ -60,7 +62,9 @@ export default function ReadID(props: SsrSsgProps<StaticProps>) {
 				<title>{title} — Grill packages</title>
 			</Head>
 			<main className={Style.main}>
-				<div className={`${Style.readme}`}>{readMe}</div>
+				<div className={`${Style.readme}`}>
+					<Markdown>{readMe}</Markdown>
+				</div>
 				<div className={`${Style.header}`}>
 					<div className={Style.content}>
 						<div className={Style.downloads}>
