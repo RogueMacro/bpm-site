@@ -1,12 +1,4 @@
-interface _JSONObject {
-	[key: string]: JSONObject
-}
-
-type JSONObject = _JSONObject | number | string | null | boolean | JSONObject[]
-
-interface StorageBaseline {
-	[key: string]: any
-}
+import StorageBaseline from "../../shared/typings/baseline.type"
 
 export default class StorageHandler<schema extends StorageBaseline> {
 	private storage: Storage

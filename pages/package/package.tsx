@@ -1,4 +1,4 @@
-import { Project as StaticProps, SsrSsgProps } from '../../shared/typings/props'
+import { Project as StaticProps, SsrSsgProps } from '../../shared/typings/props.type'
 
 // SERVER
 export { getServerSideProps } from '../../shared/components/ssg/client'
