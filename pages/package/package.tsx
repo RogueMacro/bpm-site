@@ -1,7 +1,7 @@
-import { Project as StaticProps, SsrSsgProps } from '../../global/typings/props'
+import { Project as StaticProps, SsrSsgProps } from '../../shared/typings/props'
 
 // SERVER
-export { getServerSideProps } from '../../global/components/ssg/client'
+export { getServerSideProps } from '../../shared/components/ssg/client'
 
 // CLIENT
 import React from 'react'
@@ -63,7 +63,7 @@ export default function ReadID(props: SsrSsgProps<StaticProps>) {
 			</Head>
 			<main className={Style.main}>
 				<div className={`${Style.readme}`}>
-					<Markdown>{readMe}</Markdown>
+					<Markdown escapeHtml={true}>{readMe}</Markdown>
 				</div>
 				<div className={`${Style.header}`}>
 					<div className={Style.content}>
