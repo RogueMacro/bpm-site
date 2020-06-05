@@ -15,7 +15,7 @@ import { parse } from 'url'
 import gql from './api/server'
 
 import { cacheForQueueAsync } from './server/utils/cache'
-import _renderSSG from './global/components/ssg/server'
+import _renderSSG from './shared/components/ssg/server'
 import _generate from './server/components/generate.component'
 import _getPackage from './server/components/generatePackage.component'
 
