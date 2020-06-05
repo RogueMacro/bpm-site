@@ -1,5 +1,5 @@
 import Context from '../typings/context.type'
-import * as staticProps from '../../global/typings/props'
+import * as staticProps from '../../shared/typings/props.type'
 
 import { cacheForAsync } from '../utils/cache'
 import { parse } from 'url'
