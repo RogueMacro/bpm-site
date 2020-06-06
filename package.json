@@ -5,7 +5,7 @@
 	"main": "index.js",
 	"scripts": {
 		"start": "npx ts-node --project ./tsconfig.server.json index.ts",
-		"dev": "npx nodemon index.ts --ext html,css,js,ts,tsx,jsx,json,env",
+		"dev": "npx nodemon index.ts --ext html,css,js,ts,json,env",
 		"client": "npx next",
 		"build": "npx next build"
 	},
@@ -46,8 +46,7 @@
 		"svg-url-loader": "^5.0.0",
 		"ts-node": "^8.6.2",
 		"typescript": "^3.8.3",
-		"uuid": "^8.0.0",
-		"yarn": "^1.22.4"
+		"uuid": "^8.0.0"
 	},
 	"devDependencies": {
 		"@types/faker": "^4.1.11",
