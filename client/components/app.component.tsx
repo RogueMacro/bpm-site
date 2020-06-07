@@ -275,7 +275,7 @@ const app: FC = function ({ children }) {
 						cookie.setCookie('user', await user.getIdToken(), {
 							sameSite: 'Strict',
 							path: '/',
-							secure: process.env.NODE_ENV === 'production',
+							secure: false,// process.env.NODE_ENV === 'production',
 							maxAge: 60 * 30,
 						})
 					}

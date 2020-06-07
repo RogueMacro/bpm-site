@@ -95,7 +95,7 @@ class CookieHandler<T extends string | string> {
 			domain,
 			maxAge: 0,
 			sameSite: 'None',
-			secure: true,
+			secure: false,
 		})
 	}
 }

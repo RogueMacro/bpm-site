@@ -1,5 +1,7 @@
 import { Application, Request, Response, NextFunction } from 'express'
 import Context from './server/typings/context.type'
+import FDB from './server/typings/fdb.type'
+import { Package, User } from './database/schema'
 
 import _next from 'next'
 import {
@@ -14,9 +16,9 @@ import { parse } from 'url'
 
 import gql from './api/server'
 
-import _renderSSG from './shared/components/ssg/server'
-import cookieParse from './shared/components/cookie/server'
 import { cacheForQueueAsync } from './server/utils/cache'
+import _renderSSG from './shared/components/ssg/server'
+import _getFirebaseUserObjectFromRequest from './shared/components/cookie/server'
 import _generate from './server/components/generate.component'
 import _getPackage from './server/components/generatePackage.component'
 
@@ -34,7 +36,8 @@ initializeFirebaseApp({
 	),
 })
 
-const packages = firestore().collection('packages')
+const packages = firestore().collection('packages') as Context['packages']
+const users = firestore().collection('users') as Context['users']
 
 const express = require('express')
 
@@ -60,6 +63,7 @@ next.prepare().then(() => {
 	const ctx: Context = {
 		next,
 		packages,
+		users,
 	}
 
 	const renderSSG = _renderSSG(ctx)
@@ -70,8 +74,17 @@ next.prepare().then(() => {
 		100
 	)
 
+	const getFirebaseUserObjectFromRequest = _getFirebaseUserObjectFromRequest(
+		ctx
+	)
+
 	app.get(/(package|p)\/[^\/.]*$/s, (req, res) => {
 		const packageID = (parse(req.url).pathname || '').split('/').pop()
+
+		getFirebaseUserObjectFromRequest(req).then((v) => {
+			if (v) console.log(v.id, v.data())
+		})
+
 		if (packageID) {
 			getPackage(packageID).then((v) => {
 				console.log(v, packageID)
@@ -83,6 +96,10 @@ next.prepare().then(() => {
 				}
 			})
 		} else next.render404(req, res)
+	})
+
+	app.get('/throw', (req, res) => {
+		throw Error('')
 	})
 
 	app.get(/.*/s, (req, res) => {
@@ -97,11 +114,10 @@ next.prepare().then(() => {
 		})
 	})
 
-	app.use(
-		(err: Error, req: Request, res: Response, nextF: NextFunction) => {
-			next.render(req,res,'/500')
-		}
-	)
+	app.use((err: Error, req: Request, res: Response, nextF: NextFunction) => {
+		if (err) next.render(req, res, '/500')
+		else nextF()
+	})
 
 	app.listen(PORT, () => {
 		console.log(
