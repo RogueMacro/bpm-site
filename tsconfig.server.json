@@ -5,10 +5,12 @@
 		"target": "ESNext",
 		"watch": true,
 		"lib": ["ESNext", "ES7"],
-		"types": ["node", "express", "firebase-admin"]
+		"types": ["node", "express", "firebase-admin"],
+		"moduleResolution": "Node"
 		// "module": "ESNext"
 	},
 	"compileOnSave": true,
 
-	"typeAcquisition": { "enable": true }
+	"typeAcquisition": { "enable": true },
+	"include": ["./*.ts", "server/**/*.ts", "shared/**/*.ts", "api/**/*.ts"]
 }

@@ -7,7 +7,7 @@ import SessionStorage from '../typings/sessionStorage.type'
 import useScreenMediaquery from '../hooks/useScreenMediaquery'
 import { motion } from 'framer-motion'
 
-import { range } from 'lodash'
+import CookieHandler from '../../shared/components/cookie/client'
 import StorageHandler from '../utils/storageHandler'
 
 import svg from '../../assets/bpm_logo.svg'
@@ -252,10 +252,12 @@ const app: FC = function ({ children }) {
 
 			auth()
 				.getRedirectResult()
-				.then(({ user }) => {
+				.then(async ({ user }) => {
 					logIn(true)
 
 					if (user) {
+						const cookie = new CookieHandler()
+
 						const doc = firestore()
 							.collection('users')
 							.doc(user?.uid)
@@ -269,6 +271,13 @@ const app: FC = function ({ children }) {
 									packages: [],
 								})
 						})
+
+						cookie.setCookie('user', await user.getIdToken(), {
+							sameSite: 'Strict',
+							path: '/',
+							secure: process.env.NODE_ENV === 'production',
+							maxAge: 60 * 30,
+						})
 					}
 
 					// * TODO: error handling
@@ -277,7 +286,7 @@ const app: FC = function ({ children }) {
 		if (process.env.NODE_ENV === 'development')
 			try {
 				createApp()
-			} catch (error) {}
+			} catch (_) {}
 		else createApp()
 
 		setInternalSessionStorage(

@@ -1,4 +1,4 @@
-import * as expressTypes from 'express'
+import { Application, Request, Response, NextFunction } from 'express'
 import Context from './server/typings/context.type'
 
 import _next from 'next'
@@ -14,8 +14,9 @@ import { parse } from 'url'
 
 import gql from './api/server'
 
-import { cacheForQueueAsync } from './server/utils/cache'
 import _renderSSG from './shared/components/ssg/server'
+import cookieParse from './shared/components/cookie/server'
+import { cacheForQueueAsync } from './server/utils/cache'
 import _generate from './server/components/generate.component'
 import _getPackage from './server/components/generatePackage.component'
 
@@ -42,7 +43,7 @@ const next = _next({
 })
 const handel = next.getRequestHandler()
 
-const app: expressTypes.Application = express()
+const app: Application = express()
 
 app.set('trust proxy', true)
 
@@ -95,6 +96,12 @@ next.prepare().then(() => {
 				)
 		})
 	})
+
+	app.use(
+		(err: Error, req: Request, res: Response, nextF: NextFunction) => {
+			next.render(req,res,'/500')
+		}
+	)
 
 	app.listen(PORT, () => {
 		console.log(
