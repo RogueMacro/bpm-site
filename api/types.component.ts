@@ -1,7 +1,7 @@
 import { gql } from 'apollo-server-express'
 
 export default gql`
-	type Version {
+	type Snapshot {
 		versionRepoURL: String!
 		version: String!
 
@@ -11,7 +11,7 @@ export default gql`
 
 		id: ID
 
-		lastVersion: Version
+		lastVersion: Snapshot
 
 		parent: Package
 	}
@@ -31,15 +31,15 @@ export default gql`
 		versions: [ID!]!
 	}
 
-	type QueryV1 {
+	type Query {
 		package(name: String!): Package
-		version(id: ID!): Version
-        latest (name:String!): Version
+		version(id: ID!): Snapshot
+		latest(name: String!): Snapshot
 	}
 
-	type Query {
-		v1: QueryV1
-	}
+	# type Query {
+	# 	v1: QueryV1
+	# }
 
 	# type Mutation {
 
