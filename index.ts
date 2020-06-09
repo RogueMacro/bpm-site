@@ -25,7 +25,7 @@ import _getPackage from './server/components/generatePackage.component'
 config()
 
 const PORT = process.env.PORT || 8080
-const DEV = (process.env.NODE_ENV || 'production') === 'development'
+const DEV = process.env.NODE_ENV === 'development'
 
 initializeFirebaseApp({
 	databaseURL: 'https://bpm-db.firebaseio.com',
