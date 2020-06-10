@@ -15,14 +15,14 @@ import Style from '../../client/style/package.module.scss'
 
 export default function ReadID(props: SsrSsgProps<StaticProps>) {
 	const {
-		author,
+		creator,
 		readMe,
 		repo,
 		title,
 		size,
 		version,
 	}: Partial<StaticProps> = {
-		author: 'NULL',
+		creator: 'NULL',
 		readMe: 'NULL',
 		repo: 'NULL',
 		title: 'NULL',
@@ -125,7 +125,7 @@ export default function ReadID(props: SsrSsgProps<StaticProps>) {
 						</div>
 						<div className={Style.info}>
 							<h1>{title}</h1>
-							<p>By: {author}</p>
+							<p>By: {creator}</p>
 							<div className={`${Style.repo} ${Style.element}`}>
 								<a href={repo}>
 									{(repo || '')

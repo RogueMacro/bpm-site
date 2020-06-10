@@ -3,7 +3,7 @@ export type SsrSsgProps<T extends object, Q = any> = { query: Q } & Partial<T>
 export interface Project {
 	title: string
 	name: string
-	author: string
+	creator: string
 	downloads: {
 		total: number
 		monthly: number

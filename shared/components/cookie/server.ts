@@ -5,9 +5,12 @@ import { User } from '../../../database/schema'
 import { auth } from 'firebase-admin'
 import { parseCookieString } from './codec'
 
+
+export type GetFirebaseUserObjectFromRequest = FirebaseFirestore.DocumentSnapshot<Partial<User>> | undefined
+
 export const getFirebaseUserObjectFromRequest = ({ users }: Context) => async (
 	req: Request
-): Promise<FirebaseFirestore.DocumentSnapshot<Partial<User>> | undefined> => {
+): Promise<GetFirebaseUserObjectFromRequest> => {
 	const user = parseCookieString(req).user
 
 	if (typeof user === 'string')
@@ -16,7 +19,7 @@ export const getFirebaseUserObjectFromRequest = ({ users }: Context) => async (
 				.doc((await auth().verifyIdToken(user, true)).uid)
 				.get()
 		} catch (err) {
-			console.error(err,'in token parsing')
+			console.error(err, 'in token parsing')
 			return undefined
 		}
 	else return undefined

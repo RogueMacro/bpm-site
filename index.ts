@@ -1,7 +1,5 @@
 import { Application, Request, Response, NextFunction } from 'express'
 import Context from './server/typings/context.type'
-import FDB from './server/typings/fdb.type'
-import { Package, User } from './database/schema'
 
 import _next from 'next'
 import {
@@ -14,7 +12,9 @@ import { config } from 'dotenv'
 import { join } from 'path'
 import { parse } from 'url'
 
-import gql from './api/server'
+import GQLClient, { gql } from 'apollo-boost'
+
+import api from './api/server'
 
 import { cacheForQueueAsync } from './server/utils/cache'
 import _renderSSG from './shared/components/ssg/server'
@@ -36,6 +36,13 @@ initializeFirebaseApp({
 	),
 })
 
+const github = new GQLClient<any>({
+	uri: 'https://api.github.com/graphql',
+	headers: {
+		Authorization: `bearer ${process.env.GITHUB_TOKEN}`,
+	},
+})
+
 const packages = firestore().collection('packages') as Context['packages']
 const users = firestore().collection('users') as Context['users']
 
@@ -50,8 +57,6 @@ const app: Application = express()
 
 app.set('trust proxy', true)
 
-gql.applyMiddleware({ app })
-
 app.get(/\/assets\//, (req, res) => {
 	res.sendFile(join(__dirname, parse(req.url).pathname || ''))
 	setTimeout(() => res.end(), 100)
@@ -64,6 +69,7 @@ next.prepare().then(() => {
 		next,
 		packages,
 		users,
+		github,
 	}
 
 	const renderSSG = _renderSSG(ctx)
@@ -77,6 +83,8 @@ next.prepare().then(() => {
 	const getFirebaseUserObjectFromRequest = _getFirebaseUserObjectFromRequest(
 		ctx
 	)
+
+	api(ctx).applyMiddleware({ app })
 
 	app.get(/(package|p)\/[^\/.]*$/s, (req, res) => {
 		const packageID = (parse(req.url).pathname || '').split('/').pop()

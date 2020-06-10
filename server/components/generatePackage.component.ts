@@ -1,4 +1,5 @@
 import Context from '../typings/context.type'
+import { Package } from '../../database/schema'
 import * as staticProps from '../../shared/typings/props.type'
 
 import { cacheForAsync } from '../utils/cache'
@@ -13,7 +14,6 @@ const getReadme = cacheForAsync(
 					`https://raw.githubusercontent.com/${repo}/master/README.md`
 				)
 				.then((res) => {
-					console.log(res.data)
 					resolve(res.data)
 				}, reject)
 		}),
@@ -28,13 +28,10 @@ const getPackage = ({ packages }: Context) => (packageID: string) =>
 			.then((v) => {
 				if (!v.exists) resolve(null)
 				else {
-					const data = (v.data() || {}) as Partial<
-						staticProps.Project
-					>
-					if (data && data.author && data.name && data.repo) {
+					const data = (v.data() || {}) as Partial<Package>
+					if (data && data.creator && data.name && data.repo) {
 						const repo = parse(data.repo).pathname
 
-						console.log(repo)
 						if (repo) {
 							getReadme(repo).then((str) =>
 								resolve({

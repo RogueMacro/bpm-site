@@ -1,5 +1,35 @@
 import { gql } from 'apollo-server-express'
 
+export namespace Types {
+	type ID = string
+	export interface InputVersion {
+		versionRepoURL: string
+		version: string
+
+		changes: string
+
+		parentName: string
+	}
+
+	export interface Package {
+		name: string
+
+		snapshot: Snapshot
+
+		versions: ID[]
+	}
+	export interface Snapshot {
+		versionRepoURL: string
+		version: string
+
+		changes: string
+
+		parentName: string
+
+		id: ID
+	}
+}
+
 export default gql`
 	type Snapshot {
 		versionRepoURL: String!
@@ -10,10 +40,6 @@ export default gql`
 		parentName: String!
 
 		id: ID
-
-		lastVersion: Snapshot
-
-		parent: Package
 	}
 
 	input InputVersion {
@@ -29,6 +55,8 @@ export default gql`
 		name: String!
 
 		versions: [ID!]!
+
+		lastVersion: Snapshot
 	}
 
 	type Query {
