@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react'
+import React, { useEffect, useState, useMemo, FC } from 'react'
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
 
@@ -145,8 +145,8 @@ function Header({
 	return (
 		<div className={`${Style.header} center`}>
 			<h1>GRILL</h1>
-			<sub className="header-sub">YOU CANT MAKE A BEEF WITHOUT IT</sub>
-			<a href="#about" className={Style.navIcon}>
+			<sub className='header-sub'>YOU CANT MAKE A BEEF WITHOUT IT</sub>
+			<a href='#about' className={Style.navIcon}>
 				arrow_back_ios
 			</a>
 			<Underlay {...{ width, height, isMobile, textBound }} />
@@ -178,8 +178,8 @@ function About({
 
 	return (
 		<div
-			className={`${Style.about} center-grid ${Style.section} ${Style.noPad}`}
-			id="about"
+			className={`${Style.about} center-grid ${Style.section}`}
+			id='about'
 		>
 			<div className={`${Style.animation}`}>
 				{range(0, 10).map((i) => {
@@ -214,9 +214,9 @@ function About({
 							key={i}
 						>
 							<Circle
-								color="var(--palet-3)"
+								color='var(--palet-3)'
 								radius={100}
-								border="0"
+								border='0'
 								animate={getting ? 'top' : 'bottom'}
 								transition={{ duration: 3, ease: 'anticipate' }}
 								variants={{
@@ -239,7 +239,7 @@ function About({
 					)
 				})}
 			</div>
-			<div className="center">
+			<div className='center'>
 				<h1>About</h1>
 				<motion.p
 					style={{
@@ -252,7 +252,7 @@ function About({
 					a community around the Beef programming language. Create,
 					share, browse and install libraries easily using the GRILL
 					CLI. <br />
-					<a href="/guide">Read our guide</a> to get started.
+					<a href='/guide'>Read our guide</a> to get started.
 				</motion.p>
 			</div>
 			{/* Slogans:
@@ -265,20 +265,26 @@ function About({
 }
 
 function FAQ() {
+	const Element: FC<{ title: string }> = ({ title, children }) => (
+		<div className='center'>
+			<h2>{title}</h2>
+			<div></div>
+			<p>{children}</p>
+		</div>
+	)
+
 	return (
-		<div className={`${Style.section}`} id="faq">
+		<div className={`${Style.faq} ${Style.section}`} id='faq'>
 			<h1>FAQ</h1>
 			<div>
-				<h2>How do I register my package?</h2>
-				<p>
+				<Element title='How do I register my package?'>
 					Login with GitHub, go to Manage Packages and hit the plus
 					sign.
-				</p>
-				<h2>How do I install a package?</h2>
-				<p>
+				</Element>
+				<Element title='How do I install a package?'>
 					<a>Download the GRILL CLI</a> and read{' '}
-					<a href="/guide">guide</a> to get started.
-				</p>
+					<a href='/guide'>guide</a> to get started.
+				</Element>
 			</div>
 		</div>
 	)
@@ -290,7 +296,9 @@ export default function index() {
 	const { vh: height, vw: width } = useViewport()
 	return (
 		<>
-			<Head><title>Home — Grill</title></Head>
+			<Head>
+				<title>Home — Grill</title>
+			</Head>
 			<div style={{ height: '300vh', overflow: 'hidden' }}>
 				<Header height={height} width={width} isMobile={isMobile} />
 				<About height={height} width={width} isMobile={isMobile} />

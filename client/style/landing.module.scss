@@ -100,10 +100,6 @@
 	box-sizing: border-box;
 
 	height: 100vh;
-
-	&:not(.noPad) {
-		padding: 120px 25vw 0 25vw;
-	}
 }
 
 .about {
@@ -169,6 +165,44 @@
 			background-color: var(--palet-2);
 			height: 100%;
 			width: 100%;
+		}
+	}
+}
+
+.faq {
+	padding: 90px 10vw 0 10vw;
+
+	> h1 {
+		color: var(--palet-3);
+		font-size: 90px;
+	}
+
+	> div {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		column-gap: max(10vw, 100px);
+
+		> div {
+			height: 100%;
+			flex-direction: column;
+
+			h2 {
+				color: white;
+				font-size: 50px;
+			}
+			div {
+				height: 1px;
+				width: 60%;
+
+				background-color: var(--palet-3);
+
+				border-radius: 1000vmax;
+			}
+			p {
+				padding: 0 100px;
+				font-weight: 300;
+				font-size: 1.1em;
+			}
 		}
 	}
 }
