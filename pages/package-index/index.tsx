@@ -29,7 +29,7 @@ export default function index() {
 		import('firebase').then(({ firestore }) => {
 			import('../../client/utils/fb').then(({ getSmartCache }) => {
 				getSmartCache(
-					firestore().collection('packages'),
+					firestore().collection('packages').limit(10),
 					'packages;',
 					1000 * 60 * 60
 				).then((docs) =>
