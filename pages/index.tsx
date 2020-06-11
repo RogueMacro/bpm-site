@@ -299,7 +299,7 @@ export default function index() {
 			<Head>
 				<title>Home — Grill</title>
 			</Head>
-			<div style={{ height: '300vh', overflow: 'hidden' }}>
+			<div className={Style.main}>
 				<Header height={height} width={width} isMobile={isMobile} />
 				<About height={height} width={width} isMobile={isMobile} />
 				<FAQ />

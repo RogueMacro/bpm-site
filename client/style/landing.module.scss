@@ -99,7 +99,7 @@
 
 	box-sizing: border-box;
 
-	height: 100vh;
+	min-height: 100vh;
 }
 
 .about {
@@ -169,8 +169,25 @@
 	}
 }
 
+// TODO: make this responsive
 .faq {
 	padding: 90px 10vw 0 10vw;
+	
+	@media screen and (max-width: 600px) {
+		height: 120vh;
+	}
+	@media screen and (max-width: 1000px) {
+		padding: 0;
+		margin: min(100px, 10vw);
+
+		height: 110vh;
+
+		background-color: var(--palet-2);
+
+		> h1 {
+			padding-top: 30px;
+		}
+	}
 
 	> h1 {
 		color: var(--palet-3);
@@ -178,15 +195,21 @@
 	}
 
 	> div {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		column-gap: max(10vw, 100px);
+		display: flex;
+		justify-content: space-evenly;
+
+		flex-wrap: wrap;
 
 		> div {
+			width: 500px;
+			height: 100vh;
+
 			height: 100%;
 			flex-direction: column;
 
 			h2 {
+				height: 2em;
+
 				color: white;
 				font-size: 50px;
 			}
@@ -204,6 +227,18 @@
 				font-size: 1.1em;
 			}
 		}
+	}
+}
+
+.main {
+	height: 300vh;
+	overflow: hidden;
+
+	@media screen and (max-width: 1000px) {
+		height: 340vh;
+	}
+	@media screen and (max-width: 800px) {
+		height: 325vh;
 	}
 }
 
