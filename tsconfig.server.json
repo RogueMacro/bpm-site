@@ -5,7 +5,10 @@
 		"target": "ESNext",
 		"watch": true,
 		"lib": ["ESNext", "ES7"],
-		"types": ["node", "express", "firebase-admin"]
+		"types": ["node", "express", "firebase-admin"],
+		"experimentalDecorators": true,
+		"strictPropertyInitialization": false,
+		"emitDecoratorMetadata": true
 		// "module": "ESNext"
 	},
 	"compileOnSave": true,

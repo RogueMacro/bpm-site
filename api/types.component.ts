@@ -1,17 +1,21 @@
 import { gql } from 'apollo-server-express'
 
 export default gql`
+	enum VersionControl {
+		GIT
+	}
+
 	type Version {
 		versionRepoURL: String!
 		version: String!
+
+		repoType: VersionControl!
 
 		changes: String
 
 		parentName: String!
 
 		id: ID
-
-		lastVersion: Version
 
 		parent: Package
 	}
@@ -28,17 +32,16 @@ export default gql`
 	type Package {
 		name: String!
 
-		versions: [ID!]!
-	}
+		tags: [String]!
+		lts: Bool
 
-	type QueryV1 {
-		package(name: String!): Package
-		version(id: ID!): Version
-        latest (name:String!): Version
+		versions: [Version!]!
 	}
 
 	type Query {
-		v1: QueryV1
+		package(name: String!): Package
+		version(package: String!, version: String!): Version
+		latest(name: String!): Version
 	}
 
 	# type Mutation {

@@ -3,6 +3,7 @@ import * as staticProps from './global/typings/props'
 import Context from './server/typings/context.type'
 
 import _next from 'next'
+import dbConnect from './db/network'
 import {
 	initializeApp as initializeFirebaseApp,
 	credential,
@@ -24,16 +25,17 @@ config()
 const PORT = process.env.PORT || 8080
 const DEV = (process.env.NODE_ENV || 'production') === 'development'
 
-initializeFirebaseApp({
-	databaseURL: 'https://bpm-db.firebaseio.com',
-	projectId: 'bpm-db',
-	storageBucket: 'bpm-db.appspot.com',
-	credential: credential.cert(
-		JSON.parse(process.env.GOOGLE_CREDENTIAL || '') || ''
-	),
-})
+dbConnect()
+// initializeFirebaseApp({
+// 	databaseURL: 'https://bpm-db.firebaseio.com',
+// 	projectId: 'bpm-db',
+// 	storageBucket: 'bpm-db.appspot.com',
+// 	credential: credential.cert(
+// 		JSON.parse(process.env.GOOGLE_CREDENTIAL || '') || ''
+// 	),
+// })
 
-const packages = firestore().collection('packages')
+// const packages = firestore().collection('packages')
 
 const express = require('express')
 
@@ -61,40 +63,40 @@ next.prepare().then(() => {
 	}
 
 	const renderSSG = _renderSSG(ctx)
-	const getPackage = cacheForQueueAsync(
-		(packageID: string) =>
-			new Promise((resolve, reject) =>
-				packages
-					.doc(packageID)
-					.get()
-					.then((v) => {
-						if (!v.exists) resolve(null)
-						else {
-							const data = (v.data() || {}) as Partial<
-								staticProps.Project
-							>
-							if (data && data.author && data.name && data.repo) {
-								resolve({ title: data.name, ...data })
-							} else resolve(null)
-						}
-					}, reject)
-			),
-		DEV ? 1000 * 60 * 60 : 1000 * 10, // ! TODO: find good time and k values
-		100
-	)
+	// const getPackage = cacheForQueueAsync(
+	// 	(packageID: string) =>
+	// 		new Promise((resolve, reject) =>
+	// 			packages
+	// 				.doc(packageID)
+	// 				.get()
+	// 				.then((v) => {
+	// 					if (!v.exists) resolve(null)
+	// 					else {
+	// 						const data = (v.data() || {}) as Partial<
+	// 							staticProps.Project
+	// 						>
+	// 						if (data && data.author && data.name && data.repo) {
+	// 							resolve({ title: data.name, ...data })
+	// 						} else resolve(null)
+	// 					}
+	// 				}, reject)
+	// 		),
+	// 	DEV ? 1000 * 60 * 60 : 1000 * 10, // ! TODO: find good time and k values
+	// 	100
+	// )
 
 	app.get(/(package|p)\/[^\/.]*$/s, (req, res) => {
 		const packageID = (parse(req.url).pathname || '').split('/').pop()
 		if (packageID) {
-			getPackage(packageID).then((v) => {
-				console.log(v, packageID)
+			// getPackage(packageID).then((v) => {
+			// 	console.log(v, packageID)
 
-				if (v) {
-					renderSSG(req, res, '/package/package', v)
-				} else {
-					next.render404(req, res)
-				}
-			})
+			// 	if (v) {
+			// 		renderSSG(req, res, '/package/package', v)
+			// 	} else {
+			// 		next.render404(req, res)
+			// 	}
+			// })
 		} else next.render404(req, res)
 	})
 
